@@ -1,0 +1,26 @@
+<!--
+  @file: index.html
+  @author: Christian Millán Soria
+  @created: 03/10/2023
+  @license: MIT
+  @contact: christiaanmillaan1313@gmail.com
+  @info: ejercicio 11 - programa que dada una hora determinada (horas y minutos) calcula los segundos que faltan para llegar a la medianoche
+-->
+
+<!DOCTYPE html>
+  <html lang = "en">
+    <head>
+      <meta charset = "utf-8" />
+      <meta name = "viewport" content = "width = device-width, initial-scale = 1.0" />
+      <title>ejercicio 11</title>
+    </head>
+    <body>
+      <form action = "php/index.php" method = "get">
+        <label for = "hora">Hora <input name = "hora" type = "number" min = "0" max = "23" required /></label>
+        <label for = "minutos">Minutos <input name = "minutos" type = "number" min = "0" max = "59" required /></label>
+        <br /><br />
+
+        <input type = "submit" value = "Submit" />
+      </form>
+    </body>
+  </html>

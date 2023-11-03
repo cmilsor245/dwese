@@ -1,0 +1,27 @@
+<!--
+  @file: index.html
+  @author: Christian Millán Soria
+  @created: 03/10/2023
+  @license: MIT
+  @contact: christiaanmillaan1313@gmail.com
+  @info: ejercicio 10 - programa que muestra el horóscopo a partir del día y el mes de nacimiento
+-->
+
+<!DOCTYPE html>
+  <html lang = "en">
+    <head>
+      <meta charset = "utf-8" />
+      <meta name = "viewport" content = "width = device-width, initial-scale = 1.0" />
+      <title>ejercicio 10</title>
+    </head>
+    <body>
+      <form action = "php/index.php" method = "get">
+        <label for = "dia">Dia <input name = "dia" type = "number" min = "1" max = "31" required /></label>
+        <br /><br />
+        <label for = "mes">Mes <input name = "mes" type = "text" required /></label>
+        <br /><br />
+
+        <input type = "submit" value = "Submit" />
+      </form>
+    </body>
+  </html>
