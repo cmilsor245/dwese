@@ -49,7 +49,6 @@
                 ":password" => $password
               ));
 
-              // Verifica las credenciales en la base de datos y, si son válidas, inicia sesión.
               $statement = $conn -> prepare("SELECT * FROM user WHERE username = :username AND password = :password LIMIT 1");
               $statement -> execute(array(":username" => $username, ":password" => $password));
               $resultado = $statement -> fetch();
