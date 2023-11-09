@@ -24,16 +24,9 @@
           ";
         } else {
           try {
-            $host = "db";
-            $dbUsername = "root";
-            $dbPassword = "test";
-            $dbName = "first_db";
-            $conn = new PDO("mysql:host=$host;dbname=$dbName", $dbUsername, $dbPassword);
-            $conn -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $conn = connectToDatabase();
 
-            $statement = $conn -> prepare("SELECT * FROM user WHERE username = :username LIMIT 1");
-            $statement -> execute(array(":username" => $username));
-            $resultado = $statement -> fetch();
+            $resultado = getUserByUsername($conn, $username);
 
             if ($resultado) {
               unsetSignUpVariables();
@@ -43,15 +36,9 @@
                 <a href = \"index.php\"><button>landing page</button></a>
               ";
             } else {
-              $statement = $conn -> prepare("INSERT INTO user(username, password) values (:username, :password)");
-              $statement -> execute(array(
-                ":username" => $username,
-                ":password" => $password
-              ));
+              insertUser($conn, $username, $password);
 
-              $statement = $conn -> prepare("SELECT * FROM user WHERE username = :username AND password = :password LIMIT 1");
-              $statement -> execute(array(":username" => $username, ":password" => $password));
-              $resultado = $statement -> fetch();
+              $resultado = getUserByUsernameAndPassword($conn, $username, $password);
 
               if ($resultado) {
                 $_SESSION["correct_credentials"] = true;
@@ -61,7 +48,7 @@
                 echo "error inesperado al iniciar sesión después del registro.";
               }
             }
-          } catch (PDOException $e) {
+          } catch (Exception $e) {
             echo "error: " . $e -> getMessage();
           }
         }
