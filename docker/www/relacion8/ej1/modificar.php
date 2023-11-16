@@ -7,8 +7,8 @@
     <link rel = "stylesheet" href = "css/style.css" />
   </head>
   <body>
-    <h1 class = "title">gestclient</h1>
-    <h2 class = "subtitle">gestión de clientes de certibank</h2>
+    <h1 id = "title">gestclient</h1>
+    <h2 id = "subtitle">gestión de clientes de certibank</h2>
 
     <form action = "index.php" method = "get">
       <input type = "text" name = "dni" value = "<?=  $_GET["dni"] ?>">
