@@ -22,6 +22,7 @@ body {
   box-shadow: 0 2px 9px #00000080;
   border-radius: 2px;
   border: 2px dashed #242424;
+  padding: 10px;
 }
 
 #title {
@@ -84,4 +85,38 @@ input[type = "submit"]:active {
   transform: scale(.86);
   background-color: #dfe6ec;
   color: #242424;
+}
+
+button {
+  cursor: pointer;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
+  background-color: #242424;
+  color: aliceblue;
+  transition: .25s;
+  border-radius: 10%;
+  padding: 5px;
+}
+
+button:hover {
+  background-color: aliceblue;
+  color: #242424;
+}
+
+button:active {
+  transform: scale(.86);
+  background-color: #dfe6ec;
+  color: #242424;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#modify-page-buttons-wrapper {
+  display: flex;
+  gap: 20px;
 }

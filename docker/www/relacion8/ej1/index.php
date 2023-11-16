@@ -13,16 +13,21 @@
 
       <?
         // conexión a la base de datos
+        $host = "db";
+        $dbUsername = "root";
+        $dbPassword = "test";
+        $dbName = "bank";
+        $conn = new PDO("mysql:host=$host;dbname=$dbName", $dbUsername, $dbPassword);
+        $conn -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         // obtener la acción del botón que se ha pulsado en el formulario
-
-        // dar de baja un cliente
-        if (isset($_GET["action"]) && $_GET["action"] == "remove") {
+        // dar de alta un cliente
+        if (isset($_GET["action"]) && $_GET["action"] == "create") {
           // hacer llamada a base de datos con la consulta oportuna
         }
 
-        // dar de alta un cliente
-        if (isset($_GET["action"]) && $_GET["action"] == "create") {
+        // dar de baja un cliente
+        if (isset($_GET["action"]) && $_GET["action"] == "remove") {
           // hacer llamada a base de datos con la consulta oportuna
         }
 
