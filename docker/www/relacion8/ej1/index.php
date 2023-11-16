@@ -20,26 +20,61 @@
         $conn = new PDO("mysql:host=$host;dbname=$dbName", $dbUsername, $dbPassword);
         $conn -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        // obtener la acción del botón que se ha pulsado en el formulario
-        // dar de alta un cliente
-        if (isset($_GET["action"]) && $_GET["action"] == "create") {
-          // hacer llamada a base de datos con la consulta oportuna
-        }
+        try {
+          if (isset($_GET["action"]) && $_GET["action"] == "create") {
+            $dni = $_GET["dni"];
+            $name = $_GET["name"];
+            $address = $_GET["address"];
+            $phone = $_GET["phone"];
 
-        // dar de baja un cliente
-        if (isset($_GET["action"]) && $_GET["action"] == "remove") {
-          // hacer llamada a base de datos con la consulta oportuna
-        }
+            $sql = "INSERT INTO client (dni, name, address, phone) VALUES (:dni, :name, :address, :phone)";
 
-        // modificar un cliente
-        if (isset($_GET["action"]) && $_GET["action"] == "modify") {
-          // hacer llamada a base de datos con la consulta oportuna
-        }
+            $stmt = $conn -> prepare($sql);
 
-        // listado
-        // este listado se muestra siempre
-        // hacer llamada a base de datos con la consulta del listado de clientes
-        $query;
+            $stmt -> bindParam(":dni", $dni);
+            $stmt -> bindParam(":name", $name);
+            $stmt -> bindParam(":address", $address);
+            $stmt -> bindParam(":phone", $phone);
+
+            try {
+              $stmt -> execute();
+            } catch (PDOException $e) {
+              displayError("error al añadir cliente: " . $e -> getMessage());
+            }
+          }
+
+          /* --------------------------------------------------------------------------- */
+
+          if (isset($_GET["action"]) && $_GET["action"] == "remove") {
+            $dni = $_GET["dni"];
+
+            $sql = "DELETE FROM client WHERE dni = :dni";
+
+            $stmt = $conn -> prepare($sql);
+
+            $stmt -> bindParam(":dni", $dni);
+
+            try {
+              $stmt -> execute();
+            } catch (PDOException $e) {
+              displayError("error al eliminar cliente: " . $e -> getMessage());
+            }
+          }
+
+          /* --------------------------------------------------------------------------- */
+
+          // modificar un cliente
+          if (isset($_GET["action"]) && $_GET["action"] == "modify") {
+            // hacer llamada a base de datos con la consulta oportuna
+          }
+
+          // listado
+          // este listado se muestra siempre
+          // hacer llamada a base de datos con la consulta del listado de clientes
+          $query;
+        } catch(PDOException $e) {
+          displayError("error de conexión: " . $e -> getMessage());
+        }
       ?>
 
       <table>
@@ -63,31 +98,49 @@
         </form>
 
         <?
-          // mostrar los clientes de la base de datos en la tabla
-          while ($sign_up = array()) { // hay que modificar el array y cambiarlo por el código adecuado
-            echo "
-              <tr>
-                <td>" . $sign_up["dni"] . "</td>
-                <td>" . $sign_up["name"] . "</td>
-                <td>" . $sign_up["address"] . "</td>
-                <td>" . $sign_up["phone"] . "</td>
-                <td>
-                  <a href = \"modificar.php?&dni=" . $sign_up["dni"] . "&name=" . $sign_up["name"] . "&address=" . $sign_up["address"] . "&phone=" . $sign_up["phone"] . "\">
-                    <button>modificar</button>
-                  </a>
-                </td>
-                <td>
-                  <a href = \"index.php?action=remove&dni=" . $sign_up["dni"] . "\">
-                    <button>
-                      <img width = \"20px\" src = \"img/papelera.png\" />
-                    </button>
-                  </a>
-                </td>
-              </tr>
-            ";
+          try {
+            $sql = "SELECT dni, name, address, phone FROM client";
+
+            $stmt = $conn -> prepare($sql);
+
+            $stmt -> execute();
+
+            $clients = $stmt -> fetchAll(PDO::FETCH_ASSOC);
+
+            foreach ($clients as $client) {
+              echo "
+                <tr>
+                  <td>" . $client["dni"] . "</td>
+                  <td>" . $client["name"] . "</td>
+                  <td>" . $client["address"] . "</td>
+                  <td>" . $client["phone"] . "</td>
+                  <td>
+                    <a href = \"modificar.php?&dni=" . $client["dni"] . "&name=" . $client["name"] . "&address=" . $client["address"] . "&phone=" . $client["phone"] . "\">
+                      <button>modificar</button>
+                    </a>
+                  </td>
+                  <td>
+                    <a href = \"index.php?action=remove&dni=" . $client["dni"] . "\">
+                      <button id = \"remove-button\">
+                        <img width = \"20px\" src = \"img/papelera.png\" />
+                      </button>
+                    </a>
+                  </td>
+                </tr>
+              ";
+            }
+          } catch(PDOException $e) {
+            displayError("error al obtener clientes: " . $e -> getMessage());
           }
         ?>
       </table>
     </div>
   </body>
 </html>
+
+<?
+  function displayError($message) {
+    echo "<script>alert(\"$message\");</script>";
+    echo "<a href = \"index.php\"><button>volver</button></a>";
+  }
+?>

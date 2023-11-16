@@ -87,6 +87,10 @@ input[type = "submit"]:active {
   color: #242424;
 }
 
+img {
+  cursor: pointer
+}
+
 button {
   cursor: pointer;
   font-weight: bold;
