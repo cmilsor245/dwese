@@ -124,3 +124,16 @@ form {
   display: flex;
   gap: 20px;
 }
+
+td {
+  max-width: 180px;
+  text-align: center;
+}
+
+.client-td {
+  border-right: 2px solid #242424;
+}
+
+#last-client-td {
+  border-right: none;
+}

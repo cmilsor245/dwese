@@ -62,10 +62,29 @@
 
           /* --------------------------------------------------------------------------- */
 
-          // modificar un cliente
           if (isset($_GET["action"]) && $_GET["action"] == "modify") {
-            // hacer llamada a base de datos con la consulta oportuna
-          }
+            $new_dni = $_GET["dni"];
+            $name = $_GET["name"];
+            $address = $_GET["address"];
+            $phone = $_GET["phone"];
+            $previous_dni = $_GET["previous-dni"];
+
+            $sql = "UPDATE client SET dni = :new_dni, name = :name, address = :address, phone = :phone WHERE dni = :previous_dni";
+
+            $stmt = $conn -> prepare($sql);
+
+            $stmt -> bindParam(":new_dni", $new_dni);
+            $stmt -> bindParam(":name", $name);
+            $stmt -> bindParam(":address", $address);
+            $stmt -> bindParam(":phone", $phone);
+            $stmt -> bindParam(":previous_dni", $previous_dni);
+
+            try {
+              $stmt -> execute();
+            } catch (PDOException $e) {
+              displayError("error al modificar cliente: " . $e -> getMessage());
+            }
+          }        
         } catch(PDOException $e) {
           displayError("error de conexión: " . $e -> getMessage());
         }
@@ -104,10 +123,10 @@
             foreach ($clients as $client) {
               echo "
                 <tr>
-                  <td>" . $client["dni"] . "</td>
-                  <td>" . $client["name"] . "</td>
-                  <td>" . $client["address"] . "</td>
-                  <td>" . $client["phone"] . "</td>
+                  <td class = \"client-td\">" . $client["dni"] . "</td>
+                  <td class = \"client-td\">" . $client["name"] . "</td>
+                  <td class = \"client-td\">" . $client["address"] . "</td>
+                  <td id = \"last-client-td\" class = \"client-td\">" . $client["phone"] . "</td>
                   <td>
                     <a href = \"modificar.php?&dni=" . $client["dni"] . "&name=" . $client["name"] . "&address=" . $client["address"] . "&phone=" . $client["phone"] . "\">
                       <button>modificar</button>
