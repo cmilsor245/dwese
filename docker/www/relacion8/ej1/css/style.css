@@ -13,7 +13,8 @@ body {
 }
 
 #content-wrapper {
-  background-color: aqua;
+  background-color: #00aeff;
+  /* background-image: url("../img/background-image.png"); */
   display: flex;
   flex-direction: column;
   align-items: center;
