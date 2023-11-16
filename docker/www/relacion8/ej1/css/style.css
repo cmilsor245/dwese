@@ -55,6 +55,8 @@ input[type = "text"] {
   cursor: text;
   background-color: #ececec;
   border-radius: 4px;
+  margin-top: 1px;
+  height: 23px;
 }
 
 input[type = "text"]:active {
@@ -81,4 +83,5 @@ input[type = "submit"]:hover {
 input[type = "submit"]:active {
   transform: scale(.86);
   background-color: #dfe6ec;
+  color: #242424;
 }
