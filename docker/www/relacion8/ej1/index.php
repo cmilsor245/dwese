@@ -101,10 +101,10 @@
 
         <form action = "index.php" method = "get">
           <tr>
-            <td><input type = "text" name = "dni" autofocus autocomplete = "off" onfocus = "this.select()"></td>
-            <td><input type = "text" name = "name" autocomplete = "off" onfocus = "this.select()"></td>
-            <td><input type = "text" name = "address" autocomplete = "off" onfocus = "this.select()"></td>
-            <td><input type = "text" name = "phone" autocomplete = "off" onfocus = "this.select()"></td>
+            <td><input type = "text" name = "dni" required autofocus autocomplete = "off" onfocus = "this.select()"></td>
+            <td><input type = "text" name = "name" required autocomplete = "off" onfocus = "this.select()"></td>
+            <td><input type = "text" name = "address" required autocomplete = "off" onfocus = "this.select()"></td>
+            <td><input type = "text" name = "phone" required autocomplete = "off" onfocus = "this.select()"></td>
             <input type = "hidden" name = "action" value = "create">
             <td><input type = "submit" value = "añadir"></td>
           </tr>

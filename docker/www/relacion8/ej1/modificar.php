@@ -33,9 +33,10 @@
 
         <div id = "modify-page-buttons-wrapper">
           <input class = "modify-page-button" type = "submit" value = "aceptar">
-          <a href = "index.php"><button class = "modify-page-button">cancelar</button></a>
         </div>
       </form>
+
+      <a href = "index.php"><button class = "modify-page-button">cancelar</button></a>
     </div>
   </body>
 </html>
