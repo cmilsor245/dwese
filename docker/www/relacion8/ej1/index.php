@@ -12,7 +12,6 @@
       <h2 id = "subtitle">gestión de clientes de certibank</h2>
 
       <?
-        // conexión a la base de datos
         $host = "db";
         $dbUsername = "root";
         $dbPassword = "test";
@@ -67,11 +66,6 @@
           if (isset($_GET["action"]) && $_GET["action"] == "modify") {
             // hacer llamada a base de datos con la consulta oportuna
           }
-
-          // listado
-          // este listado se muestra siempre
-          // hacer llamada a base de datos con la consulta del listado de clientes
-          $query;
         } catch(PDOException $e) {
           displayError("error de conexión: " . $e -> getMessage());
         }
