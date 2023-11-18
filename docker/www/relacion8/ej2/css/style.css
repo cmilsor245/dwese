@@ -1,0 +1,140 @@
+* {
+  font-family: "Courier New", Courier, monospace;
+  cursor: default;
+}
+
+::selection {
+  background-color: #2b2b2b;
+  color: aliceblue;
+}
+
+body {
+  background-color: aliceblue;
+}
+
+#content-wrapper {
+  background-color: #00aeff;
+  /* background-image: url("../img/background-image.png"); */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: fit-content;
+  margin: 0 auto;
+  box-shadow: 0 2px 9px #00000080;
+  border-radius: 2px;
+  border: 2px dashed #242424;
+  padding: 10px;
+}
+
+#title {
+  text-transform: uppercase;
+  text-shadow: 2px 2px 4px #2b2b2b80;
+  transition: .4s;
+  text-decoration: underline solid transparent;
+}
+
+#subtitle {
+  text-transform: capitalize;
+  text-shadow: 1px 1px 2px #00000080;
+  margin-bottom: 50px;
+  transition: .4s;
+  text-decoration: underline solid transparent;
+}
+
+#title:hover, #subtitle:hover {
+  transform: scale(1.2);
+  text-decoration-color: #2b2b2b;
+}
+
+.column-title {
+  text-transform: uppercase;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+input[type = "text"] {
+  text-align: center;
+  font-weight: bold;
+  cursor: text;
+  background-color: #ececec;
+  border-radius: 4px;
+  margin-top: 1px;
+  height: 23px;
+}
+
+input[type = "text"]:active {
+  background-color: #c9c9c9;
+}
+
+input[type = "submit"] {
+  cursor: pointer;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
+  background-color: #242424;
+  color: aliceblue;
+  transition: .25s;
+  border-radius: 10%;
+  padding: 5px;
+}
+
+input[type = "submit"]:hover {
+  background-color: aliceblue;
+  color: #242424;
+}
+
+input[type = "submit"]:active {
+  transform: scale(.86);
+  background-color: #dfe6ec;
+  color: #242424;
+}
+
+img {
+  cursor: pointer
+}
+
+button {
+  cursor: pointer;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
+  background-color: #242424;
+  color: aliceblue;
+  transition: .25s;
+  border-radius: 10%;
+  padding: 5px;
+}
+
+button:hover {
+  background-color: aliceblue;
+  color: #242424;
+}
+
+button:active {
+  transform: scale(.86);
+  background-color: #dfe6ec;
+  color: #242424;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#modify-page-buttons-wrapper {
+  display: flex;
+  gap: 20px;
+}
+
+td {
+  max-width: 180px;
+  text-align: center;
+}
+
+.client-td {
+  border-right: 2px solid #242424;
+}
+
+#last-client-td {
+  border-right: none;
+}
