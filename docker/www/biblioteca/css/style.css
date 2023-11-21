@@ -202,7 +202,7 @@ form input[type = "text"], form select {
   border-radius: 6px;
   background-color: var(--input-text-background);
   border: var(--input-text-border);
-  padding: 19px;
+  padding: 26px;
   text-align: center;
 }
 
