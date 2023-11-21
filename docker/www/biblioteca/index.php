@@ -87,29 +87,29 @@
       }
 
       function insertBookForm() {
-        echo "<h1>modificación de libros</h1>";
+        echo "<h1>registro de libros</h1>";
 
         echo "
           <form action = \"index.php\" method = \"get\">
-            <label for = \"title\">título:</label><input id = \"title\" type = \"text\" name = \"title-name\"><br />
+            <label for = \"title\">título:</label><input id = \"title\" type = \"text\" name = \"title\"><br />
             <label for = \"genre\">género:</label><input id = \"genre\" type = \"text\" name = \"genre\"><br />
             <label for = \"country\">país:</label><input id = \"country\" type = \"text\" name = \"country\"><br />
             <label for = \"year\">año:</label><input id = \"year\" type = \"text\" name = \"year\"><br />
-            <label for = \"num-pages\">número de paginas:</label><input id = \"num-pages\" type  = \"text\" name = \"num-pages\"><br />
+            <label for = \"num-pages\">número de paginas:</label><input id = \"num-pages\" type  = \"text\" name = \"numPages\"><br />
         ";
 
         // añadimos un select para seleccionar id del autor o autores
         $db = new mysqli("db", "root", "test", "bookstore");
-        $result = $db -> query("");
-        echo "<a href = \"index.php?action=insertAuthorForm\">añadir nuevo</a><br />";
 
-        // finalizamos el formulario
+        $result = $db -> query("INSERT INTO bookstore (title, genre, country, year_published, num_pages) VALUES (\"$_GET[title]\", \"$_GET[genre]\", \"$_GET[country]\", \"$_GET[year]\", \"$_GET[numPages]\")");
+        echo "<a href = \"index.php?action=insertAuthorForm\"><button>añadir autor</button></a><br />";
+
         echo "
             <input type = \"hidden\" name = \"action\" value = \"insertBook\">
             <input type = \"submit\">
           </form>
         ";
-        echo "<p><a href = \"index.php\">Volver</a></p>";
+        echo "<p><a href = \"index.php\">volver</a></p>";
       }
 
       function insertBook() {
