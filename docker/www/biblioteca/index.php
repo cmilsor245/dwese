@@ -81,15 +81,14 @@
             </table>
           ";
         } else {
-          echo "no se encontraron datos";
+          echo "<h3>no se encontraron datos</h3>";
         }
-        echo "<p><a href = \"index.php?action=insertBookForm\">nuevo</a></p>";
+        echo "<a href = \"index.php?action=insertBookForm\"><button>añadir nuevo libro</button></a>";
       }
 
       function insertBookForm() {
         echo "<h1>modificación de libros</h1>";
 
-        // crear el formulario con los campos del libro
         echo "
           <form action = \"index.php\" method = \"get\">
             <label for = \"title\">título:</label><input id = \"title\" type = \"text\" name = \"title-name\"><br />

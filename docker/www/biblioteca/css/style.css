@@ -8,6 +8,8 @@
   --even-background-full-opacity: #d38436;
   --odd-background: #915f2ce3;
   --odd-background-full-opacity: #915f2c;
+  --button-background: #cacaca;
+  --button-color: #242424;
 
 }
 
@@ -25,6 +27,12 @@
 @font-face {
   font-family: "wallingtonregular-pyk7";
   src: url("../fonts/wallingtonregular-pyk7/wallingtonregular-pyk7.ttf");
+}
+
+@font-face {
+  font-family: "enya";
+  src: url("../fonts/enya/enya.otf");
+  font-weight: bold;
 }
 
 ::selection {
@@ -46,9 +54,12 @@ h1 {
   font-family: "3d";
   font-size: 53px;
   margin-top: auto;
+  margin-bottom: 36px !important;
   color: var(--title-color);
   text-decoration: underline transparent dashed;
   transition: .19s;
+  width: fit-content;
+  margin: 0 auto;
 }
 
 h1:hover {
@@ -104,4 +115,39 @@ table tbody tr:nth-child(even):hover {
 table tbody tr:nth-child(odd):hover {
   background-color: var(--odd-background-full-opacity);
   transition: .155s;
+}
+
+h3 {
+  text-align: center;
+  text-transform: uppercase;
+  font-family: "enya";
+  font-size: 27px;
+  cursor: not-allowed;
+  width: fit-content;
+  margin: 0 auto;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  display: block;
+  margin: 0 auto;
+  margin-top: 35px;
+  cursor: pointer;
+  background-color: var(--button-background);
+  color: var(--button-color);
+  width: fit-content;
+  height: 30px;
+  text-decoration: none;
+  transition: .25s;
+  text-transform: uppercase;
+  border-radius: 4px;
+}
+
+button:hover {
+  background-color: var(--button-color);
+  color: var(--button-background);
+  font-weight: bold;
 }
