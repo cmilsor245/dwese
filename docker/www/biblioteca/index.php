@@ -91,18 +91,18 @@
     
         echo "
           <form action = \"index.php\" method = \"get\">
-            <label for = \"title\">título: </label><input id = \"title\" type = \"text\" name = \"title\"><br />
-            <label for = \"genre\">género: </label><input id = \"genre\" type = \"text\" name = \"genre\"><br />
-            <label for = \"country\">país: </label><input id = \"country\" type = \"text\" name = \"country\"><br />
-            <label for = \"year\">año: </label><input id = \"year\" type = \"text\" name = \"year\"><br />
-            <label for = \"num-pages\">número de páginas: </label><input id = \"num-pages\" type = \"text\" name = \"num-pages\"><br />
+            <label for = \"title\">título </label><br /><input id = \"title\" type = \"text\" name = \"title\" autocomplete = \"off\" onfocus = \"this.select()\"><br />
+            <label for = \"genre\">género </label><br /><input id = \"genre\" type = \"text\" name = \"genre\" autocomplete = \"off\" onfocus = \"this.select()\"><br />
+            <label for = \"country\">país </label><br /><input id = \"country\" type = \"text\" name = \"country\" autocomplete = \"off\" onfocus = \"this.select()\"><br />
+            <label for = \"year\">año </label><br /><input id = \"year\" type = \"text\" name = \"year\" autocomplete = \"off\" onfocus = \"this.select()\"><br />
+            <label for = \"num-pages\">número de páginas </label><br /><input id = \"num-pages\" type = \"text\" name = \"num-pages\" autocomplete = \"off\" onfocus = \"this.select()\"><br />
         ";
 
         $db = new mysqli("db", "root", "test", "bookstore");
         $result = $db -> query("SELECT * FROM authors");
 
         if ($result -> num_rows !== 0) {
-          echo "<label for = \"author\">autor: </label>";
+          echo "<label for = \"author\">autor</label><br />";
           echo "<select id = \"author\" name = \"author\">";
 
           while ($row = $result -> fetch_assoc()) {
@@ -111,7 +111,7 @@
 
           echo "</select>";
         }
-        echo "<a href = \"index.php?action=insertAuthorForm\"><button>añadir nuevo autor</button></a><br />";
+        echo "<br /><a href = \"index.php?action=insertAuthorForm\"><button>añadir nuevo autor</button></a><br />";
 
         echo "
             <input type = \"hidden\" name = \"action\" value = \"insertBook\">
@@ -119,30 +119,38 @@
           </form>
         ";
         echo "<div class = \"button-container\"><a href = \"index.php\"><button>cancelar</button></a></div>";
-    }    
+      }
 
       function insertBook() {
-        /* echo "<h1>alta de libros</h1>";
+        echo "<h1>alta de libros</h1>";
 
-        // vamos a procesar el formulario de alta de libros
-        // primero, recuperamos todos los datos del formulario (titulo, género...)
-        // lanzamos el insert contra la base de datos
-        if ($db -> affected_rows == 1) {
-          // si la inserción del libro ha funcionado, continuamos insertando en la tabla "authors"
-          // tenemos que averiguar qué idLibro se ha asignado al libro que acabamos de insertar
+        $title = $_GET["title"];
+        $genre = $_GET["genre"];
+        $country = $_GET["country"];
+        $year = $_GET["year"];
+        $numPages = $_GET["num-pages"];
 
-          // ya podemos insertar todos los autores junto con el libro en "authors"
+        $db = new mysqli("db", "root", "test", "bookstore");
+        $query = "INSERT INTO books (title, genre, country, year_published, num_pages) VALUES (\"$title\", \"$genre\", \"$country\", \"$year\", \"$numPages\")";
+        $result = $db -> query($query);
 
-          echo "libro insertado con éxito";
+        if ($result) {
+          echo "<h3 class = \"success\">libro insertado con éxito</h3>";
         } else {
-          // si la inserción del libro ha fallado, mostramos mensaje de error
+          echo "Error al insertar el libro";
+        }
+
+        if ($db -> affected_rows == 1) {
+          $result = $db -> query("SELECT * FROM books");
+          $row = $result -> fetch_assoc();
+        } else {
           echo "ha ocurrido un error al insertar el libro. por favor, inténtalo de nuevo más tarde";
         }
-        echo "<p><a href = \"index.php\">volver</a></p>"; */
+        echo "<div class = \"button-container\"><a href = \"index.php\"><button>volver</button></a></div>";
       }
 
       function removeBook() {
-        /* echo "<h1>Borrar libros</h1>";
+        /* echo "<h1>borrar libros</h1>";
 
         // recuperamos el id del libro y lanzamos el delete contra la base de datos
         // mostramos mensaje con el resultado de la operación
@@ -209,8 +217,6 @@
 
       function searchBook() {
         /* // recuperamos el texto de búsqueda de la variable de formulario
-
-
         echo "<h1>resultados de la búsqueda: \"$textoBusqueda\"</h1>";
 
         // buscamos los libros de la biblioteca que coincidan con el texto de búsqueda
