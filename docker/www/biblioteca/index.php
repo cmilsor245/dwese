@@ -242,24 +242,24 @@
           $row = $result -> fetch_assoc();
 
           echo "
-            <form action=\"index.php\" method=\"get\">
-              <label for=\"title\">título</label><br />
-              <input id=\"title\" type=\"text\" name=\"title\" value=\"" . $row["title"] . "\" required onfocus=\"this.select()\" autofocus><br />
+            <form action = \"index.php\" method = \"get\">
+              <label for = \"title\">título</label><br />
+              <input id = \"title\" type = \"text\" name = \"title\" value = \"" . $row["title"] . "\" required onfocus = \"this.select()\" autofocus><br />
 
-              <label for=\"genre\">género</label><br />
-              <input id=\"genre\" type=\"text\" name=\"genre\" value=\"" . $row["genre"] . "\" required onfocus=\"this.select()\"><br />
+              <label for = \"genre\">género</label><br />
+              <input id = \"genre\" type = \"text\" name = \"genre\" value = \"" . $row["genre"] . "\" required onfocus = \"this.select()\"><br />
 
-              <label for=\"country\">país</label><br />
-              <input id=\"country\" type=\"text\" name=\"country\" value=\"" . $row["country"] . "\" required onfocus=\"this.select()\"><br />
+              <label for = \"country\">país</label><br />
+              <input id = \"country\" type = \"text\" name = \"country\" value = \"" . $row["country"] . "\" required onfocus = \"this.select()\"><br />
 
-              <label for=\"year\">año</label><br />
-              <input id=\"year\" type=\"text\" name=\"year\" value=\"" . $row["year_published"] . "\" required onfocus=\"this.select()\"><br />
+              <label for = \"year\">año</label><br />
+              <input id = \"year\" type = \"text\" name = \"year\" value = \"" . $row["year_published"] . "\" required onfocus = \"this.select()\"><br />
 
-              <label for=\"num-pages\">número de páginas</label><br />
-              <input id=\"num-pages\" type=\"text\" name=\"num-pages\" value=\"" . $row["num_pages"] . "\" required onfocus=\"this.select()\"><br />
+              <label for = \"num-pages\">número de páginas</label><br />
+              <input id = \"num-pages\" type = \"text\" name = \"num-pages\" value = \"" . $row["num_pages"] . "\" required onfocus = \"this.select()\"><br />
 
-              <label for=\"author-select\">autor</label><br />
-              <select id=\"author-select\" name=\"author\" required>
+              <label for = \"author-select\">autor</label><br />
+              <select id = \"author-select\" name = \"author\" required>
                 <option selected>" . $row["author_name"] . " " . $row["author_last_name"] . "</option>
           ";
 
