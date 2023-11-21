@@ -1,0 +1,101 @@
+:root {
+  --page-background-color: #ebe9e9;
+  --title-color: rgba(204, 75, 1, 0.808);
+  --table-border: 2px solid #b35900;
+  --th-background: #b6b4b4b6;
+  --td-border: 1px solid #ddd;
+  --even-background: #d38436d5;
+  --even-background-full-opacity: #d38436;
+  --odd-background: #915f2ce3;
+  --odd-background-full-opacity: #915f2c;
+
+}
+
+@font-face {
+  font-family: "3d";
+  src: url("../fonts/3d/3d.ttf");
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: "goldena";
+  src: url("../fonts/goldena/goldena.ttf");
+}
+
+@font-face {
+  font-family: "wallingtonregular-pyk7";
+  src: url("../fonts/wallingtonregular-pyk7/wallingtonregular-pyk7.ttf");
+}
+
+* {
+  cursor: default;
+}
+
+body {
+  background-color: var(--page-background-color);
+}
+
+h1 {
+  text-align: center;
+  text-transform: uppercase;
+  font-family: "3d";
+  font-size: 53px;
+  margin-top: auto;
+  color: var(--title-color);
+  text-decoration: underline transparent dashed;
+  transition: .19s;
+}
+
+h1:hover {
+  text-decoration-color: var(--title-color);
+  transform: scale(1.06);
+}
+
+table {
+  border-collapse: collapse;
+  width: 50%;
+  font-family: Arial, sans-serif;
+  border: var(--table-border);
+  margin: 0 auto;
+  text-align: center;
+}
+
+table th {
+  background-color: var(--th-background);
+  border: var(--td-border);
+  padding: 8px;
+  text-transform: uppercase;
+  font-family: "goldena";
+}
+
+table td {
+  border: var(--td-border);
+  padding: 8px;
+  font-family: "wallingtonregular-pyk7";
+  font-weight: bold;
+}
+
+table tbody tr:nth-child(even) {
+  background-color: var(--even-background);
+  transition: .14s;
+}
+
+table tbody tr:nth-child(odd) {
+  background-color: var(--odd-background);
+  transition: .14s;
+}
+
+table tbody tr:nth-child(even):hover, table tbody tr:nth-child(odd):hover {
+  transform: scale(1.01);
+  box-shadow: 0 0 10px #000000;
+}
+
+table tbody tr:nth-child(even):hover {
+  background-color: var(--even-background-full-opacity);
+  transition: .155s;
+}
+
+table tbody tr:nth-child(odd):hover {
+  background-color: var(--odd-background-full-opacity);
+  transition: .155s;
+}

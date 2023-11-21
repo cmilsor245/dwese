@@ -46,16 +46,41 @@
 
       function showBookList() {
         echo "<h1>biblioteca</h1>";
-        // conecta con la base de datos y comprueba si hay libros. si no hay muestra un mensaje indicando que no hay libros
-        // en el caso que haya libros. muestra los libros y además, muestra un formulario de búsqueda y que busque por el título del libro
 
         $db = new mysqli("db", "root", "test", "bookstore");
-        $result = $db -> query();
-        // buscamos todos los libros de la biblioteca
-        if ($result -> num_rows != 0) {
-          
+        $result = $db -> query("SELECT * FROM books");
+        if ($result -> num_rows !== 0) {
+          echo "
+            <table>
+              <thead>
+                <tr>
+                  <th>título</th>
+                  <th>género</th>
+                  <th>país</th>
+                  <th>año</th>
+                  <th>número de paginas</th>
+                </tr>
+              </thead>
+              <tbody>
+          ";
+
+          while ($row = $result -> fetch_assoc()) {
+            echo "
+              <tr>
+                <td>$row[title]</td>
+                <td>$row[genre]</td>
+                <td>$row[country]</td>
+                <td>$row[year_published]</td>
+                <td>$row[num_pages]</td>
+              </tr>
+            ";
+          }
+
+          echo "
+              </tbody>
+            </table>
+          ";
         } else {
-          // la consulta no contiene registros
           echo "no se encontraron datos";
         }
         echo "<p><a href = \"index.php?action=insertBookForm\">nuevo</a></p>";
@@ -89,7 +114,7 @@
       }
 
       function insertBook() {
-        echo "<h1>alta de libros</h1>";
+        /* echo "<h1>alta de libros</h1>";
 
         // vamos a procesar el formulario de alta de libros
         // primero, recuperamos todos los datos del formulario (titulo, género...)
@@ -105,11 +130,11 @@
           // si la inserción del libro ha fallado, mostramos mensaje de error
           echo "ha ocurrido un error al insertar el libro. por favor, inténtalo de nuevo más tarde";
         }
-        echo "<p><a href = \"index.php\">volver</a></p>";
+        echo "<p><a href = \"index.php\">volver</a></p>"; */
       }
 
       function removeBook() {
-        echo "<h1>Borrar libros</h1>";
+        /* echo "<h1>Borrar libros</h1>";
 
         // recuperamos el id del libro y lanzamos el delete contra la base de datos
         // mostramos mensaje con el resultado de la operación
@@ -118,40 +143,40 @@
         } else {
           echo "libro borrado con éxito";
         }
-        echo "<p><a href = \"index.php\">volver</a></p>";
+        echo "<p><a href = \"index.php\">volver</a></p>"; */
       }
 
       function modifyBookForm() {
-          echo "<h1>modificación de libros</h1>";
+        /* echo "<h1>modificación de libros</h1>";
 
-          // recuperamos el id del libro que vamos a modificar y sacamos el resto de sus datos de la base de datos
-          // creamos el formulario con los campos del libro
-          // y lo rellenamos con los datos que hemos recuperado de la base de datos
+        // recuperamos el id del libro que vamos a modificar y sacamos el resto de sus datos de la base de datos
+        // creamos el formulario con los campos del libro
+        // y lo rellenamos con los datos que hemos recuperado de la base de datos
 
-          // vamos a añadir un selector para el id del autor o autores.
-          // para que salgan preseleccionados los autores del libro que estamos modificando, vamos a buscar
-          // también a esos autores.
+        // vamos a añadir un selector para el id del autor o autores.
+        // para que salgan preseleccionados los autores del libro que estamos modificando, vamos a buscar
+        // también a esos autores.
 
-          // vamos a convertir esa lista de autores del libro en un array de ids de personas
-
-
-          // ya tenemos todos los datos para añadir el selector de autores al formulario
+        // vamos a convertir esa lista de autores del libro en un array de ids de personas
 
 
-          // por último, un enlace para crear un nuevo autor
-          echo "<a href = \"index.php?action=insertAuthorForm\">añadir nuevo</a><br />";
+        // ya tenemos todos los datos para añadir el selector de autores al formulario
 
-          // finalizamos el formulario
-          echo "
-              <input type = \"hidden\" name = \"action\" value = \"modifyBook\">
-              <input type = \"submit\">
-            </form>
-          ";
-          echo "<p><a href = \"index.php\">volver</a></p>";
+
+        // por último, un enlace para crear un nuevo autor
+        echo "<a href = \"index.php?action=insertAuthorForm\">añadir nuevo</a><br />";
+
+        // finalizamos el formulario
+        echo "
+            <input type = \"hidden\" name = \"action\" value = \"modifyBook\">
+            <input type = \"submit\">
+          </form>
+        ";
+        echo "<p><a href = \"index.php\">volver</a></p>"; */
       }
 
       function modifyBook() {
-        echo "<h1>modificación de libros</h1>";
+        /* echo "<h1>modificación de libros</h1>";
 
         // vamos a procesar el formulario de modificación de libros
         // primero, recuperamos todos los datos del formulario (idLibro, titulo....)
@@ -171,36 +196,37 @@
           // si la modificación del libro ha fallado, mostramos mensaje de error
           echo "ha ocurrido un error al modificar el libro. por favor, inténtalo de nuevo más tarde.";
         }
-        echo "<p><a href = \"index.php\">volver</a></p>";
+        echo "<p><a href = \"index.php\">volver</a></p>"; */
       }
 
       function searchBook() {
-          // recuperamos el texto de búsqueda de la variable de formulario
+        /* // recuperamos el texto de búsqueda de la variable de formulario
 
 
-          echo "<h1>resultados de la búsqueda: \"$textoBusqueda\"</h1>";
+        echo "<h1>resultados de la búsqueda: \"$textoBusqueda\"</h1>";
 
-          // buscamos los libros de la biblioteca que coincidan con el texto de búsqueda
-          if(){
-            // la consulta se ha ejecutado con éxito. Vamos a ver si contiene registros
-            if ($result -> num_rows != 0) {
-              // la consulta ha devuelto registros: vamos a mostrarlos
-              // primero, el formulario de búsqueda
+        // buscamos los libros de la biblioteca que coincidan con el texto de búsqueda
+        if(){
+          // la consulta se ha ejecutado con éxito. Vamos a ver si contiene registros
+          if ($result -> num_rows != 0) {
+            // la consulta ha devuelto registros: vamos a mostrarlos
+            // primero, el formulario de búsqueda
 
-              // después, la tabla con los datos
-            } else {
-              // la consulta no contiene registros
-              echo "No se encontraron datos";
-            }
+            // después, la tabla con los datos
           } else {
-            // la consulta ha fallado
-            echo "error al tratar de recuperar los datos de la base de datos. por favor, inténtalo de nuevo más tarde";
+            // la consulta no contiene registros
+            echo "No se encontraron datos";
           }
-          echo "<p><a href = \"index.php?action = insertBookForm\">nuevo</a></p>";
-          echo "<p><a href = \"index.php\">volver</a></p>";
+        } else {
+          // la consulta ha fallado
+          echo "error al tratar de recuperar los datos de la base de datos. por favor, inténtalo de nuevo más tarde";
+        }
+        echo "<p><a href = \"index.php?action = insertBookForm\">nuevo</a></p>";
+        echo "<p><a href = \"index.php\">volver</a></p>"; */
       }
+
       function insertAuthorForm() {
-        echo "<h1>insertar autores</h1>";
+        /* echo "<h1>insertar autores</h1>";
 
         echo "
           <form action = \"index.php\" method = \"get\">
@@ -214,11 +240,11 @@
             <input type='submit'>
           </form>
         ";
-        echo "<p><a href = \"index.php\">volver</a></p>";
+        echo "<p><a href = \"index.php\">volver</a></p>"; */
       }
 
       function insertAuthor() {
-        echo "<h1>alta de autores</h1>";
+        /* echo "<h1>alta de autores</h1>";
 
         // vamos a procesar el formulario de alta de libros
         // primero, recuperamos todos los datos del formulario (nombre, apellido)
@@ -233,7 +259,7 @@
           // si la inserción del libro ha fallado, mostramos mensaje de error
           echo "ha ocurrido un error al insertar el autor. por favor, inténtalo de nuevo más tarde.";
         }
-        echo "<p><a href = \"index.php\">volver</a></p>";
+        echo "<p><a href = \"index.php\">volver</a></p>"; */
       }
     ?>
   </body>
