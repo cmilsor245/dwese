@@ -71,6 +71,7 @@ table th {
   padding: 8px;
   text-transform: uppercase;
   font-family: "goldena";
+  letter-spacing: 1px;
 }
 
 table td {
