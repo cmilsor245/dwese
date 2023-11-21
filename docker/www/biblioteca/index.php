@@ -81,7 +81,7 @@
             </table>
           ";
         } else {
-          echo "<h3>no se encontraron datos</h3>";
+          echo "<h3>no hay libros disponibles</h3>";
         }
         echo "<div class = \"button-container\"><a href = \"index.php?action=insertBookForm\"><button>añadir nuevo libro</button></a></div>";
       }
