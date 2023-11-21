@@ -236,39 +236,38 @@
 
         $book_id = $_GET["book"];
 
-        $result = $db -> query("SELECT * FROM books WHERE book_id = $book_id");
+        $result = $db -> query("SELECT b.*, a.name AS author_name FROM books b JOIN books_authors ba ON b.book_id = ba.book_id JOIN authors a ON ba.author_id = a.author_id WHERE b.book_id = $book_id");
 
         if ($result -> num_rows > 0) {
           $row = $result -> fetch_assoc();
-
+  
           echo "
             <form action = \"index.php\" method = \"get\">
-              <label for = \"title\">titulo</label><br />
+              <label for = \"title\">Título</label><br />
               <input id = \"title\" type = \"text\" name = \"title\" value = \"" . $row["title"] . "\"><br />
 
-              <label for = \"genre\">género</label><br />
+              <label for = \"genre\">Género</label><br />
               <input id = \"genre\" type = \"text\" name = \"genre\" value = \"" . $row["genre"] . "\"><br />
 
-              <label for = \"country\">país</label><br />
+              <label for = \"country\">País</label><br />
               <input id = \"country\" type = \"text\" name = \"country\" value = \"" . $row["country"] . "\"><br />
 
-              <label for = \"year\">año</label><br />
+              <label for = \"year\">Año</label><br />
               <input id = \"year\" type = \"text\" name = \"year\" value = \"" . $row["year_published"] . "\"><br />
 
-              <label for = \"num-pages\">número de páginas</label><br />
+              <label for = \"num-pages\">Número de páginas</label><br />
               <input id = \"num-pages\" type = \"text\" name = \"num-pages\" value = \"" . $row["num_pages"] . "\"><br />
 
-              <label for = \"author-select\">autor</label><br />
-              <select id = \"author-select\" name = \"author\">
-                <option id = \"invalid-option\" disabled selected>selecciona un autor</option>
-          ";
-
-          $result = $db -> query("SELECT * FROM authors");
-
-          while ($row = $result -> fetch_assoc()) {
-            echo "<option value = \"" . $row["author_id"] . "\">" . $row["name"] . " " . $row["last_name"] . "</option>";
+              <label for = \"author-select\">Autor</label><br />
+              <select id = \"author-select\" name = \"author\" required>
+                <option selected>" . $row["author_name"] . "</option>";
+  
+          $resultAuthors  =  $db -> query("SELECT * FROM authors");
+  
+          while ($rowAuthor  =  $resultAuthors -> fetch_assoc()) {
+            echo "<option value = \"" . $rowAuthor["author_id"] . "\">" . $rowAuthor["name"] . " " . $rowAuthor["last_name"] . "</option>";
           }
-
+  
           echo "
               </select><br />
 
@@ -278,12 +277,8 @@
             </form>
           ";
         }
-
-        echo "
-            <input type = \"hidden\" name = \"action\" value = \"modifyBook\">
-          </form>
-        ";
-        echo "<div class = \"button-container\"><a href = \"index.php\"><button>volver</button></a></div>";
+  
+        echo "<div class=\"button-container\"><a href=\"index.php\"><button>Volver</button></a></div>";
       }
 
       function modifyBook() {
