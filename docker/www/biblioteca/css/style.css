@@ -141,7 +141,7 @@ button {
   width: fit-content;
   height: 30px;
   text-decoration: none;
-  transition: .25s;
+  transition: .19s;
   text-transform: uppercase;
   border-radius: 4px;
 }
@@ -149,5 +149,6 @@ button {
 button:hover {
   background-color: var(--button-color);
   color: var(--button-background);
+  border-color: var(--button-background);
   font-weight: bold;
 }
