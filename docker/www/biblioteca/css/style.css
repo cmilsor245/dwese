@@ -183,6 +183,7 @@ form input[type = "text"], form select {
   border-radius: 6px;
   background-color: var(--input-text-background);
   border: var(--input-text-border);
+  padding: 12px;
 }
 
 form input[type = "text"]:focus, form select:focus {
@@ -192,10 +193,17 @@ form input[type = "text"]:focus, form select:focus {
 form select {
   width: fit-content;
   cursor: pointer;
+  text-transform: capitalize;
+}
+
+#invalid-option {
+  color: #ebebeb;
 }
 
 form select option {
   text-align: center;
+  font-weight: bold;
+  text-transform: capitalize;
 }
 
 form button[type = "submit"], form button {

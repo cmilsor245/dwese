@@ -88,7 +88,7 @@
 
       function insertBookForm() {
         echo "<h1>registro de libros</h1>";
-    
+
         echo "
           <form action = \"index.php\" method = \"get\">
             <label for = \"title\">título </label><br /><input id = \"title\" type = \"text\" name = \"title\" autocomplete = \"off\" onfocus = \"this.select()\"><br />
@@ -102,11 +102,12 @@
         $result = $db -> query("SELECT * FROM authors");
 
         if ($result -> num_rows !== 0) {
-          echo "<label for = \"author\">autor</label><br />";
-          echo "<select id = \"author\" name = \"author\">";
+          echo "<label for = \"author-select\">autor</label><br />";
+          echo "<select id = \"author-select\" name = \"author\">";
+          echo "<option id = \"invalid-option\" disabled selected>selecciona un autor</option>";
 
           while ($row = $result -> fetch_assoc()) {
-            echo "<option value = \"" . $row["id"] . "\">" . $row["first_name"] . "</option>";
+            echo "<option value = \"" . $row["author_id"] . "\">" . $row["name"] . " " . $row["last_name"] . "</option>";
           }
 
           echo "</select>";
@@ -135,16 +136,19 @@
         $result = $db -> query($query);
 
         if ($result) {
-          echo "<h3 class = \"success\">libro insertado con éxito</h3>";
-        } else {
-          echo "Error al insertar el libro";
-        }
+          $author_id = $_GET["author"];
 
-        if ($db -> affected_rows == 1) {
-          $result = $db -> query("SELECT * FROM books");
-          $row = $result -> fetch_assoc();
+          $query = "INSERT INTO books_authors (book_id, author_id) VALUES (LAST_INSERT_ID(), $author_id)";
+
+          $result = $db -> query($query);
+
+          if ($result) {
+            echo "<h3 class = \"success\">libro insertado con éxito</h3>";
+          } else {
+            echo "<h3>ha ocurrido un error al insertar el autor</h3>";
+          }
         } else {
-          echo "ha ocurrido un error al insertar el libro. por favor, inténtalo de nuevo más tarde";
+          echo "<h3>ha ocurrido un error al insertar el libro</h3>";
         }
         echo "<div class = \"button-container\"><a href = \"index.php\"><button>volver</button></a></div>";
       }
