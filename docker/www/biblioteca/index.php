@@ -83,34 +83,43 @@
         } else {
           echo "<h3>no se encontraron datos</h3>";
         }
-        echo "<a href = \"index.php?action=insertBookForm\"><button>añadir nuevo libro</button></a>";
+        echo "<div class = \"button-container\"><a href = \"index.php?action=insertBookForm\"><button>añadir nuevo libro</button></a></div>";
       }
 
       function insertBookForm() {
         echo "<h1>registro de libros</h1>";
-
+    
         echo "
           <form action = \"index.php\" method = \"get\">
-            <label for = \"title\">título:</label><input id = \"title\" type = \"text\" name = \"title\"><br />
-            <label for = \"genre\">género:</label><input id = \"genre\" type = \"text\" name = \"genre\"><br />
-            <label for = \"country\">país:</label><input id = \"country\" type = \"text\" name = \"country\"><br />
-            <label for = \"year\">año:</label><input id = \"year\" type = \"text\" name = \"year\"><br />
-            <label for = \"num-pages\">número de paginas:</label><input id = \"num-pages\" type  = \"text\" name = \"numPages\"><br />
+            <label for = \"title\">título: </label><input id = \"title\" type = \"text\" name = \"title\"><br />
+            <label for = \"genre\">género: </label><input id = \"genre\" type = \"text\" name = \"genre\"><br />
+            <label for = \"country\">país: </label><input id = \"country\" type = \"text\" name = \"country\"><br />
+            <label for = \"year\">año: </label><input id = \"year\" type = \"text\" name = \"year\"><br />
+            <label for = \"num-pages\">número de páginas: </label><input id = \"num-pages\" type = \"text\" name = \"num-pages\"><br />
         ";
 
-        // añadimos un select para seleccionar id del autor o autores
         $db = new mysqli("db", "root", "test", "bookstore");
+        $result = $db -> query("SELECT * FROM authors");
 
-        $result = $db -> query("INSERT INTO bookstore (title, genre, country, year_published, num_pages) VALUES (\"$_GET[title]\", \"$_GET[genre]\", \"$_GET[country]\", \"$_GET[year]\", \"$_GET[numPages]\")");
-        echo "<a href = \"index.php?action=insertAuthorForm\"><button>añadir autor</button></a><br />";
+        if ($result -> num_rows !== 0) {
+          echo "<label for = \"author\">autor: </label>";
+          echo "<select id = \"author\" name = \"author\">";
+
+          while ($row = $result -> fetch_assoc()) {
+            echo "<option value = \"" . $row["id"] . "\">" . $row["first_name"] . "</option>";
+          }
+
+          echo "</select>";
+        }
+        echo "<a href = \"index.php?action=insertAuthorForm\"><button>añadir nuevo autor</button></a><br />";
 
         echo "
             <input type = \"hidden\" name = \"action\" value = \"insertBook\">
-            <input type = \"submit\">
+            <button type = \"submit\">insertar</button>
           </form>
         ";
-        echo "<p><a href = \"index.php\">volver</a></p>";
-      }
+        echo "<div class = \"button-container\"><a href = \"index.php\"><button>cancelar</button></a></div>";
+    }    
 
       function insertBook() {
         /* echo "<h1>alta de libros</h1>";
