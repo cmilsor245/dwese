@@ -90,6 +90,7 @@
             </table>
           ";
 
+          echo "<div class = \"button-container\"><a href = \"index.php?action=modifyBookForm\"><button>modificar libro</button></a></div>";
           echo "<div class = \"button-container\"><a href = \"index.php?action=removeBookForm\"><button>eliminar libro</button></a></div>";
         } else {
           echo "<h3>no hay libros disponibles</h3>";
@@ -99,9 +100,9 @@
 
         if ($result -> num_rows !== 0) {
           echo "<div class = \"button-container\"><a href = \"index.php?action=removeAuthorForm\"><button>eliminar un autor</button></a></div>";
-        } else {
-          echo "<div class = \"button-container\"><a href = \"index.php?action=insertAuthorForm\"><button>añadir nuevo autor</button></a></div>";
         }
+
+        echo "<div class = \"button-container\"><a href = \"index.php?action=insertAuthorForm\"><button>añadir nuevo autor</button></a></div>";
 
         echo "<div class = \"button-container\"><a href = \"index.php?action=insertBookForm\"><button>añadir nuevo libro</button></a></div>";
       }
@@ -211,9 +212,6 @@
       function removeBook() {
         echo "<h1>eliminar libro</h1>";
 
-        // recuperamos el id del libro y lanzamos el delete contra la base de datos
-        // mostramos mensaje con el resultado de la operación
-
         $db = new mysqli("db", "root", "test", "bookstore");
 
         $book_id = $_GET["book"];
@@ -231,56 +229,88 @@
       }
 
       function modifyBookForm() {
-        /* echo "<h1>modificación de libros</h1>";
+        echo "<h1>modificar de libros</h1>";
 
-        // recuperamos el id del libro que vamos a modificar y sacamos el resto de sus datos de la base de datos
-        // creamos el formulario con los campos del libro
-        // y lo rellenamos con los datos que hemos recuperado de la base de datos
+        $db = new mysqli("db", "root", "test", "bookstore");
 
-        // vamos a añadir un selector para el id del autor o autores.
-        // para que salgan preseleccionados los autores del libro que estamos modificando, vamos a buscar
-        // también a esos autores.
+        $book_id = $_GET["book"];
 
-        // vamos a convertir esa lista de autores del libro en un array de ids de personas
+        $result = $db -> query("SELECT * FROM books WHERE book_id = $book_id");
 
+        if ($result -> num_rows > 0) {
+          $row = $result -> fetch_assoc();
 
-        // ya tenemos todos los datos para añadir el selector de autores al formulario
+          echo "
+            <form action = \"index.php\" method = \"get\">
+              <label for = \"title\">titulo</label><br />
+              <input id = \"title\" type = \"text\" name = \"title\" value = \"" . $row["title"] . "\"><br />
 
+              <label for = \"genre\">género</label><br />
+              <input id = \"genre\" type = \"text\" name = \"genre\" value = \"" . $row["genre"] . "\"><br />
 
-        // por último, un enlace para crear un nuevo autor
-        echo "<a href = \"index.php?action=insertAuthorForm\">añadir nuevo</a><br />";
+              <label for = \"country\">país</label><br />
+              <input id = \"country\" type = \"text\" name = \"country\" value = \"" . $row["country"] . "\"><br />
 
-        // finalizamos el formulario
+              <label for = \"year\">año</label><br />
+              <input id = \"year\" type = \"text\" name = \"year\" value = \"" . $row["year_published"] . "\"><br />
+
+              <label for = \"num-pages\">número de páginas</label><br />
+              <input id = \"num-pages\" type = \"text\" name = \"num-pages\" value = \"" . $row["num_pages"] . "\"><br />
+
+              <label for = \"author-select\">autor</label><br />
+              <select id = \"author-select\" name = \"author\">
+                <option id = \"invalid-option\" disabled selected>selecciona un autor</option>
+          ";
+
+          $result = $db -> query("SELECT * FROM authors");
+
+          while ($row = $result -> fetch_assoc()) {
+            echo "<option value = \"" . $row["author_id"] . "\">" . $row["name"] . " " . $row["last_name"] . "</option>";
+          }
+
+          echo "
+              </select>
+
+              <input type = \"hidden\" name = \"book\" value = \"" . $row["book_id"] . "\">
+              <input type = \"hidden\" name = \"action\" value = \"modifyBook\">
+              <button type = \"submit\">modificar</button>
+            </form>
+          ";
+        }
+
         echo "
             <input type = \"hidden\" name = \"action\" value = \"modifyBook\">
             <input type = \"submit\">
           </form>
         ";
-        echo "<p><a href = \"index.php\">volver</a></p>"; */
+        echo "<div class = \"button-container\"><a href = \"index.php\"><button>volver</button></a></div>";
       }
 
       function modifyBook() {
-        /* echo "<h1>modificación de libros</h1>";
+        echo "<h1>modificar de libros</h1>";
 
-        // vamos a procesar el formulario de modificación de libros
-        // primero, recuperamos todos los datos del formulario (idLibro, titulo....)
+        $db = new mysqli("db", "root", "test", "bookstore");
 
-        // lanzamos el update contra la base de datos.
+        $book_id = $_GET["book"];
 
+        $title = $_GET["title"];
+        $genre = $_GET["genre"];
+        $country = $_GET["country"];
+        $year = $_GET["year"];
+        $numPages = $_GET["num-pages"];
+        $author = $_GET["author"];
 
-        if ($db -> affected_rows == 1) {
-          // si la modificación del libro ha funcionado, continuamos actualizando la tabla "authors"
-          // primero borraremos todos los registros del libro actual y luego los insertaremos de nuevo
+        $query = "UPDATE books SET title = \"$title\", genre = \"$genre\", country = \"$country\", year_published = \"$year\", num_pages = \"$numPages\" WHERE book_id = $book_id";
 
+        $result = $db -> query($query);
 
-          // ya podemos insertar todos los autores junto con el libro en "authors"
-
-          echo "libro actualizado con éxito";
+        if ($result) {
+          echo "<h3 class = \"success\">libro modificado con éxito</h3>";
         } else {
-          // si la modificación del libro ha fallado, mostramos mensaje de error
-          echo "ha ocurrido un error al modificar el libro. por favor, inténtalo de nuevo más tarde.";
+          echo "<h3>ha ocurrido un error al modificar el libro</h3>";
         }
-        echo "<p><a href = \"index.php\">volver</a></p>"; */
+
+        echo "<div class = \"button-container\"><a href = \"index.php\"><button>volver</button></a></div>";
       }
 
       function searchBook() {
@@ -304,7 +334,7 @@
           echo "error al tratar de recuperar los datos de la base de datos. por favor, inténtalo de nuevo más tarde";
         }
         echo "<p><a href = \"index.php?action = insertBookForm\">nuevo</a></p>";
-        echo "<p><a href = \"index.php\">volver</a></p>"; */
+        echo "<div class = \"button-container\"><a href = \"index.php\"><button>volver</button></a></div>"; */
       }
 
       function insertAuthorForm() {
