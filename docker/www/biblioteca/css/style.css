@@ -159,6 +159,10 @@ button:hover {
   font-weight: bold;
 }
 
+#no-authors-h3 {
+  margin-top: 50px;
+}
+
 form {
   border-collapse: collapse;
   width: 50%;

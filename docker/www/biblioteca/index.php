@@ -24,8 +24,17 @@
         case "insertBook":
           insertBook();
           break;
+        case "removeBookForm":
+          removeBookForm();
+          break;
         case "removeBook":
           removeBook();
+          break;
+        case "removeAuthorForm":
+          removeAuthorForm();
+          break;
+        case "removeAuthor":
+          removeAuthor();
           break;
         case "modifyBookForm":
           modifyBookForm();
@@ -80,45 +89,60 @@
               </tbody>
             </table>
           ";
+
+          echo "<div class = \"button-container\"><a href = \"index.php?action=removeBookForm\"><button>eliminar libro</button></a></div>";
         } else {
           echo "<h3>no hay libros disponibles</h3>";
         }
+
+        $result = $db -> query("SELECT * FROM authors");
+
+        if ($result -> num_rows !== 0) {
+          echo "<div class = \"button-container\"><a href = \"index.php?action=removeAuthorForm\"><button>eliminar un autor</button></a></div>";
+        } else {
+          echo "<div class = \"button-container\"><a href = \"index.php?action=insertAuthorForm\"><button>añadir nuevo autor</button></a></div>";
+        }
+
         echo "<div class = \"button-container\"><a href = \"index.php?action=insertBookForm\"><button>añadir nuevo libro</button></a></div>";
       }
 
       function insertBookForm() {
-        echo "<h1>registro de libros</h1>";
-
-        echo "
-          <form action = \"index.php\" method = \"get\">
-            <label for = \"title\">título </label><br /><input id = \"title\" type = \"text\" name = \"title\" autocomplete = \"off\" onfocus = \"this.select()\"><br />
-            <label for = \"genre\">género </label><br /><input id = \"genre\" type = \"text\" name = \"genre\" autocomplete = \"off\" onfocus = \"this.select()\"><br />
-            <label for = \"country\">país </label><br /><input id = \"country\" type = \"text\" name = \"country\" autocomplete = \"off\" onfocus = \"this.select()\"><br />
-            <label for = \"year\">año </label><br /><input id = \"year\" type = \"text\" name = \"year\" autocomplete = \"off\" onfocus = \"this.select()\"><br />
-            <label for = \"num-pages\">número de páginas </label><br /><input id = \"num-pages\" type = \"text\" name = \"num-pages\" autocomplete = \"off\" onfocus = \"this.select()\"><br />
-        ";
-
         $db = new mysqli("db", "root", "test", "bookstore");
-        $result = $db -> query("SELECT * FROM authors");
 
+        $result = $db -> query("SELECT * FROM authors");
         if ($result -> num_rows !== 0) {
+          echo "<h1>registro de libros</h1>";
+
+          echo "
+            <form action = \"index.php\" method = \"get\">
+              <label for = \"title\">título </label><br /><input id = \"title\" type = \"text\" name = \"title\" autocomplete = \"off\" onfocus = \"this.select()\" required /><br />
+              <label for = \"genre\">género </label><br /><input id = \"genre\" type = \"text\" name = \"genre\" autocomplete = \"off\" onfocus = \"this.select()\" required /><br />
+              <label for = \"country\">país </label><br /><input id = \"country\" type = \"text\" name = \"country\" autocomplete = \"off\" onfocus = \"this.select()\" required /><br />
+              <label for = \"year\">año </label><br /><input id = \"year\" type = \"text\" name = \"year\" autocomplete = \"off\" onfocus = \"this.select()\" required /><br />
+              <label for = \"num-pages\">número de páginas </label><br /><input id = \"num-pages\" type = \"text\" name = \"num-pages\" autocomplete = \"off\" onfocus = \"this.select()\" required /><br />
+          ";
+
+          $result = $db -> query("SELECT * FROM authors");
+
           echo "<label for = \"author-select\">autor</label><br />";
-          echo "<select id = \"author-select\" name = \"author\">";
+          echo "<select id = \"author-select\" name = \"author\" required>";
           echo "<option id = \"invalid-option\" disabled selected>selecciona un autor</option>";
 
           while ($row = $result -> fetch_assoc()) {
             echo "<option value = \"" . $row["author_id"] . "\">" . $row["name"] . " " . $row["last_name"] . "</option>";
           }
 
-          echo "</select>";
-        }
-        echo "<br /><a href = \"index.php?action=insertAuthorForm\"><button>añadir nuevo autor</button></a><br />";
+          echo "</select><br />";
 
-        echo "
-            <input type = \"hidden\" name = \"action\" value = \"insertBook\">
-            <button type = \"submit\">insertar</button>
-          </form>
-        ";
+          echo "
+              <input type = \"hidden\" name = \"action\" value = \"insertBook\">
+              <button type = \"submit\">insertar</button>
+            </form>
+          ";
+        } else {
+          echo "<h3 id = \"no-authors-h3\">no hay autores disponibles</h3>";
+        }
+        echo "<br /><div class = \"button-container\"><a href = \"index.php?action=insertAuthorForm\"><button>añadir nuevo autor</button></a></div><br />";
         echo "<div class = \"button-container\"><a href = \"index.php\"><button>cancelar</button></a></div>";
       }
 
@@ -153,17 +177,57 @@
         echo "<div class = \"button-container\"><a href = \"index.php\"><button>volver</button></a></div>";
       }
 
+      function removeBookForm() {
+        echo "<h1>eliminar libro</h1>";
+
+        $db = new mysqli("db", "root", "test", "bookstore");
+
+        $result = $db -> query("SELECT * FROM books");
+
+        if ($result -> num_rows > 0) {
+          echo "<form action = \"index.php\" method = \"get\">";
+          echo "<label for = \"book-select\">libro</label><br />";
+          echo "<select id = \"book-select\" name = \"book\" required>";
+          echo "<option id = \"invalid-option\" disabled selected>selecciona un libro</option>";
+
+          while ($row = $result -> fetch_assoc()) {
+            echo "<option value = \"" . $row["book_id"] . "\">" . $row["title"] . "</option>";
+          }
+
+          echo "</select><br />";
+
+          echo "
+              <input type = \"hidden\" name = \"action\" value = \"removeBook\">
+              <button type = \"submit\">borrar</button>
+            </form>
+          ";
+        } else {
+          echo "<h3 id = \"no-books-h3\">no hay libros disponibles</h3>";
+          echo "<div class = \"button-container\"><a href = \"index.php?action=insertBookForm\"><button>añadir nuevo libro</button></a></div>";
+        }
+        echo "<br /><div class = \"button-container\"><a href = \"index.php\"><button>cancelar</button></a></div>";
+      }
+
       function removeBook() {
-        /* echo "<h1>borrar libros</h1>";
+        echo "<h1>eliminar libro</h1>";
 
         // recuperamos el id del libro y lanzamos el delete contra la base de datos
         // mostramos mensaje con el resultado de la operación
-        if ($db -> affected_rows == 0) {
-          echo "ha ocurrido un error al borrar el libro. por favor, inténtalo de nuevo";
+
+        $db = new mysqli("db", "root", "test", "bookstore");
+
+        $book_id = $_GET["book"];
+
+        $query = "DELETE FROM books WHERE book_id = $book_id";
+
+        $result = $db -> query($query);
+
+        if ($result) {
+          echo "<h3 class = \"success\">libro borrado con éxito</h3>";
         } else {
-          echo "libro borrado con éxito";
+          echo "<h3>ha ocurrido un error al borrar el libro</h3>";
         }
-        echo "<p><a href = \"index.php\">volver</a></p>"; */
+        echo "<div class = \"button-container\"><a href = \"index.php\"><button>volver</button></a></div>";
       }
 
       function modifyBookForm() {
@@ -244,40 +308,79 @@
       }
 
       function insertAuthorForm() {
-        /* echo "<h1>insertar autores</h1>";
+        echo "<h1>insertar autores</h1>";
 
         echo "
           <form action = \"index.php\" method = \"get\">
-            <label for = \"name\">nombre:<input id = \"name\" type = \"text\" name = \"name\"><br />
-            <label for = \"last-name\">apellidos:<input id = \"last-name\" type = \"text\" name = \"last-name\"><br />
+            <label for = \"name\">nombre</label><br /><input id = \"name\" type = \"text\" name = \"name\"><br />
+            <label for = \"last-name\">apellidos</label><br /><input id = \"last-name\" type = \"text\" name = \"last-name\"><br />
         ";
 
-        // finalizamos el formulario
         echo "
-            <input type='hidden' name='action' value='insertAuthor'>
-            <input type='submit'>
+            <input type = \"hidden\" name = \"action\" value = \"insertAuthor\">
+            <button type = \"submit\">crear</button>
           </form>
         ";
-        echo "<p><a href = \"index.php\">volver</a></p>"; */
+        echo "<div class = \"button-container\"><a href = \"index.php\"><button>volver</button></a></div>";
       }
 
       function insertAuthor() {
-        /* echo "<h1>alta de autores</h1>";
+        echo "<h1>alta de autores</h1>";
 
-        // vamos a procesar el formulario de alta de libros
-        // primero, recuperamos todos los datos del formulario (nombre, apellido)
+        $db = new mysqli("db", "root", "test", "bookstore");
 
+        $query = $db -> query("INSERT INTO authors (name, last_name) VALUES (\"" . $_GET["name"] . "\", \"" . $_GET["last-name"] . "\")");
 
-        // lanzamos el INSERT contra la base de datos.
-
-
-        if ($db -> affected_rows == 1) {
-          echo "autor insertado con éxito";
+        if ($query) {
+          echo "<h3 class = \"success\">autor insertado con éxito</h3>";
         } else {
-          // si la inserción del libro ha fallado, mostramos mensaje de error
-          echo "ha ocurrido un error al insertar el autor. por favor, inténtalo de nuevo más tarde.";
+          echo "<h3>ha ocurrido un error al insertar el autor</h3>";
         }
-        echo "<p><a href = \"index.php\">volver</a></p>"; */
+        echo "<div class = \"button-container\"><a href = \"index.php\"><button>volver</button></a></div>";
+      }
+
+      function removeAuthorForm() {
+        echo "<h1>eliminar autor</h1>";
+
+        $db = new mysqli("db", "root", "test", "bookstore");
+
+        $query = $db -> query("SELECT * FROM authors");
+
+        echo "
+          <form action = \"index.php\" method = \"get\">
+            <label for = \"authors-select\">autor a eliminar</label><br />
+            <select id = \"authors-select\" name = \"author\" required>
+              <option id = \"invalid-option\" disabled selected>selecciona un autor</option>
+        ";
+
+        while ($row = $query -> fetch_assoc()) {
+          echo "<option value = \"" . $row["author_id"] . "\">" . $row["name"] . " " . $row["last_name"] . "</option>";
+        }
+
+        echo "
+            </select><br />
+            <input type = \"hidden\" name = \"action\" value = \"removeAuthor\">
+            <button type = \"submit\">borrar</button>
+          </form>
+        ";
+
+        echo "<div class = \"button-container\"><a href = \"index.php\"><button>volver</button></a></div>";
+      }
+
+      function removeAuthor() {
+        echo "<h1>eliminando autor</h1>";
+
+        $db = new mysqli("db", "root", "test", "bookstore");
+
+        $query = $db -> query("DELETE FROM authors WHERE author_id = " . $_GET["author"]);
+
+        if ($query) {
+          echo "<h3 class = \"success\">autor eliminado con éxito</h3>";
+        } else {
+          echo "<h3>ha ocurrido un error al borrar el autor</h3>";
+        }
+
+        echo "<div class = \"button-container\"><a href = \"index.php\"><button>volver</button></a></div>";
       }
     ?>
   </body>
