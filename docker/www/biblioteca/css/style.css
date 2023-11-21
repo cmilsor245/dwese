@@ -1,7 +1,7 @@
 :root {
   --page-background-color: #ebe9e9;
   --title-color: rgba(204, 75, 1, 0.808);
-  --table-border: 2px solid #b35900;
+  --table-border: 3px solid #b35900;
   --th-background: #b6b4b4b6;
   --td-border: 1px solid #ddd;
   --even-background: #d38436d5;
@@ -25,6 +25,11 @@
 @font-face {
   font-family: "wallingtonregular-pyk7";
   src: url("../fonts/wallingtonregular-pyk7/wallingtonregular-pyk7.ttf");
+}
+
+::selection {
+  background-color: var(--title-color);
+  color: var(--page-background-color);
 }
 
 * {
