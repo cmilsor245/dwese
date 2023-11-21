@@ -1,4 +1,4 @@
-código utilizado para crear la base de datos
+código utilizado para crear la base de datos:
 
 ```sql
 CREATE DATABASE bookstore;
