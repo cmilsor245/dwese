@@ -117,7 +117,7 @@
 
           echo "
             <form action = \"index.php\" method = \"get\">
-              <label for = \"title\">título </label><br /><input id = \"title\" type = \"text\" name = \"title\" autocomplete = \"off\" onfocus = \"this.select()\" required /><br />
+              <label for = \"title\">título </label><br /><input id = \"title\" type = \"text\" name = \"title\" autocomplete = \"off\" onfocus = \"this.select()\" required autofocus /><br />
               <label for = \"genre\">género </label><br /><input id = \"genre\" type = \"text\" name = \"genre\" autocomplete = \"off\" onfocus = \"this.select()\" required /><br />
               <label for = \"country\">país </label><br /><input id = \"country\" type = \"text\" name = \"country\" autocomplete = \"off\" onfocus = \"this.select()\" required /><br />
               <label for = \"year\">año </label><br /><input id = \"year\" type = \"text\" name = \"year\" autocomplete = \"off\" onfocus = \"this.select()\" required /><br />
@@ -236,53 +236,55 @@
 
         $book_id = $_GET["book"];
 
-        $result = $db -> query("SELECT b.*, a.name AS author_name FROM books b JOIN books_authors ba ON b.book_id = ba.book_id JOIN authors a ON ba.author_id = a.author_id WHERE b.book_id = $book_id");
+        $result = $db -> query("SELECT b.*, a.name AS author_name, a.last_name AS author_last_name FROM books b JOIN books_authors ba ON b.book_id = ba.book_id JOIN authors a ON ba.author_id = a.author_id WHERE b.book_id = $book_id");
 
         if ($result -> num_rows > 0) {
           $row = $result -> fetch_assoc();
-  
+
           echo "
-            <form action = \"index.php\" method = \"get\">
-              <label for = \"title\">Título</label><br />
-              <input id = \"title\" type = \"text\" name = \"title\" value = \"" . $row["title"] . "\"><br />
+            <form action=\"index.php\" method=\"get\">
+              <label for=\"title\">título</label><br />
+              <input id=\"title\" type=\"text\" name=\"title\" value=\"" . $row["title"] . "\" required onfocus=\"this.select()\" autofocus><br />
 
-              <label for = \"genre\">Género</label><br />
-              <input id = \"genre\" type = \"text\" name = \"genre\" value = \"" . $row["genre"] . "\"><br />
+              <label for=\"genre\">género</label><br />
+              <input id=\"genre\" type=\"text\" name=\"genre\" value=\"" . $row["genre"] . "\" required onfocus=\"this.select()\"><br />
 
-              <label for = \"country\">País</label><br />
-              <input id = \"country\" type = \"text\" name = \"country\" value = \"" . $row["country"] . "\"><br />
+              <label for=\"country\">país</label><br />
+              <input id=\"country\" type=\"text\" name=\"country\" value=\"" . $row["country"] . "\" required onfocus=\"this.select()\"><br />
 
-              <label for = \"year\">Año</label><br />
-              <input id = \"year\" type = \"text\" name = \"year\" value = \"" . $row["year_published"] . "\"><br />
+              <label for=\"year\">año</label><br />
+              <input id=\"year\" type=\"text\" name=\"year\" value=\"" . $row["year_published"] . "\" required onfocus=\"this.select()\"><br />
 
-              <label for = \"num-pages\">Número de páginas</label><br />
-              <input id = \"num-pages\" type = \"text\" name = \"num-pages\" value = \"" . $row["num_pages"] . "\"><br />
+              <label for=\"num-pages\">número de páginas</label><br />
+              <input id=\"num-pages\" type=\"text\" name=\"num-pages\" value=\"" . $row["num_pages"] . "\" required onfocus=\"this.select()\"><br />
 
-              <label for = \"author-select\">Autor</label><br />
-              <select id = \"author-select\" name = \"author\" required>
-                <option selected>" . $row["author_name"] . "</option>";
-  
-          $resultAuthors  =  $db -> query("SELECT * FROM authors");
-  
-          while ($rowAuthor  =  $resultAuthors -> fetch_assoc()) {
-            echo "<option value = \"" . $rowAuthor["author_id"] . "\">" . $rowAuthor["name"] . " " . $rowAuthor["last_name"] . "</option>";
+              <label for=\"author-select\">autor</label><br />
+              <select id=\"author-select\" name=\"author\" required>
+                <option selected>" . $row["author_name"] . " " . $row["author_last_name"] . "</option>
+          ";
+
+          $result_authors = $db -> query("SELECT * FROM authors");
+
+          while ($row_author = $result_authors -> fetch_assoc()) {
+            $selected = ($row_author["author_id"] == $row["author_id"]) ? "selected" : "";
+            echo "<option value=\"" . $row_author["author_id"] . "\" $selected>" . $row_author["name"] . " " . $row_author["last_name"] . "</option>";
           }
-  
+
           echo "
               </select><br />
 
-              <input type = \"hidden\" name = \"book\" value = \"" . $row["book_id"] . "\">
-              <input type = \"hidden\" name = \"action\" value = \"modifyBook\">
-              <button type = \"submit\">modificar</button>
+              <input type=\"hidden\" name=\"book\" value=\"" . $row["book_id"] . "\">
+              <input type=\"hidden\" name=\"action\" value=\"modifyBook\">
+              <button type=\"submit\">modificar</button>
             </form>
           ";
         }
-  
+
         echo "<div class=\"button-container\"><a href=\"index.php\"><button>Volver</button></a></div>";
-      }
+      }   
 
       function modifyBook() {
-        echo "<h1>modificar de libros</h1>";
+        echo "<h1>modificar libros</h1>";
 
         $db = new mysqli("db", "root", "test", "bookstore");
 
@@ -300,13 +302,20 @@
         $result = $db -> query($query);
 
         if ($result) {
-          echo "<h3 class = \"success\">libro modificado con éxito</h3>";
+          $update_author_query = "UPDATE books_authors SET author_id = $author WHERE book_id = $book_id";
+          $result_author = $db -> query($update_author_query);
+
+          if ($result_author) {
+            echo "<h3 class=\"success\">libro modificado con éxito</h3>";
+          } else {
+            echo "<h3>ha ocurrido un error al modificar el autor del libro</h3>";
+          }
         } else {
           echo "<h3>ha ocurrido un error al modificar el libro</h3>";
         }
 
-        echo "<div class = \"button-container\"><a href = \"index.php\"><button>volver</button></a></div>";
-      }
+        echo "<div class=\"button-container\"><a href=\"index.php\"><button>volver</button></a></div>";
+      }    
 
       function searchBook() {
         /* // recuperamos el texto de búsqueda de la variable de formulario
@@ -337,8 +346,8 @@
 
         echo "
           <form action = \"index.php\" method = \"get\">
-            <label for = \"name\">nombre</label><br /><input id = \"name\" type = \"text\" name = \"name\"><br />
-            <label for = \"last-name\">apellidos</label><br /><input id = \"last-name\" type = \"text\" name = \"last-name\"><br />
+            <label for = \"name\">nombre</label><br /><input id = \"name\" type = \"text\" name = \"name\" required onfocus = \"this.select()\" autofocus><br />
+            <label for = \"last-name\">apellidos</label><br /><input id = \"last-name\" type = \"text\" name = \"last-name\" required onfocus = \"this.select()\"><br />
         ";
 
         echo "
