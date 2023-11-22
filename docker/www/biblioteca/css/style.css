@@ -1,8 +1,8 @@
 :root {
-  --page-background-color: #ebe9e9;
-  --title-color: rgba(204, 75, 1, 0.808);
+  --page-background-color: #cecece;
+  --title-color: #cc4b01ce;
   --table-border: 3px solid #b35900;
-  --th-background: #b6b4b4b6;
+  --th-background: #c9c9c9b6;
   --td-border: 1px solid #ddd;
   --even-background: #d38436d5;
   --even-background-full-opacity: #d38436;
@@ -121,12 +121,11 @@ table tbody tr:nth-child(odd):hover {
 
 #modify-book-gear {
   color: var(--gear-color) !important;
-  cursor: pointer !important;
   transition: .2s;
 }
 
 #modify-book-gear:hover {
-  transform: scale(1.1);
+  transform: scale(1.27);
 }
 
 #modify-book-gear:active {

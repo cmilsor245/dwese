@@ -141,6 +141,8 @@
               <button type = \"submit\">insertar</button>
             </form>
           ";
+
+          
         } else {
           echo "<h3 id = \"no-authors-h3\">no hay autores disponibles</h3>";
         }
