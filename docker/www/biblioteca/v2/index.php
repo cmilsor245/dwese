@@ -63,16 +63,18 @@
       function showBookList($CONN) {
         echo "<h1>biblioteca</h1>";
 
-        $books = $CONN -> query("SELECT * FROM book");
+        $stmt = $CONN -> prepare("SELECT * FROM book");
+        $stmt -> execute();
+        $result = $stmt -> get_result();
 
-        if ($books -> num_rows !== 0) {
+        if ($result -> num_rows !== 0) {
           echo "
             <table>
               <thead>
                 <tr>
                   <th>título</th>
                   <th>género</th>
-                  <th>autor</th>
+                  <th>autor/autores</th>
                   <th>país</th>
                   <th>año de publicación</th>
                   <th>número de páginas</th>
@@ -83,7 +85,7 @@
               <tbody>
           ";
 
-          while ($book = $books -> fetch_assoc()) {
+          while ($book = $result -> fetch_assoc()) {
             echo "
               <tr>
                 <td>" . $book["title"] . "</td>
@@ -91,9 +93,12 @@
                 <td>
             ";
 
-            $authors = $CONN -> query("SELECT * FROM book_author JOIN author ON book_author.author_id = author.author_id WHERE book_author.book_id = " . $book["book_id"]);
+            $stmt_authors = $CONN -> prepare("SELECT author.name, author.last_name FROM book_author JOIN author ON book_author.author_id = author.author_id WHERE book_author.book_id = ?");
+            $stmt_authors -> bind_param("i", $book["book_id"]);
+            $stmt_authors -> execute();
+            $result_authors = $stmt_authors -> get_result();
 
-            while ($author = $authors -> fetch_assoc()) {
+            while ($author = $result_authors -> fetch_assoc()) {
               echo $author["name"] . " " . $author["last_name"] . "<br />";
             }
 
@@ -112,8 +117,10 @@
               </tbody>
             </table>
           ";
+        } else {
+          echo "<h3 id = \"no-books-h3\"></h3>";
         }
-      }
+    }
 
       /* --------------------------------------------------------------------------------- */
 
