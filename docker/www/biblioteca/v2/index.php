@@ -64,7 +64,6 @@
         echo "<h1>biblioteca</h1>";
 
         $books = $CONN -> query("SELECT * FROM book");
-        $authors = $CONN -> query("SELECT * FROM book_author JOIN author ON book_author.author_id = author.author_id");
 
         if ($books -> num_rows !== 0) {
           echo "
@@ -92,10 +91,10 @@
                 <td>
             ";
 
+            $authors = $CONN -> query("SELECT * FROM book_author JOIN author ON book_author.author_id = author.author_id WHERE book_author.book_id = " . $book["book_id"]);
+
             while ($author = $authors -> fetch_assoc()) {
-              if ($author["book_id"] === $book["book_id"]) {
-                echo $author["name"] . " " . $author["last_name"] . "<br />";
-              }
+              echo $author["name"] . " " . $author["last_name"] . "<br />";
             }
 
             echo "
@@ -103,11 +102,16 @@
                 <td>" . $book["country"] . "</td>
                 <td>" . $book["year_published"] . "</td>
                 <td>" . $book["num_pages"] . "</td>
-                <td><a href \"index.php?action=modifyBookForm&book_id=" . $book["book_id"] . "\">modificar</a></td>
-                <td><a href \"index.php?action=removeBookForm&book_id=" . $book["book_id"] . "\">borrar</a></td>
+                <td><a href=\"index.php?action=modifyBookForm&book_id=" . $book["book_id"] . "\">modificar</a></td>
+                <td><a href=\"index.php?action=removeBookForm&book_id=" . $book["book_id"] . "\">borrar</a></td>
               </tr>
             ";
           }
+
+          echo "
+              </tbody>
+            </table>
+          ";
         }
       }
 
