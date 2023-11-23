@@ -119,8 +119,6 @@
           ";
         } else {
           echo "<h3 id = \"no-books-h3\"></h3>";
-
-          echo "test";
         }
     }
 
