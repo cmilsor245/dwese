@@ -117,11 +117,11 @@
 
           echo "
             <form action = \"index.php\" method = \"get\">
-              <label for = \"title\">título </label><br /><input id = \"title\" type = \"text\" name = \"title\" autocomplete = \"off\" onfocus = \"this.select()\" required autofocus /><br />
-              <label for = \"genre\">género </label><br /><input id = \"genre\" type = \"text\" name = \"genre\" autocomplete = \"off\" onfocus = \"this.select()\" required /><br />
-              <label for = \"country\">país </label><br /><input id = \"country\" type = \"text\" name = \"country\" autocomplete = \"off\" onfocus = \"this.select()\" required /><br />
-              <label for = \"year\">año </label><br /><input id = \"year\" type = \"text\" name = \"year\" autocomplete = \"off\" onfocus = \"this.select()\" required /><br />
-              <label for = \"num-pages\">número de páginas </label><br /><input id = \"num-pages\" type = \"text\" name = \"num-pages\" autocomplete = \"off\" onfocus = \"this.select()\" required /><br />
+              <label for = \"title\">título </label><br /><input autocomplete = \"off\" id = \"title\" type = \"text\" name = \"title\" autocomplete = \"off\" onfocus = \"this.select()\" required autofocus /><br />
+              <label for = \"genre\">género </label><br /><input autocomplete = \"off\" id = \"genre\" type = \"text\" name = \"genre\" autocomplete = \"off\" onfocus = \"this.select()\" required /><br />
+              <label for = \"country\">país </label><br /><input autocomplete = \"off\" id = \"country\" type = \"text\" name = \"country\" autocomplete = \"off\" onfocus = \"this.select()\" required /><br />
+              <label for = \"year\">año </label><br /><input autocomplete = \"off\" id = \"year\" type = \"text\" name = \"year\" autocomplete = \"off\" onfocus = \"this.select()\" required /><br />
+              <label for = \"num-pages\">número de páginas </label><br /><input autocomplete = \"off\" id = \"num-pages\" type = \"text\" name = \"num-pages\" autocomplete = \"off\" onfocus = \"this.select()\" required /><br />
           ";
 
           $result = $db -> query("SELECT * FROM authors");
@@ -137,7 +137,7 @@
           echo "</select><br />";
 
           echo "
-              <input type = \"hidden\" name = \"action\" value = \"insertBook\">
+              <input autocomplete = \"off\" type = \"hidden\" name = \"action\" value = \"insertBook\">
               <button type = \"submit\">insertar</button>
             </form>
           ";
@@ -201,7 +201,7 @@
           echo "</select><br />";
 
           echo "
-              <input type = \"hidden\" name = \"action\" value = \"removeBook\">
+              <input autocomplete = \"off\" type = \"hidden\" name = \"action\" value = \"removeBook\">
               <button type = \"submit\">borrar</button>
             </form>
           ";
@@ -246,19 +246,19 @@
           echo "
             <form action = \"index.php\" method = \"get\">
               <label for = \"title\">título</label><br />
-              <input id = \"title\" type = \"text\" name = \"title\" value = \"" . $row["title"] . "\" required onfocus = \"this.select()\" autofocus><br />
+              <input autocomplete = \"off\" id = \"title\" type = \"text\" name = \"title\" value = \"" . $row["title"] . "\" required onfocus = \"this.select()\" autofocus><br />
 
               <label for = \"genre\">género</label><br />
-              <input id = \"genre\" type = \"text\" name = \"genre\" value = \"" . $row["genre"] . "\" required onfocus = \"this.select()\"><br />
+              <input autocomplete = \"off\" id = \"genre\" type = \"text\" name = \"genre\" value = \"" . $row["genre"] . "\" required onfocus = \"this.select()\"><br />
 
               <label for = \"country\">país</label><br />
-              <input id = \"country\" type = \"text\" name = \"country\" value = \"" . $row["country"] . "\" required onfocus = \"this.select()\"><br />
+              <input autocomplete = \"off\" id = \"country\" type = \"text\" name = \"country\" value = \"" . $row["country"] . "\" required onfocus = \"this.select()\"><br />
 
               <label for = \"year\">año</label><br />
-              <input id = \"year\" type = \"text\" name = \"year\" value = \"" . $row["year_published"] . "\" required onfocus = \"this.select()\"><br />
+              <input autocomplete = \"off\" id = \"year\" type = \"text\" name = \"year\" value = \"" . $row["year_published"] . "\" required onfocus = \"this.select()\"><br />
 
               <label for = \"num-pages\">número de páginas</label><br />
-              <input id = \"num-pages\" type = \"text\" name = \"num-pages\" value = \"" . $row["num_pages"] . "\" required onfocus = \"this.select()\"><br />
+              <input autocomplete = \"off\" id = \"num-pages\" type = \"text\" name = \"num-pages\" value = \"" . $row["num_pages"] . "\" required onfocus = \"this.select()\"><br />
 
               <label for = \"author-select\">autor</label><br />
               <select id = \"author-select\" name = \"author\" required>
@@ -275,8 +275,8 @@
           echo "
               </select><br />
 
-              <input type=\"hidden\" name=\"book\" value=\"" . $row["book_id"] . "\">
-              <input type=\"hidden\" name=\"action\" value=\"modifyBook\">
+              <input autocomplete = \"off\" type=\"hidden\" name=\"book\" value=\"" . $row["book_id"] . "\">
+              <input autocomplete = \"off\" type=\"hidden\" name=\"action\" value=\"modifyBook\">
               <button type=\"submit\">modificar</button>
             </form>
           ";
@@ -348,12 +348,12 @@
 
         echo "
           <form action = \"index.php\" method = \"get\">
-            <label for = \"name\">nombre</label><br /><input id = \"name\" type = \"text\" name = \"name\" required onfocus = \"this.select()\" autofocus><br />
-            <label for = \"last-name\">apellidos</label><br /><input id = \"last-name\" type = \"text\" name = \"last-name\" required onfocus = \"this.select()\"><br />
+            <label for = \"name\">nombre</label><br /><input autocomplete = \"off\" id = \"name\" type = \"text\" name = \"name\" required onfocus = \"this.select()\" autofocus><br />
+            <label for = \"last-name\">apellidos</label><br /><input autocomplete = \"off\" id = \"last-name\" type = \"text\" name = \"last-name\" required onfocus = \"this.select()\"><br />
         ";
 
         echo "
-            <input type = \"hidden\" name = \"action\" value = \"insertAuthor\">
+            <input autocomplete = \"off\" type = \"hidden\" name = \"action\" value = \"insertAuthor\">
             <button type = \"submit\">crear</button>
           </form>
         ";
@@ -395,7 +395,7 @@
 
         echo "
             </select><br />
-            <input type = \"hidden\" name = \"action\" value = \"removeAuthor\">
+            <input autocomplete = \"off\" type = \"hidden\" name = \"action\" value = \"removeAuthor\">
             <button type = \"submit\">borrar</button>
           </form>
         ";
