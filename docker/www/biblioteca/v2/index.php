@@ -107,8 +107,8 @@
                 <td>" . $book["country"] . "</td>
                 <td>" . $book["year_published"] . "</td>
                 <td>" . $book["num_pages"] . "</td>
-                <td><a href=\"index.php?action=modifyBookForm&book_id=" . $book["book_id"] . "\">modificar</a></td>
-                <td><a href=\"index.php?action=removeBookForm&book_id=" . $book["book_id"] . "\">borrar</a></td>
+                <td><a href = \"index.php?action=modifyBookForm&book_id=" . $book["book_id"] . "\">modificar</a></td>
+                <td><a href = \"index.php?action=removeBookForm&book_id=" . $book["book_id"] . "\">borrar</a></td>
               </tr>
             ";
           }
