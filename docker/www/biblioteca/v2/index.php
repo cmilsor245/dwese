@@ -118,7 +118,7 @@
             </table>
           ";
         } else {
-          echo "<h3 id = \"no-books-h3\"></h3>";
+          echo "<h3 id = \"no-books-h3\">no existen libros en la base de datos</h3>";
         }
     }
 
@@ -135,7 +135,7 @@
       /* --------------------------------------------------------------------------------- */
 
       function removeBookForm($CONN) {
-        echo "test remove";
+        
       }
 
       function removeBook($CONN) {
@@ -155,7 +155,7 @@
       /* --------------------------------------------------------------------------------- */
 
       function modifyBookForm($CONN) {
-        echo "test modify";
+        
       }
 
       function modifyBook($CONN) {
