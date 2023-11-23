@@ -67,7 +67,7 @@
                   <th>género</th>
                   <th>país</th>
                   <th>año</th>
-                  <th>número de paginas</th>
+                  <th>número de páginas</th>
                   <th></th>
                 </tr>
               </thead>
