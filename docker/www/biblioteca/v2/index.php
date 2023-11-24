@@ -8,6 +8,8 @@
   </head>
   <body>
     <?
+      include "includes/functions.php";
+
       if (isset($_REQUEST["action"])) {
         $action = $_REQUEST["action"];
       } else {
@@ -19,55 +21,54 @@
       const PASS = "test";
       const DB_NAME = "bookstore_v2";
 
-      $CONN = new mysqli(HOST, USER, PASS, DB_NAME);
+      $connection = new mysqli(HOST, USER, PASS, DB_NAME);
 
       switch ($action) {
         case "showBookList":
-          showBookList($CONN);
+          showBookList($connection);
           break;
         case "insertBookForm":
-          insertBookForm($CONN);
+          insertBookForm($connection);
           break;
         case "insertBook":
-          insertBook($CONN);
+          insertBook($connection);
           break;
         case "removeBookForm":
-          removeBookForm($CONN);
+          removeBookForm($connection);
           break;
         case "removeBook":
-          removeBook($CONN);
+          removeBook($connection);
           break;
         case "removeAuthorForm":
-          removeAuthorForm($CONN);
+          removeAuthorForm($connection);
           break;
         case "removeAuthor":
-          removeAuthor($CONN);
+          removeAuthor($connection);
           break;
         case "modifyBookForm":
-          modifyBookForm($CONN);
+          modifyBookForm($connection);
           break;
         case "modifyBook":
-          modifyBook($CONN);
+          modifyBook($connection);
           break;
         case "insertAuthorForm":
-          insertAuthorForm($CONN);
+          insertAuthorForm($connection);
           break;
         case "insertAuthor":
-          insertAuthor($CONN);
+          insertAuthor($connection);
           break;
         case "searchBook":
-          searchBook($CONN);
+          searchBook($connection);
           break;
       }
 
-      function showBookList($CONN) {
+      function showBookList($connection) {
         echo "<h1>biblioteca</h1>";
 
-        $stmt = $CONN -> prepare("SELECT * FROM book");
-        $stmt -> execute();
-        $result = $stmt -> get_result();
+        $books_exist = checkTableData($connection, "book");
+        $authors_exist = checkTableData($connection, "author");
 
-        if ($result -> num_rows !== 0) {
+        if ($books_exist -> num_rows !== 0) {
           echo "
             <table>
               <thead>
@@ -78,14 +79,14 @@
                   <th>país</th>
                   <th>año de publicación</th>
                   <th>número de páginas</th>
-                  <th></th>
-                  <th></th>
+                  <th />
+                  <th />
                 </tr>
               </thead>
               <tbody>
           ";
 
-          while ($book = $result -> fetch_assoc()) {
+          while ($book = $books_exist -> fetch_assoc()) {
             echo "
               <tr>
                 <td>" . $book["title"] . "</td>
@@ -93,7 +94,7 @@
                 <td>
             ";
 
-            $stmt_authors = $CONN -> prepare("SELECT author.name, author.last_name FROM book_author JOIN author ON book_author.author_id = author.author_id WHERE book_author.book_id = ?");
+            $stmt_authors = $connection -> prepare("SELECT author.name, author.last_name FROM book_author JOIN author ON book_author.author_id = author.author_id WHERE book_author.book_id = ?");
             $stmt_authors -> bind_param("i", $book["book_id"]);
             $stmt_authors -> execute();
             $result_authors = $stmt_authors -> get_result();
@@ -118,63 +119,74 @@
             </table>
           ";
         } else {
-          echo "<h3 id = \"no-books-h3\">no existen libros en la base de datos</h3>";
+          if ($authors_exist -> num_rows !== 0) {
+            echo "
+              <h3 id = \"no-books-h3\">no existen libros en la base de datos</h3>
+              <a href = \"index.php?action=insertBookForm\"><button>insertar libro</button></a>
+            ";
+          } else {
+            echo "
+              <h3 id = \"no-authors-h3\">no existen autores en la base de datos</h3>
+              <h6>es necesario insertar al menos un autor antes de insertar un libro</h6>
+              <a href = \"index.php?action=insertAuthorForm\"><button>insertar autor</button></a>
+            ";
+          }
         }
+    }
+
+    /* --------------------------------------------------------------------------------- */
+
+    function insertAuthorForm($connection) {
+      
+    }
+
+    function insertAuthor($connection) {
+      
     }
 
       /* --------------------------------------------------------------------------------- */
 
-      function insertBookForm($CONN) {
+      function insertBookForm($connection) {
         
       }
 
-      function insertBook($CONN) {
-        
-      }
-
-      /* --------------------------------------------------------------------------------- */
-
-      function removeBookForm($CONN) {
-        
-      }
-
-      function removeBook($CONN) {
+      function insertBook($connection) {
         
       }
 
       /* --------------------------------------------------------------------------------- */
 
-      function removeAuthorForm($CONN) {
+      function removeBookForm($connection) {
         
       }
 
-      function removeAuthor($CONN) {
-        
-      }
-
-      /* --------------------------------------------------------------------------------- */
-
-      function modifyBookForm($CONN) {
-        
-      }
-
-      function modifyBook($CONN) {
+      function removeBook($connection) {
         
       }
 
       /* --------------------------------------------------------------------------------- */
 
-      function insertAuthorForm($CONN) {
+      function removeAuthorForm($connection) {
         
       }
 
-      function insertAuthor($CONN) {
+      function removeAuthor($connection) {
         
       }
 
       /* --------------------------------------------------------------------------------- */
 
-      function searchBook($CONN) {
+      function modifyBookForm($connection) {
+        
+      }
+
+      function modifyBook($connection) {
+        
+      }
+
+      /* --------------------------------------------------------------------------------- */
+
+      function searchBook($connection) {
         
       }
     ?>
