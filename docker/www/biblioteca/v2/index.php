@@ -27,6 +27,12 @@
         case "showBookList":
           showBookList($connection);
           break;
+        case "insertAuthorForm":
+          insertAuthorForm();
+          break;
+        case "insertAuthor":
+          insertAuthor($connection);
+          break;
         case "insertBookForm":
           insertBookForm($connection);
           break;
@@ -50,12 +56,6 @@
           break;
         case "modifyBook":
           modifyBook($connection);
-          break;
-        case "insertAuthorForm":
-          insertAuthorForm($connection);
-          break;
-        case "insertAuthor":
-          insertAuthor($connection);
           break;
         case "searchBook":
           searchBook($connection);
@@ -94,12 +94,12 @@
                 <td>
             ";
 
-            $stmt_authors = $connection -> prepare("SELECT author.name, author.last_name FROM book_author JOIN author ON book_author.author_id = author.author_id WHERE book_author.book_id = ?");
-            $stmt_authors -> bind_param("i", $book["book_id"]);
-            $stmt_authors -> execute();
-            $result_authors = $stmt_authors -> get_result();
+            $stmt_authors_linked_book = $connection -> prepare("SELECT author.name, author.last_name FROM book_author JOIN author ON book_author.author_id = author.author_id WHERE book_author.book_id = ?");
+            $stmt_authors_linked_book -> bind_param("i", $book["book_id"]);
+            $stmt_authors_linked_book -> execute();
+            $result_authors_linked = $stmt_authors_linked_book -> get_result();
 
-            while ($author = $result_authors -> fetch_assoc()) {
+            while ($author = $result_authors_linked -> fetch_assoc()) {
               echo $author["name"] . " " . $author["last_name"] . "<br />";
             }
 
@@ -117,12 +117,16 @@
           echo "
               </tbody>
             </table>
+
+            <a href = \"index.php?action=insertBookForm\"><button>insertar libro</button></a>
+            <a href = \"index.php?action=insertAuthorForm\"><button>insertar autor</button></a>
           ";
         } else {
           if ($authors_exist -> num_rows !== 0) {
             echo "
               <h3 id = \"no-books-h3\">no existen libros en la base de datos</h3>
               <a href = \"index.php?action=insertBookForm\"><button>insertar libro</button></a>
+              <a href = \"index.php?action=insertAuthorForm\"><button>insertar autor</button></a>
             ";
           } else {
             echo "
@@ -136,12 +140,60 @@
 
       /* --------------------------------------------------------------------------------- */
 
-      function insertAuthorForm($connection) {
-        
+      function insertAuthorForm() {
+        echo "
+          <h1>insertar autor</h1>
+
+          <form method = \"get\" action = \"index.php\">
+            <label for = \"name\">nombre</label>
+            <input id = \"name\" type = \"text\" name = \"name\" />
+
+            <label for = \"last_name\">apellido</label>
+            <input id = \"last_name\" type = \"text\" name = \"last_name\" />
+
+            <input type = \"hidden\" name = \"action\" value = \"insertAuthor\" />
+
+            <input type = \"submit\" value = \"insertar autor\" />
+          </form>
+        ";
       }
 
       function insertAuthor($connection) {
-        
+        if (isset($_GET["name"]) && isset($_GET["last_name"]) && $_GET["name"] !== "" && $_GET["last_name"] !== "") {
+          $new_author_name = $_GET["name"];
+          $new_author_last_name = $_GET["last_name"];
+
+          $authors_list = $connection -> query("SELECT * FROM author");
+
+          while ($author = $authors_list -> fetch_assoc()) {
+            if ($author["name"] === $new_author_name && $author["last_name"] === $new_author_last_name) {
+              echo "
+                <h3>el autor ya existe</h3>
+                <a class = \"retry-button\" href = \"index.php?action=insertAuthorForm\"><button>intentarlo de nuevo</button></a>
+                <a class = \"accept-button\" href = \"index.php\"><button>aceptar</button></a>
+              ";
+              return;
+            }
+          }
+
+          $stmt_insert_author = $connection -> prepare("INSERT INTO author (name, last_name) VALUES (?, ?)");
+          $stmt_insert_author -> bind_param("ss", $new_author_name, $new_author_last_name);
+          $stmt_insert_author -> execute();
+
+          if ($stmt_insert_author -> affected_rows !== 0) {
+            echo "
+              <h3>autor insertado correctamente</h3>
+              <a class = \"accept-button\" href = \"index.php\"><button>aceptar</button></a>
+              <a class = \"one-more-button\" href = \"index.php?action=insertAuthorForm\"><button>insertar otro autor</button></a>\" 
+            ";
+          }
+        } else {
+          echo "
+            <h3>deben proporcionarse tanto el nombre como el apellido del autor</h3>
+            <a class = \"retry-button\" href = \"index.php?action=insertAuthorForm\"><button>intentarlo de nuevo</button></a>
+            <a class = \"cancel-button\" href = \"index.php\"><button>cancelar</button></a>
+          ";
+        }
       }
 
       /* --------------------------------------------------------------------------------- */
