@@ -170,7 +170,7 @@
               echo "
                 <h3>el autor ya existe</h3>
                 <a class = \"retry-button\" href = \"index.php?action=insertAuthorForm\"><button>intentarlo de nuevo</button></a>
-                <a class = \"accept-button\" href = \"index.php\"><button>aceptar</button></a>
+                <a class = \"cancel-button\" href = \"index.php\"><button>cancelar</button></a>
               ";
               return;
             }
@@ -184,7 +184,7 @@
             echo "
               <h3>autor insertado correctamente</h3>
               <a class = \"accept-button\" href = \"index.php\"><button>aceptar</button></a>
-              <a class = \"one-more-button\" href = \"index.php?action=insertAuthorForm\"><button>insertar otro autor</button></a>\" 
+              <a class = \"one-more-button\" href = \"index.php?action=insertAuthorForm\"><button>insertar otro autor</button></a> 
             ";
           }
         } else {
