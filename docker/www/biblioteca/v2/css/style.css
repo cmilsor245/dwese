@@ -6,6 +6,10 @@
   --brown: #9b4300;
   --light-brown: #c05d00;
   --dark-brown: #7a3d00;
+  --even-background: #d38436d5;
+  --even-background-full-opacity: #d38436;
+  --odd-background: #a36c35e3;
+  --odd-background-full-opacity: #9c6935;
 }
 
 @font-face {
@@ -210,8 +214,7 @@ th {
   font-weight: bold;
   font-size: 25px;
   transform: none;
-  background-color: var(--dark-brown);
-  color: var(--light);
+  border-radius: 9px;
 }
 
 .empty-th {
@@ -224,8 +227,26 @@ td {
 
 tr {
   transition: .2s;
+  background-color: var(--page-background);
 }
 
-tr:not(:first-child):hover {
-  transform: scale(1.05);
+table tbody tr:nth-child(even) {
+  background-color: var(--even-background);
+}
+
+table tbody tr:nth-child(odd) {
+  background-color: var(--odd-background);
+}
+
+table tbody tr:nth-child(even):hover, table tbody tr:nth-child(odd):hover {
+  transform: scale(1.01);
+  box-shadow: 0 0 14px #000000;
+}
+
+table tbody tr:nth-child(even):hover {
+  background-color: var(--even-background-full-opacity);
+}
+
+table tbody tr:nth-child(odd):hover {
+  background-color: var(--odd-background-full-opacity);
 }

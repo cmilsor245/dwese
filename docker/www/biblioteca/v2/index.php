@@ -87,8 +87,8 @@
                   <th>país</th>
                   <th>año de publicación</th>
                   <th>número de páginas</th>
-                  <th class \"empty-th\" />
-                  <th class \"empty-th\" />
+                  <th class = \"empty-th\" />
+                  <th class = \"empty-th\" />
                 </tr>
               </thead>
               <tbody>
