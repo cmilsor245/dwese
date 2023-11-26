@@ -25,3 +25,21 @@ CREATE TABLE book_author (
   author_id int NOT NULL
 );
 ```
+
+<!-- ---------------------------------------------------------------------- -->
+
+código para reiniciar la base de datos
+
+```sql
+DELETE FROM book;
+
+ALTER TABLE book AUTO_INCREMENT = 1;
+
+DELETE FROM author;
+
+ALTER TABLE author AUTO_INCREMENT = 1;
+
+DELETE FROM book_author;
+
+ALTER TABLE book_author AUTO_INCREMENT = 1;
+```
