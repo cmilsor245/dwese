@@ -60,23 +60,21 @@
       }
 
       function showBookList($connection) {
-        echo "
-          <h1>biblioteca</h1>
-
-          <form method = \"get\" action = \"index.php\">
-            <label for = \"search\">filtrar por título</label>
-            <input id = \"search\" type = \"text\" name = \"search-title\" autofocus autocomplete = \"off\" onfocus = \"this.select()\" />
-
-            <input type = \"hidden\" name = \"action\" value = \"searchBook\" />
-
-            <input type = \"submit\" value = \"buscar\" />
-          </form>
-        ";
+        echo "<h1>biblioteca</h1>";
 
         $result_books_exist = getEveryRow($connection, "book");
 
         if ($result_books_exist -> num_rows !== 0) {
           echo "
+            <form method = \"get\" action = \"index.php\">
+              <label for = \"search\">filtrar por título</label>
+              <input id = \"search\" type = \"text\" name = \"search-title\" autofocus autocomplete = \"off\" onfocus = \"this.select()\" />
+
+              <input type = \"hidden\" name = \"action\" value = \"searchBook\" />
+
+              <input type = \"submit\" value = \"buscar\" />
+            </form>
+
             <table>
               <thead>
                 <tr>
