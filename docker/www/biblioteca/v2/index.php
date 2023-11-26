@@ -411,7 +411,40 @@
       /* ----------------------------------------------------------------------------------------------------------------------------- */
 
       function modifyBookForm($connection) {
-        
+        $book_id = $_GET["book_id"];
+
+        $specific_book = getSpecificBook($connection, $book_id);
+
+        $stmt_get_book_details = $specific_book -> fetch_assoc();
+
+        $book_title = $stmt_get_book_details["title"];
+        $book_genre = $stmt_get_book_details["genre"];
+        $book_country = $stmt_get_book_details["country"];
+        $book_year_published = $stmt_get_book_details["year_published"];
+        $book_num_pages = $stmt_get_book_details["num_pages"];
+
+        echo "
+          <h1>modificar libro</h1>
+
+          <form method = \"get\" action = \"index.php\">
+            <label for = \"title\">título</label>
+            <input type = \"text\" name = \"title\" value = \"$book_title\" />
+
+            <label for = \"genre\">género</label>
+            <input type = \"text\" name = \"genre\" value = \"$book_genre\" />
+
+            <label for = \"country\">país</label>
+            <input type = \"text\" name = \"country\" value = \"$book_country\" />
+
+            <label for = \"year_published\">año de publicación</label>
+            <input type = \"text\" name = \"year_published\" value = \"$book_year_published\" />
+
+            <label for = \"num_pages\">número de páginas</label>
+            <input type = \"text\" name = \"num_pages\" value = \"$book_num_pages\" />
+
+            <input type = \"hidden\" name = \"book_id\" value = \"$book_id\" />
+          </form>
+        ";
       }
 
       function modifyBook($connection) {

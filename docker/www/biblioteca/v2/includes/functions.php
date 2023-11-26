@@ -55,6 +55,16 @@
     return $book_list;
   }
 
+  function getSpecificBook($connection, $book_id) {
+    $select_specific_book_query = "SELECT * FROM book WHERE book_id = ?";
+    $stmt_select_specific_book = $connection -> prepare($select_specific_book_query);
+    $stmt_select_specific_book -> bind_param("i", $book_id);
+    $stmt_select_specific_book -> execute();
+    $specific_book = $stmt_select_specific_book -> get_result();
+
+    return $specific_book;
+  }
+
   function insertNewBook($connection, $new_book_title, $new_book_genre, $new_book_country, $new_book_year_published, $new_book_num_pages) {
     $insert_book_query = "INSERT INTO book (title, genre, country, year_published, num_pages) VALUES (?, ?, ?, ?, ?)";
     $stmt_insert_book = $connection -> prepare($insert_book_query);
