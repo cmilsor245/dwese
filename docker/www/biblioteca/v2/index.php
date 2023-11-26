@@ -67,7 +67,7 @@
         if ($result_books_exist -> num_rows !== 0) {
           echo "
             <form method = \"get\" action = \"index.php\">
-              <label for = \"search\">filtrar por título</label>
+              <label for = \"search\">filtrar por titulo</label>
               <input id = \"search\" type = \"text\" name = \"search-title\" autofocus autocomplete = \"off\" onfocus = \"this.select()\" />
 
               <input type = \"hidden\" name = \"action\" value = \"searchBook\" />
@@ -122,9 +122,11 @@
               </tbody>
             </table>
 
-            <a href = \"index.php?action=insertBookForm\"><button>insertar libro</button></a>
-            <a href = \"index.php?action=insertAuthorForm\"><button>insertar autor</button></a>
-            <a href = \"index.php?action=removeAuthorForm\"><button>eliminar autor</button></a>
+            <div class = \"button-container\">
+              <a href = \"index.php?action=insertBookForm\"><button>insertar libro</button></a>
+              <a href = \"index.php?action=insertAuthorForm\"><button>insertar autor</button></a>
+              <a href = \"index.php?action=removeAuthorForm\"><button>eliminar autor</button></a>
+            </div>
           ";
         } else {
           $result_authors_exist = getEveryRow($connection, "author");
@@ -132,9 +134,11 @@
           if ($result_authors_exist -> num_rows !== 0) {
             echo "
               <h3 id = \"no-books-h3\">no existen libros en la base de datos</h3>
-              <a href = \"index.php?action=insertBookForm\"><button>insertar libro</button></a>
-              <a href = \"index.php?action=insertAuthorForm\"><button>insertar autor</button></a>
-              <a href = \"index.php?action=removeAuthorForm\"><button>eliminar autor</button></a>
+              <div class = \"button-container\">
+                <a href = \"index.php?action=insertBookForm\"><button>insertar libro</button></a>
+                <a href = \"index.php?action=insertAuthorForm\"><button>insertar autor</button></a>
+                <a href = \"index.php?action=removeAuthorForm\"><button>eliminar autor</button></a>
+              </div>
             ";
           } else {
             echo "
@@ -182,8 +186,10 @@
             if ($author["name"] === $new_author_name && $author["last_name"] === $new_author_last_name) {
               echo "
                 <h3>el autor ya existe</h3>
-                <a class = \"retry-button\" href = \"index.php?action=insertAuthorForm&name=$new_author_name&last_name=$new_author_last_name\"><button>intentarlo de nuevo</button></a>
-                <a class = \"cancel-button\" href = \"index.php\"><button>cancelar</button></a>
+                <div class = \"button-container\">
+                  <a class = \"retry-button\" href = \"index.php?action=insertAuthorForm&name=$new_author_name&last_name=$new_author_last_name\"><button>intentarlo de nuevo</button></a>
+                  <a class = \"cancel-button\" href = \"index.php\"><button>cancelar</button></a>
+                </div>
               ";
               return;
             }
@@ -194,14 +200,18 @@
           if ($stmt_insert_author -> affected_rows !== 0) {
             echo "
               <h3>autor insertado correctamente</h3>
-              <a class = \"accept-button\" href = \"index.php\"><button>aceptar</button></a>
-              <a class = \"one-more-button\" href = \"index.php?action=insertAuthorForm\"><button>insertar otro autor</button></a> 
+              <div  class = \"button-container\">
+                <a class = \"accept-button\" href = \"index.php\"><button>aceptar</button></a>
+                <a class = \"one-more-button\" href = \"index.php?action=insertAuthorForm\"><button>insertar otro autor</button></a> 
+              </div>
             ";
           } else {
             echo "
               <h3>ha habido un error al insertar el autor</h3>
-              <a class = \"retry-button\" href = \"index.php?action=insertAuthorForm&name=$new_author_name&last_name=$new_author_last_name\"><button>intentarlo de nuevo</button></a>
-              <a class = \"cancel-button\" href = \"index.php\"><button>cancelar</button></a>
+              <div class = \"button-container\">
+                <a class = \"retry-button\" href = \"index.php?action=insertAuthorForm&name=$new_author_name&last_name=$new_author_last_name\"><button>intentarlo de nuevo</button></a>
+                <a class = \"cancel-button\" href = \"index.php\"><button>cancelar</button></a>
+              </div>
             ";
           }
 
@@ -209,8 +219,10 @@
         } else {
           echo "
             <h3>deben proporcionarse tanto el nombre como el apellido del autor</h3>
-            <a class=\"retry-button\" href=\"index.php?action=insertAuthorForm&name=$new_author_name&last_name=$new_author_last_name\"><button>intentarlo de nuevo</button></a>
-            <a class = \"cancel-button\" href = \"index.php\"><button>cancelar</button></a>
+            <div class = \"button-container\">
+              <a class=\"retry-button\" href=\"index.php?action=insertAuthorForm&name=$new_author_name&last_name=$new_author_last_name\"><button>intentarlo de nuevo</button></a>
+              <a class = \"cancel-button\" href = \"index.php\"><button>cancelar</button></a>
+            </div>
           ";
         }
       }
@@ -351,7 +363,7 @@
 
           <form method = \"get\" action = \"index.php\">
             <select name = \"author_id\">
-              <option value = \"no_author_selected\" disabled selected>selecciona un autor</option>
+              <option value = \"no_author_selected\" disabled selected>Selecciona un autor</option>
         ";
 
         $author_list = getAuthorList($connection);
@@ -370,7 +382,7 @@
             <input type = \"submit\" value = \"eliminar autor\" />
           </form>
 
-          <a class = \"cancel-button\" href = \"index.php\"><button>cancelar</button></a>
+          <div class = \"button-container\"><a class = \"cancel-button\" href = \"index.php\"><button>cancelar</button></a></div>
         ";
       }
 
@@ -383,8 +395,10 @@
           if ($result_linked_rows -> num_rows !== 0) {
             echo "
               <h3>no se puede eliminar el autor porque tiene libros asociados</h3>
-              <a class = \"retry-button\" href = \"index.php?action=removeAuthorForm\"><button>intentarlo de nuevo</button></a>
-              <a class = \"cancel-button\" href = \"index.php\"><button>cancelar</button></a>
+              <div class = \"button-container\">
+                <a class = \"retry-button\" href = \"index.php?action=removeAuthorForm\"><button>intentarlo de nuevo</button></a>
+                <a class = \"cancel-button\" href = \"index.php\"><button>cancelar</button></a>
+              </div>
             ";
             return;
           }
@@ -394,28 +408,32 @@
           if ($stmt_delete_author -> affected_rows === 1) {
             echo "
               <h3>autor eliminado correctamente</h3>
-              <a class = \"accept-button\" href = \"index.php\"><button>aceptar</button></a>
+              <div class = \"button-container\"><a class = \"accept-button\" href = \"index.php\"><button>aceptar</button></a></div>
             ";
 
             $author_list = getAuthorList($connection);
 
             if ($author_list -> num_rows !== 0) {
               echo "
-              <a class = \"one-more-button\" href = \"index.php?action=removeAuthorForm\"><button>eliminar otro autor</button></a>
+              <div class = \"button-container\"><a class = \"one-more-button\" href = \"index.php?action=removeAuthorForm\"><button>eliminar otro autor</button></a></div>
               ";
             }
           } else {
             echo "
               <h3>ha ocurrido un error a la hora de eliminar el autor</h3>
-              <a class = \"retry-button\" href = \"index.php?action=removeAuthorForm\"><button>intentarlo de nuevo</button></a>
-              <a class = \"cancel-button\" href = \"index.php\"><button>cancelar</button></a>
+              <div class = \"button-container\">
+                <a class = \"retry-button\" href = \"index.php?action=removeAuthorForm\"><button>intentarlo de nuevo</button></a>
+                <a class = \"cancel-button\" href = \"index.php\"><button>cancelar</button></a>
+              </div>
             ";
           }
         } else {
           echo "
             <h3>se debe seleccionar un autor para eliminar</h3>
-            <a class = \"retry-button\" href = \"index.php?action=removeAuthorForm\"><button>volver a intentarlo</button></a>
-            <a class = \"cancel-button\" href = \"index.php\"><button>cancelar</button></a>
+            <div class = \"button-container\">
+              <a class = \"retry-button\" href = \"index.php?action=removeAuthorForm\"><button>volver a intentarlo</button></a>
+              <a class = \"cancel-button\" href = \"index.php\"><button>cancelar</button></a>
+            </div>
           ";
         }
       }

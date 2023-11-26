@@ -9,8 +9,9 @@
 }
 
 @font-face {
-  font-family: "retro british";
-  src: url("../fonts/retro-british/regular.otf");
+  font-family: "book ends";
+  src: url("../fonts/book-ends/regular.otf");
+  font-weight: bold;
 }
 
 @font-face {
@@ -24,8 +25,18 @@
 }
 
 @font-face {
-  font-family: "nature beauty";
-  src: url("../fonts/nature-beauty/regular.ttf");
+  font-family: "aktiv";
+  src: url("../fonts/aktiv/bold.otf");
+}
+
+@font-face {
+  font-family: "book cover";
+  src: url("../fonts/book-cover/regular.ttf");
+}
+
+@font-face {
+  font-family: "surprise";
+  src: url("../fonts/surprise/regular.otf");
 }
 
 @keyframes scale-color-animation {
@@ -63,9 +74,9 @@ h1, h3, h6, .button-container, form {
 h1 {
   animation: scale-color-animation 4s infinite alternate;
   text-transform: uppercase;
-  font-family: "retro british";
+  font-family: "book ends";
   letter-spacing: 2px;
-  font-size: 40px;
+  font-size: 102px;
 }
 
 h3 {
@@ -78,6 +89,7 @@ h3 {
 h6 {
   margin-top: 16px;
   font-size: 17px;
+  font-family: "aktiv";
 }
 
 .button-container {
@@ -120,7 +132,8 @@ form {
 label{
   text-transform: uppercase;
   font-weight: bold;
-  font-family: "nature beauty";
+  font-family: "book cover";
+  letter-spacing: 1px;
   font-size: 13px;
   margin-top: 10px;
 }
@@ -133,9 +146,43 @@ input[type = "text"] {
   cursor: text;
   padding: 3px;
   transition: .17s;
+  font-family: "surprise";
+  letter-spacing: 1px;
+  font-size: 18px;
 }
 
 input[type = "text"]:focus {
   outline: none;
   border-color: var(--dark-brown);
+  border-radius: 7px;
+}
+
+select {
+  border: 2px solid var(--light-brown);
+  border-radius: 3px;
+  background-color: var(--brown);
+  color: var(--light);
+  padding: 5px;
+  font-family: "miftah";
+  font-size: 14px;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: .17s;
+  margin: 10px auto;
+  text-align: center;
+}
+
+select:hover {
+  background-color: var(--light-brown);
+  border-color: var(--dark-brown);
+}
+
+select:focus {
+  outline: none;
+  background-color: var(--light);
+  color: var(--brown);
+}
+
+option {
+  text-transform: capitalize;
 }
