@@ -5,6 +5,9 @@
     <meta name = "viewport" content = "width = device-width, initial-scale = 1.0" />
     <title>bookstore v2</title>
     <link rel = "stylesheet" href = "css/style.css" />
+    <link rel = "preconnect" href = "https://fonts.googleapis.com">
+    <link rel = "preconnect" href = "https://fonts.gstatic.com" crossorigin>
+    <link rel = "stylesheet" href = "https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&display=swap">
   </head>
   <body>
     <?
@@ -84,8 +87,8 @@
                   <th>país</th>
                   <th>año de publicación</th>
                   <th>número de páginas</th>
-                  <th />
-                  <th />
+                  <th class \"empty-th\" />
+                  <th class \"empty-th\" />
                 </tr>
               </thead>
               <tbody>
@@ -276,7 +279,7 @@
             <input type = \"submit\" value = \"insertar libro\" />
           </form>
 
-          <a class = \"cancel-button\" href = \"index.php\"><button>cancelar</button></a>
+          <div class = \"button-container\"><a class = \"cancel-button\" href = \"index.php\"><button>cancelar</button></a></div>
         ";
       }
 
@@ -295,8 +298,10 @@
             if ($book["title"] === $new_book_title && $book["genre"] === $new_book_genre && $book["country"] === $new_book_country && $book["year_published"] === $new_book_year_published && $book["num_pages"] === $new_book_num_pages) {
               echo "
                 <h3>el libro ya existe</h3>
-                <a class = \"retry-button\" href = \"index.php?action=insertBookForm&title=$new_book_title&genre=$new_book_genre&country=$new_book_country&year_published=$new_book_year_published&num_pages=$new_book_num_pages\"><button>intentarlo de nuevo</button></a>
-                <a class = \"cancel-button\" href = \"index.php\"><button>cancelar</button></a>
+                <div class = \"button-container\">
+                  <a class = \"retry-button\" href = \"index.php?action=insertBookForm&title=$new_book_title&genre=$new_book_genre&country=$new_book_country&year_published=$new_book_year_published&num_pages=$new_book_num_pages\"><button>intentarlo de nuevo</button></a>
+                  <a class = \"cancel-button\" href = \"index.php\"><button>cancelar</button></a>
+                </div>
               ";
               return;
             }
@@ -311,14 +316,18 @@
           if ($stmt_insert_book -> affected_rows === 1 && $stmt_insert_author -> affected_rows > 0) {
             echo "
               <h3>libro insertado correctamente</h3>
-              <a class = \"accept-button\" href = \"index.php\"><button>aceptar</button></a>
-              <a class = \"one-more-button\" href = \"index.php?action=insertBookForm\"><button>insertar otro libro</button></a>
+              <div class = \"button-container\">
+                <a class = \"accept-button\" href = \"index.php\"><button>aceptar</button></a>
+                <a class = \"one-more-button\" href = \"index.php?action=insertBookForm\"><button>insertar otro libro</button></a>
+              </div>
             ";
           } else {
             echo "
               <h3>no se insertó el libro</h3>
-              <a class = \"retry-button\" href = \"index.php?action=insertBookForm&title=$new_book_title&genre=$new_book_genre&country=$new_book_country&year_published=$new_book_year_published&num_pages=$new_book_num_pages\"><button>intentarlo de nuevo</button></a>
-              <a class = \"cancel-button\" href = \"index.php\"><button>cancelar</button></a>
+              <div class = \"button-container\">
+                <a class = \"retry-button\" href = \"index.php?action=insertBookForm&title=$new_book_title&genre=$new_book_genre&country=$new_book_country&year_published=$new_book_year_published&num_pages=$new_book_num_pages\"><button>intentarlo de nuevo</button></a>
+                <a class = \"cancel-button\" href = \"index.php\"><button>cancelar</button></a>
+              </div>
             ";
           }
 
@@ -327,8 +336,10 @@
         } else {
           echo "
             <h3>deben proporcionarse todos los datos del libro</h3>
-            <a class = \"retry-button\" href = \"index.php?action=insertBookForm&title=$new_book_title&genre=$new_book_genre&country=$new_book_country&year_published=$new_book_year_published&num_pages=$new_book_num_pages\"><button>intentarlo de nuevo</button></a>
-            <a class = \"cancel-button\" href = \"index.php\"><button>cancelar</button></a>
+            <div class = \"button-container\">
+              <a class = \"retry-button\" href = \"index.php?action=insertBookForm&title=$new_book_title&genre=$new_book_genre&country=$new_book_country&year_published=$new_book_year_published&num_pages=$new_book_num_pages\"><button>intentarlo de nuevo</button></a>
+              <a class = \"cancel-button\" href = \"index.php\"><button>cancelar</button></a>
+            </div>
           ";
         }
       }
@@ -345,12 +356,12 @@
         if ($stmt_delete_book -> affected_rows === 1 && $stmt_delete_linked_book -> affected_rows > 0) {
           echo "
             <h3>libro eliminado correctamente</h3>
-            <a class = \"accept-button\" href = \"index.php\"><button>aceptar</button></a>
+            <div class = \"button-container\"><a class = \"accept-button\" href = \"index.php\"><button>aceptar</button></a></div>
           ";
         } else {
           echo "
             <h3>ha ocurrido un error al eliminar el libro</h3>
-            <a class = \"cancel-button\" href = \"index.php\"><button>volver</button></a>
+            <div class \"button-container\"><a class = \"cancel-button\" href = \"index.php\"><button>volver</button></a></div>
           ";
         }
       }
@@ -553,8 +564,8 @@
                   <th>país</th>
                   <th>año de publicación</th>
                   <th>número de páginas</th>
-                  <th />
-                  <th />
+                  <th class = \"empty-th\" />
+                  <th class = \"empty-th\" />
                 </tr>
               </thead>
               <tbody>

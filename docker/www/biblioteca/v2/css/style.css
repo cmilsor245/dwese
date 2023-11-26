@@ -190,3 +190,42 @@ option {
 .search-book-title-span {
   color: var(--brown);
 }
+
+table {
+  width: 50%;
+  margin: 0 auto;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+th, td {
+  border: 3px solid var(--light-brown);
+  padding: 8px;
+  text-align: center;
+  border-radius: 5px;
+}
+
+th {
+  font-family: "amatic sc", sans-serif;
+  font-weight: bold;
+  font-size: 25px;
+  transform: none;
+  background-color: var(--dark-brown);
+  color: var(--light);
+}
+
+.empty-th {
+  border: none !important;
+}
+
+td {
+  font-family: "arial";
+}
+
+tr {
+  transition: .2s;
+}
+
+tr:not(:first-child):hover {
+  transform: scale(1.05);
+}
