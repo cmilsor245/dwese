@@ -186,3 +186,7 @@ select:focus {
 option {
   text-transform: capitalize;
 }
+
+.search-book-title-span {
+  color: var(--brown);
+}

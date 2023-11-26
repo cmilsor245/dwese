@@ -496,7 +496,7 @@
             <input type = \"submit\" value = \"modificar libro\" />
           </form>
 
-          <a class = \"cancel-button\" href = \"index.php\"><button>cancelar</button></a>
+          <div class = \"button-container\"><a class = \"cancel-button\" href = \"index.php\"><button>cancelar</button></a></div>
         ";
       }
 
@@ -519,12 +519,12 @@
         if ($stmt_update_author -> affected_rows !== 0) {
           echo "
             <h3>libro modificado</h3>
-            <a class = \"accept-button\" href = \"index.php\"><button>aceptar</button></a>
+            <div class = \"button-container\"><a class = \"accept-button\" href = \"index.php\"><button>aceptar</button></a></div>
           ";
         } else {
           echo "
             <h3>ha ocurrido un error al modificar el libro</h3>
-            <a class = \"accept-button\" href = \"index.php\"><button>aceptar</button></a>
+            <div class = \"button-container\"><a class = \"accept-button\" href = \"index.php\"><button>aceptar</button></a></div>
           ";
         }
       }
@@ -591,12 +591,12 @@
               </tbody>
             </table>
 
-            <a class = \"accept-button\" href = \"index.php\"><button>volver</button></a>
+            <div class = \"button-container\"><a class = \"accept-button\" href = \"index.php\"><button>volver</button></a></div>
           ";
         } else {
           echo "
             <h3>no se ha encontrado un libro con ese título</h3>
-            <a class = \"accept-button\" href = \"index.php\"><button>volver</button></a>
+            <div class = \"button-container\"><a class = \"accept-button\" href = \"index.php\"><button>volver</button></a></div>
           ";
         }
       }
