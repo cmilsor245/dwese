@@ -65,7 +65,7 @@
 
           <form method = \"get\" action = \"index.php\">
             <label for = \"search\">filtrar por título</label>
-            <input type = \"text\" name = \"search\" />
+            <input id = \"search\" type = \"text\" name = \"search-title\" autofocus autocomplete = \"off\" onfocus = \"this.select()\" />
 
             <input type = \"hidden\" name = \"action\" value = \"searchBook\" />
 
@@ -442,19 +442,19 @@
 
           <form method = \"get\" action = \"index.php\">
             <label for = \"title\">título</label>
-            <input type = \"text\" name = \"title\" value = \"$book_title\" autofocus onfocus = \"this.select()\" />
+            <input id = \"title\" type = \"text\" name = \"title\" value = \"$book_title\" autofocus autocomplete = \"off\" onfocus = \"this.select()\" />
 
             <label for = \"genre\">género</label>
-            <input type = \"text\" name = \"genre\" value = \"$book_genre\" onfocus = \"this.select()\" />
+            <input id = \"genre\" type = \"text\" name = \"genre\" value = \"$book_genre\" autocomplete = \"off\" onfocus = \"this.select()\" />
 
             <label for = \"country\">país</label>
-            <input type = \"text\" name = \"country\" value = \"$book_country\" onfocus = \"this.select()\" />
+            <input id = \"country\" type = \"text\" name = \"country\" value = \"$book_country\" autocomplete = \"off\" onfocus = \"this.select()\" />
 
             <label for = \"year_published\">año de publicación</label>
-            <input type = \"number\" name = \"year_published\" value = \"$book_year_published\" onfocus = \"this.select()\" />
+            <input id = \"year_published\" type = \"number\" name = \"year_published\" value = \"$book_year_published\" autocomplete = \"off\" onfocus = \"this.select()\" />
 
             <label for = \"num_pages\">número de páginas</label>
-            <input type = \"number\" name = \"num_pages\" value = \"$book_num_pages\" onfocus = \"this.select()\" />
+            <input id = \"num_pages\" type = \"number\" name = \"num_pages\" value = \"$book_num_pages\" autocomplete = \"off\" onfocus = \"this.select()\" />
 
             <label for = \"author\" type = \"number\">autor</label>
             <select id = \"author\" name = \"author[]\" multiple>
@@ -516,12 +516,12 @@
       /* ----------------------------------------------------------------------------------------------------------------------------- */
 
       function searchBook($connection) {
-        $book_title = $_GET["search"];
+        $book_title = strtolower($_GET["search-title"]);
 
         echo "
           <h1>filtro por título</h1>
 
-          <h3>título seleciconado: <span id = \"search-book-title-span\">$book_title</span></h3>
+          <h3>título seleciconado: <span class = \"search-book-title-span\">$book_title</span></h3>
         ";
 
         $result_book_exists = searchSpecificBook($connection, $book_title);
@@ -578,22 +578,10 @@
             <a class = \"accept-button\" href = \"index.php\"><button>volver</button></a>
           ";
         } else {
-          $result_authors_exist = getEveryRow($connection, "author");
-
-          if ($result_authors_exist -> num_rows !== 0) {
-            echo "
-              <h3 id = \"no-books-h3\">no existen libros en la base de datos</h3>
-              <a href = \"index.php?action=insertBookForm\"><button>insertar libro</button></a>
-              <a href = \"index.php?action=insertAuthorForm\"><button>insertar autor</button></a>
-              <a href = \"index.php?action=removeAuthorForm\"><button>eliminar autor</button></a>
-            ";
-          } else {
-            echo "
-              <h3 id = \"no-authors-h3\">no existen autores en la base de datos</h3>
-              <h6>es necesario insertar al menos un autor antes de insertar un libro</h6>
-              <a href = \"index.php?action=insertAuthorForm\"><button>insertar autor</button></a>
-            ";
-          }
+          echo "
+            <h3>no se ha encontrado un libro con ese título</h3>
+            <a class = \"accept-button\" href = \"index.php\"><button>volver</button></a>
+          ";
         }
       }
 
