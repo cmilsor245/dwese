@@ -95,13 +95,13 @@ button, input[type = "submit"] {
   margin: 0 auto;
 }
 
-button:hover {
+button:hover, input[type = "submit"]:hover{
   transform: scale(1.05);
   background-color: var(--light-brown);
   border-color: var(--dark-brown);
 }
 
-button:active {
+button:active, input[type = "submit"]:active {
   transform: scale(0.95);
 }
 
@@ -109,4 +109,12 @@ form {
   margin-top: 20px;
   display: flex;
   flex-direction: column;
+}
+
+label{
+  text-transform: uppercase;
+}
+
+input[type = "text"] {
+  margin-bottom: 9px;
 }
