@@ -292,9 +292,6 @@
             $stmt_insert_author -> execute();
           }
 
-          $stmt_insert_book -> close();
-          $stmt_insert_author -> close();
-
           if ($stmt_insert_book -> affected_rows === 1 && $stmt_insert_author -> affected_rows > 0) {
             echo "
               <h3>libro insertado correctamente</h3>
@@ -310,6 +307,7 @@
           }
 
           $stmt_insert_book -> close();
+          $stmt_insert_author -> close();
         } else {
           echo "
             <h3>deben proporcionarse todos los datos del libro</h3>
