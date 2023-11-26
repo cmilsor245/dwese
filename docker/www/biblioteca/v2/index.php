@@ -39,9 +39,6 @@
         case "insertBook":
           insertBook($connection);
           break;
-        case "removeBookForm":
-          removeBookForm($connection);
-          break;
         case "removeBook":
           removeBook($connection);
           break;
@@ -107,7 +104,7 @@
                 <td>" . $book["year_published"] . "</td>
                 <td>" . $book["num_pages"] . "</td>
                 <td><a href = \"index.php?action=modifyBookForm&book_id=" . $book["book_id"] . "\">modificar</a></td>
-                <td><a href = \"index.php?action=removeBookForm&book_id=" . $book["book_id"] . "\">borrar</a></td>
+                <td><a href = \"index.php?action=removeBook&book_id=" . $book["book_id"] . "\">borrar</a></td>
               </tr>
             ";
           }
@@ -310,12 +307,12 @@
 
       /* --------------------------------------------------------------------------------- */
 
-      function removeBookForm($connection) {
-        
-      }
-
       function removeBook($connection) {
-        
+        $book_id = $_GET["book_id"];
+
+        $stmt_delete_book = deleteSpecificBook($connection, $book_id);
+
+        $stmt_delete_linked_book = deleteLinkedBook();
       }
 
       /* --------------------------------------------------------------------------------- */

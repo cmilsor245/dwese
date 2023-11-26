@@ -65,4 +65,17 @@
 
     return $stmt_insert_author;
   }
+
+  function deleteSpecificBook($connection, $book_id) {
+    $delete_book_query = "DELETE FROM book WHERE book_id = ?";
+    $stmt_delete_book = $connection -> prepare($delete_book_query);
+    $stmt_delete_book -> bind_param("i", $book_id);
+    $stmt_delete_book -> execute();
+
+    return $stmt_delete_book;
+  }
+
+  function deleteLinkedBook() {
+    $delete_linked_book_query = "DELETE FROM ";
+  }
 ?>
