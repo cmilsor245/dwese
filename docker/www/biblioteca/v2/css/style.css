@@ -1,0 +1,112 @@
+:root {
+  --light: #f1f1f1ff;
+  --dark: #1a1a1aff;
+  --page-background: #e2e2e2;
+  --brown: #9b4300;
+  --light-brown: #c05d00;
+  --dark-brown: #884400;
+}
+
+@font-face {
+  font-family: "retro british";
+  src: url("../fonts/retro-british/regular.otf");
+}
+
+@font-face {
+  font-family: "phank";
+  src: url("../fonts/phank/regular.ttf");
+}
+
+@font-face {
+  font-family: "miftah";
+  src: url("../fonts/miftah/regular.ttf");
+}
+
+
+@keyframes scale-color-animation {
+  0% {
+    transform: scale(1);
+    color: var(--brown);
+  } 50% {
+    transform: scale(0.9);
+    color: var(--light-brown);
+  } 100% {
+    transform: scale(1.1);
+    color: var(--dark-brown);
+  }
+}
+
+* {
+  cursor: default;
+}
+
+::selection {
+  background-color: var(--brown);
+  color: var(--light);
+}
+
+body {
+  background-color: var(--page-background);
+}
+
+h1, h3, h6, .button-container, form {
+  width: fit-content;
+  margin: 0 auto;
+  text-align: center;
+}
+
+h1 {
+  animation: scale-color-animation 4s infinite alternate;
+  text-transform: uppercase;
+  font-family: "retro british";
+  letter-spacing: 2px;
+  font-size: 40px;
+}
+
+h3 {
+  margin-top: 20px;
+  text-transform: uppercase;
+  font-size: 32px;
+  font-family: "phank";
+}
+
+h6 {
+  margin-top: 16px;
+  font-size: 17px;
+}
+
+.button-container {
+  margin-top: 20px;
+}
+
+button, input[type = "submit"] {
+  border: 2px solid var(--light-brown);
+  width: fit-content;
+  height: 27px;
+  border-radius: 3px;
+  background-color: var(--brown);
+  color: var(--light);
+  text-transform: uppercase;
+  transition: .17s;
+  font-family: "miftah";
+  font-size: 14px;
+  letter-spacing: 2px;
+  cursor: pointer;
+  margin: 0 auto;
+}
+
+button:hover {
+  transform: scale(1.05);
+  background-color: var(--light-brown);
+  border-color: var(--dark-brown);
+}
+
+button:active {
+  transform: scale(0.95);
+}
+
+form {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+}

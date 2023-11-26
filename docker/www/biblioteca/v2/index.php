@@ -139,8 +139,8 @@
           } else {
             echo "
               <h3 id = \"no-authors-h3\">no existen autores en la base de datos</h3>
-              <h6>es necesario insertar al menos un autor antes de insertar un libro</h6>
-              <a href = \"index.php?action=insertAuthorForm\"><button>insertar autor</button></a>
+              <h6>Es necesario insertar al menos un autor antes de insertar un libro</h6>
+              <div class = \"button-container\"><a href = \"index.php?action=insertAuthorForm\"><button>insertar autor</button></a></div>
             ";
           }
         }
@@ -167,9 +167,9 @@
             <input type = \"submit\" value = \"insertar autor\" />
           </form>
 
-          <a class = \"cancel-button\" href = \"index.php\"><button>cancelar</button></a>
+          <div class = \"button-container\"><a class = \"cancel-button\" href = \"index.php\"><button>cancelar</button></a></div>
         ";
-      }    
+      }
 
       function insertAuthor($connection) {
         $new_author_name = $_GET["name"];
