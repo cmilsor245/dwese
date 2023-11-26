@@ -1,10 +1,11 @@
 :root {
   --light: #f1f1f1ff;
-  --dark: #1a1a1aff;
+  --gray: #3f3f3f;
+  --darker: #070707;
   --page-background: #e2e2e2;
   --brown: #9b4300;
   --light-brown: #c05d00;
-  --dark-brown: #884400;
+  --dark-brown: #7a3d00;
 }
 
 @font-face {
@@ -22,6 +23,10 @@
   src: url("../fonts/miftah/regular.ttf");
 }
 
+@font-face {
+  font-family: "nature beauty";
+  src: url("../fonts/nature-beauty/regular.ttf");
+}
 
 @keyframes scale-color-animation {
   0% {
@@ -103,6 +108,7 @@ button:hover, input[type = "submit"]:hover{
 
 button:active, input[type = "submit"]:active {
   transform: scale(0.95);
+  background-color: var(--dark-brown);
 }
 
 form {
@@ -113,8 +119,23 @@ form {
 
 label{
   text-transform: uppercase;
+  font-weight: bold;
+  font-family: "nature beauty";
+  font-size: 13px;
+  margin-top: 10px;
 }
 
 input[type = "text"] {
   margin-bottom: 9px;
+  border: none;
+  border-bottom: 2px solid var(--light-brown);
+  background-color: transparent;
+  cursor: text;
+  padding: 3px;
+  transition: .17s;
+}
+
+input[type = "text"]:focus {
+  outline: none;
+  border-color: var(--dark-brown);
 }
