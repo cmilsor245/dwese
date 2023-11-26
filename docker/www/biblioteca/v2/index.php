@@ -60,7 +60,18 @@
       }
 
       function showBookList($connection) {
-        echo "<h1>biblioteca</h1>";
+        echo "
+          <h1>biblioteca</h1>
+
+          <form method = \"get\" action = \"index.php\">
+            <label for = \"search\">filtrar por título</label>
+            <input type = \"text\" name = \"search\" />
+
+            <input type = \"hidden\" name = \"action\" value = \"searchBook\" />
+
+            <input type = \"submit\" value = \"buscar\" />
+          </form>
+        ";
 
         $result_books_exist = getEveryRow($connection, "book");
 
@@ -505,7 +516,85 @@
       /* ----------------------------------------------------------------------------------------------------------------------------- */
 
       function searchBook($connection) {
-        
+        $book_title = $_GET["search"];
+
+        echo "
+          <h1>filtro por título</h1>
+
+          <h3>título seleciconado: <span id = \"search-book-title-span\">$book_title</span></h3>
+        ";
+
+        $result_book_exists = searchSpecificBook($connection, $book_title);
+
+        if ($result_book_exists -> num_rows !== 0) {
+          echo "
+            <table>
+              <thead>
+                <tr>
+                  <th>título</th>
+                  <th>género</th>
+                  <th>autor/autores</th>
+                  <th>país</th>
+                  <th>año de publicación</th>
+                  <th>número de páginas</th>
+                  <th />
+                  <th />
+                </tr>
+              </thead>
+              <tbody>
+          ";
+
+          while ($book = $result_book_exists -> fetch_assoc()) {
+            echo "
+              <tr>
+                <td>" . $book["title"] . "</td>
+                <td>" . $book["genre"] . "</td>
+                <td>
+            ";
+
+            $book_id = $book["book_id"];
+
+            $result_authors_linked = getEveryAuthorInLinkTable($connection, $book_id);
+
+            while ($author = $result_authors_linked -> fetch_assoc()) {
+              echo $author["name"] . " " . $author["last_name"] . "<br />";
+            }
+
+            echo "
+                </td>
+                <td>" . $book["country"] . "</td>
+                <td>" . $book["year_published"] . "</td>
+                <td>" . $book["num_pages"] . "</td>
+                <td><a href = \"index.php?action=modifyBookForm&book_id=" . $book["book_id"] . "\">modificar</a></td>
+                <td><a href = \"index.php?action=removeBook&book_id=" . $book["book_id"] . "\">borrar</a></td>
+              </tr>
+            ";
+          }
+
+          echo "
+              </tbody>
+            </table>
+
+            <a class = \"accept-button\" href = \"index.php\"><button>volver</button></a>
+          ";
+        } else {
+          $result_authors_exist = getEveryRow($connection, "author");
+
+          if ($result_authors_exist -> num_rows !== 0) {
+            echo "
+              <h3 id = \"no-books-h3\">no existen libros en la base de datos</h3>
+              <a href = \"index.php?action=insertBookForm\"><button>insertar libro</button></a>
+              <a href = \"index.php?action=insertAuthorForm\"><button>insertar autor</button></a>
+              <a href = \"index.php?action=removeAuthorForm\"><button>eliminar autor</button></a>
+            ";
+          } else {
+            echo "
+              <h3 id = \"no-authors-h3\">no existen autores en la base de datos</h3>
+              <h6>es necesario insertar al menos un autor antes de insertar un libro</h6>
+              <a href = \"index.php?action=insertAuthorForm\"><button>insertar autor</button></a>
+            ";
+          }
+        }
       }
 
       $connection -> close();
