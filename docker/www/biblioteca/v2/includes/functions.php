@@ -44,4 +44,25 @@
 
     return $book_list;
   }
+
+  function insertNewBook($connection, $new_book_title, $new_book_genre, $new_book_country, $new_book_year_published, $new_book_num_pages) {
+    $insert_book_query = "INSERT INTO book (title, genre, country, year_published, num_pages) VALUES (?, ?, ?, ?, ?)";
+    $stmt_insert_book = $connection -> prepare($insert_book_query);
+    $stmt_insert_book -> bind_param("sssss", $new_book_title, $new_book_genre, $new_book_country, $new_book_year_published, $new_book_num_pages);
+    $stmt_insert_book -> execute();
+
+    return $stmt_insert_book;
+  }
+
+  function insertLinkedAuthorAndBook($connection, $selected_authors, $book_id) {
+    $insert_author_query = "INSERT INTO book_author (book_id, author_id) VALUES (?, ?)";
+    $stmt_insert_author = $connection -> prepare($insert_author_query);
+
+    foreach ($selected_authors as $author_id) {
+      $stmt_insert_author -> bind_param("ii", $book_id, $author_id);
+      $stmt_insert_author -> execute();
+    }
+
+    return $stmt_insert_author;
+  }
 ?>
