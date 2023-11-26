@@ -6,10 +6,10 @@
   --brown: #9b4300;
   --light-brown: #c05d00;
   --dark-brown: #7a3d00;
-  --even-background: #d38436d5;
-  --even-background-full-opacity: #d38436;
-  --odd-background: #a36c35e3;
-  --odd-background-full-opacity: #9c6935;
+  --even-background: #e27b15d5;
+  --even-background-full-opacity: #d37314;
+  --odd-background: #9b5815e3;
+  --odd-background-full-opacity: #995b1e;
 }
 
 @font-face {
@@ -170,7 +170,6 @@ select {
   font-family: "miftah";
   font-size: 14px;
   letter-spacing: 2px;
-  cursor: pointer;
   transition: .17s;
   margin: 10px auto;
   text-align: center;
@@ -189,6 +188,7 @@ select:focus {
 
 option {
   text-transform: capitalize;
+  cursor: pointer;
 }
 
 .search-book-title-span {
@@ -199,6 +199,7 @@ table {
   width: 50%;
   margin: 0 auto;
   margin-top: 40px;
+  background-color: var(--page-background);
   margin-bottom: 40px;
 }
 
@@ -211,7 +212,6 @@ th, td {
 
 th {
   font-family: "amatic sc", sans-serif;
-  font-weight: bold;
   font-size: 25px;
   transform: none;
   border-radius: 9px;
@@ -226,7 +226,8 @@ td {
 }
 
 tr {
-  transition: .2s;
+  transition: .1s;
+  font-weight: bold;
   background-color: var(--page-background);
 }
 
@@ -236,6 +237,7 @@ table tbody tr:nth-child(even) {
 
 table tbody tr:nth-child(odd) {
   background-color: var(--odd-background);
+  color: var(--light);
 }
 
 table tbody tr:nth-child(even):hover, table tbody tr:nth-child(odd):hover {
@@ -249,4 +251,9 @@ table tbody tr:nth-child(even):hover {
 
 table tbody tr:nth-child(odd):hover {
   background-color: var(--odd-background-full-opacity);
+}
+
+a {
+  cursor: pointer;
+  text-decoration: none;
 }

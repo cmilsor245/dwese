@@ -87,8 +87,8 @@
                   <th>país</th>
                   <th>año de publicación</th>
                   <th>número de páginas</th>
-                  <th class = \"empty-th\" />
-                  <th class = \"empty-th\" />
+                  <th class = \"empty-th\"><img src = \"icons/down-arrow.png\" width = \"20\" height = \"20\" /></th>
+                  <th class = \"empty-th\"><img src = \"icons/down-arrow.png\" width = \"20\" height = \"20\" /></th>
                 </tr>
               </thead>
               <tbody>
@@ -564,8 +564,8 @@
                   <th>país</th>
                   <th>año de publicación</th>
                   <th>número de páginas</th>
-                  <th class = \"empty-th\" />
-                  <th class = \"empty-th\" />
+                  <th class = \"empty-th\"><img src = \"icons/down-arrow.png\" width = \"20\" height = \"20\" /></th>
+                  <th class = \"empty-th\"><img src = \"icons/down-arrow.png\" width = \"20\" height = \"20\" /></th>
                 </tr>
               </thead>
               <tbody>
