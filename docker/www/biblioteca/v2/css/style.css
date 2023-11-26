@@ -195,6 +195,18 @@ option {
   color: var(--brown);
 }
 
+input[type="number"] {
+  border: 2px solid var(--light-brown);
+  border-radius: 3px;
+  background-color: transparent;
+  cursor: text;
+  padding: 3px;
+  transition: .17s;
+  font-family: "surprise";
+  letter-spacing: 1px;
+  font-size: 18px;
+}
+
 table {
   width: 50%;
   margin: 0 auto;
@@ -212,7 +224,7 @@ th, td {
 
 th {
   font-family: "amatic sc", sans-serif;
-  font-size: 25px;
+  font-size: 24px;
   transform: none;
   border-radius: 9px;
 }
@@ -256,4 +268,13 @@ table tbody tr:nth-child(odd):hover {
 a {
   cursor: pointer;
   text-decoration: none;
+}
+
+img {
+  cursor: pointer;
+  transition: .17s;
+}
+
+img:hover {
+  transform: scale(1.18);
 }
