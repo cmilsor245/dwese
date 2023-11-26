@@ -431,19 +431,19 @@
 
           <form method = \"get\" action = \"index.php\">
             <label for = \"title\">título</label>
-            <input type = \"text\" name = \"title\" value = \"$book_title\" />
+            <input type = \"text\" name = \"title\" value = \"$book_title\" autofocus onfocus = \"this.select()\" />
 
             <label for = \"genre\">género</label>
-            <input type = \"text\" name = \"genre\" value = \"$book_genre\" />
+            <input type = \"text\" name = \"genre\" value = \"$book_genre\" onfocus = \"this.select()\" />
 
             <label for = \"country\">país</label>
-            <input type = \"text\" name = \"country\" value = \"$book_country\" />
+            <input type = \"text\" name = \"country\" value = \"$book_country\" onfocus = \"this.select()\" />
 
             <label for = \"year_published\">año de publicación</label>
-            <input type = \"text\" name = \"year_published\" value = \"$book_year_published\" />
+            <input type = \"number\" name = \"year_published\" value = \"$book_year_published\" onfocus = \"this.select()\" />
 
             <label for = \"num_pages\">número de páginas</label>
-            <input type = \"text\" name = \"num_pages\" value = \"$book_num_pages\" />
+            <input type = \"number\" name = \"num_pages\" value = \"$book_num_pages\" onfocus = \"this.select()\" />
 
             <label for = \"author\" type = \"number\">autor</label>
             <select id = \"author\" name = \"author[]\" multiple>
@@ -474,7 +474,32 @@
       }
 
       function modifyBook($connection) {
-        
+        $book_id = $_GET["book_id"];
+        $book_title = $_GET["title"];
+        $book_genre = $_GET["genre"];
+        $book_country = $_GET["country"];
+        $book_year_published = $_GET["year_published"];
+        $book_num_pages = $_GET["num_pages"];
+        $selected_authors = isset($_GET["author"]) ? $_GET["author"] : [];
+
+        $update_book_query = "UPDATE book SET title = ?, genre = ?, country = ?, year_published = ?, num_pages = ? WHERE book_id = ?";
+        $stmt_update_book = $connection -> prepare($update_book_query);
+        $stmt_update_book -> bind_param("sssssi", $book_title, $book_genre, $book_country, $book_year_published, $book_num_pages, $book_id);
+        $stmt_update_book -> execute();
+
+        $stmt_update_author = updateBookAuthors($connection, $selected_authors, $book_id);
+
+        if ($stmt_update_author -> affected_rows !== 0) {
+          echo "
+            <h3>libro modificado</h3>
+            <a class = \"accept-button\" href = \"index.php\"><button>aceptar</button></a>
+          ";
+        } else {
+          echo "
+            <h3>ha ocurrido un error al modificar el libro</h3>
+            <a class = \"accept-button\" href = \"index.php\"><button>aceptar</button></a>
+          ";
+        }
       }
 
       /* ----------------------------------------------------------------------------------------------------------------------------- */

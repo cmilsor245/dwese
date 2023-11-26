@@ -112,4 +112,25 @@
 
     return $stmt_delete_author;
   }
+
+  function updateBookAuthors($connection, $selected_authors, $book_id) {
+    clearBookAuthorCoincidences($connection, $book_id);
+
+    $insert_author_query = "INSERT INTO book_author (book_id, author_id) VALUES (?, ?)";
+    $stmt_insert_author = $connection -> prepare($insert_author_query);
+
+    foreach ($selected_authors as $author_id) {
+      $stmt_insert_author -> bind_param("ii", $book_id, $author_id);
+      $stmt_insert_author -> execute();
+    }
+
+    return $stmt_insert_author;
+  }
+
+  function clearBookAuthorCoincidences($connection, $book_id) {
+    $delete_linked_book_query = "DELETE FROM book_author WHERE book_id = ?";
+    $stmt_delete_linked_book = $connection -> prepare($delete_linked_book_query);
+    $stmt_delete_linked_book -> bind_param("i", $book_id);
+    $stmt_delete_linked_book -> execute();
+  }
 ?>
