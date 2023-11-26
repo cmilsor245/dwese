@@ -65,10 +65,12 @@
       function showBookList($connection) {
         echo "<h1>biblioteca</h1>";
 
-        $books_exist = checkTableData($connection, "book");
-        $authors_exist = checkTableData($connection, "author");
+        $select_book_exist = "SELECT * FROM book";
+        $stmt_books_exist = $connection -> prepare($select_book_exist);
+        $stmt_books_exist -> execute();
+        $result_books_exist = $stmt_books_exist -> get_result();
 
-        if ($books_exist -> num_rows !== 0) {
+        if ($result_books_exist -> num_rows !== 0) {
           echo "
             <table>
               <thead>
@@ -86,7 +88,7 @@
               <tbody>
           ";
 
-          while ($book = $books_exist -> fetch_assoc()) {
+          while ($book = $result_books_exist -> fetch_assoc()) {
             echo "
               <tr>
                 <td>" . $book["title"] . "</td>
@@ -94,7 +96,8 @@
                 <td>
             ";
 
-            $stmt_authors_linked_book = $connection -> prepare("SELECT author.name, author.last_name FROM book_author JOIN author ON book_author.author_id = author.author_id WHERE book_author.book_id = ?");
+            $select_linked_authors = "SELECT author.name, author.last_name FROM book_author JOIN author ON book_author.author_id = author.author_id WHERE book_author.book_id = ?";
+            $stmt_authors_linked_book = $connection -> prepare($select_linked_authors);
             $stmt_authors_linked_book -> bind_param("i", $book["book_id"]);
             $stmt_authors_linked_book -> execute();
             $result_authors_linked = $stmt_authors_linked_book -> get_result();
@@ -122,7 +125,12 @@
             <a href = \"index.php?action=insertAuthorForm\"><button>insertar autor</button></a>
           ";
         } else {
-          if ($authors_exist -> num_rows !== 0) {
+          $select_authors_exist = "SELECT * FROM author";
+          $stmt_authors_exist = $connection -> prepare($select_authors_exist);
+          $stmt_authors_exist -> execute();
+          $result_authors_exist = $stmt_authors_exist -> get_result();
+
+          if ($result_authors_exist -> num_rows !== 0) {
             echo "
               <h3 id = \"no-books-h3\">no existen libros en la base de datos</h3>
               <a href = \"index.php?action=insertBookForm\"><button>insertar libro</button></a>
@@ -191,6 +199,8 @@
               <a class = \"one-more-button\" href = \"index.php?action=insertAuthorForm\"><button>insertar otro autor</button></a> 
             ";
           }
+
+          $stmt_insert_author -> close();
         } else {
           echo "
             <h3>deben proporcionarse tanto el nombre como el apellido del autor</h3>
@@ -327,6 +337,8 @@
       function searchBook($connection) {
         
       }
+
+      $connection -> close();
     ?>
   </body>
 </html>
