@@ -115,6 +115,7 @@
 
             <a href = \"index.php?action=insertBookForm\"><button>insertar libro</button></a>
             <a href = \"index.php?action=insertAuthorForm\"><button>insertar autor</button></a>
+            <a href = \"index.php?action=removeAuthorForm\"><button>eliminar autor</button></a>
           ";
         } else {
           $result_authors_exist = getEveryRow($connection, "author");
@@ -124,6 +125,7 @@
               <h3 id = \"no-books-h3\">no existen libros en la base de datos</h3>
               <a href = \"index.php?action=insertBookForm\"><button>insertar libro</button></a>
               <a href = \"index.php?action=insertAuthorForm\"><button>insertar autor</button></a>
+              <a href = \"index.php?action=removeAuthorForm\"><button>eliminar autor</button></a>
             ";
           } else {
             echo "
@@ -135,7 +137,7 @@
         }
       }
 
-      /* --------------------------------------------------------------------------------- */
+      /* ----------------------------------------------------------------------------------------------------------------------------- */
 
       function insertAuthorForm() {
         echo "<h1>insertar autor</h1>";
@@ -202,7 +204,7 @@
         }
       }
 
-      /* --------------------------------------------------------------------------------- */
+      /* ----------------------------------------------------------------------------------------------------------------------------- */
 
       function insertBookForm($connection) {
         echo "<h1>insertar libro</h1>";
@@ -305,27 +307,84 @@
         }
       }
 
-      /* --------------------------------------------------------------------------------- */
+      /* ----------------------------------------------------------------------------------------------------------------------------- */
 
       function removeBook($connection) {
         $book_id = $_GET["book_id"];
 
         $stmt_delete_book = deleteSpecificBook($connection, $book_id);
 
-        $stmt_delete_linked_book = deleteLinkedBook();
+        $stmt_delete_linked_book = deleteLinkedBook($connection, $book_id);
+
+        if ($stmt_delete_book -> affected_rows === 1 && $stmt_delete_linked_book -> affected_rows > 0) {
+          echo "
+            <h3>libro eliminado correctamente</h3>
+            <a class = \"accept-button\" href = \"index.php\"><button>aceptar</button></a>
+          ";
+        } else {
+          echo "
+            <h3>ha ocurrido un error al eliminar el libro</h3>
+            <a class = \"cancel-button\" href = \"index.php\"><button>volver</button></a>
+          ";
+        }
       }
 
-      /* --------------------------------------------------------------------------------- */
+      /* ----------------------------------------------------------------------------------------------------------------------------- */
 
       function removeAuthorForm($connection) {
-        
+        echo "
+          <h1>eliminar autor</h1>
+
+          <form method = \"get\" action = \"index.php\">
+            <select name = \"author_id\">
+              <option value = \"no_author_selected\" disabled selected>selecciona un autor</option>
+        ";
+
+        $author_list = getAuthorList($connection);
+
+        while ($author = $author_list -> fetch_assoc()) {
+          echo "
+            <option value = \"$author[author_id]\">$author[name] $author[last_name]</option>
+          ";
+        }
+
+        echo "
+            </select>
+
+            <input type = \"hidden\" name = \"action\" value = \"removeAuthor\" />
+
+            <input type = \"submit\" value = \"eliminar\" />
+          </form>
+        ";
       }
 
       function removeAuthor($connection) {
-        
+        if (isset($_GET["author_id"])) {
+          $author_id = $_GET["author_id"];
+
+          $stmt_delete_author = deleteSpecificAuthor($connection, $author_id);
+
+          if ($stmt_delete_author -> affected_rows === 1) {
+            echo "
+              <h3>autor eliminado correctamente</h3>
+              <a class = \"accept-button\" href = \"index.php\"><button>aceptar</button></a>
+            ";
+          } else {
+            echo "
+              <h3>ha ocurrido un error a la hora de eliminar el autor</h3>
+              <a class = \"cancel-button\" href = \"index.php\"><button>volver</button></a>
+            ";
+          }
+        } else {
+          echo "
+            <h3>se debe seleccionar un autor para eliminar</h3>
+            <a class = \"retry-button\" href = \"index.php?action=removeAuthorForm\"><button>volver a intentarlo</button></a>
+            <a class = \"cancel-button\" href = \"index.php\"><button>cancelar</button></a>
+          ";
+        }
       }
 
-      /* --------------------------------------------------------------------------------- */
+      /* ----------------------------------------------------------------------------------------------------------------------------- */
 
       function modifyBookForm($connection) {
         
@@ -335,7 +394,7 @@
         
       }
 
-      /* --------------------------------------------------------------------------------- */
+      /* ----------------------------------------------------------------------------------------------------------------------------- */
 
       function searchBook($connection) {
         

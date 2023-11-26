@@ -75,7 +75,21 @@
     return $stmt_delete_book;
   }
 
-  function deleteLinkedBook() {
-    $delete_linked_book_query = "DELETE FROM ";
+  function deleteLinkedBook($connection, $book_id) {
+    $delete_linked_book_query = "DELETE FROM book_author WHERE book_id = ?";
+    $stmt_delete_linked_book = $connection -> prepare($delete_linked_book_query);
+    $stmt_delete_linked_book -> bind_param("i", $book_id);
+    $stmt_delete_linked_book -> execute();
+
+    return $stmt_delete_linked_book;
+  }
+
+  function deleteSpecificAuthor($connection, $author_id) {
+    $delete_author_query = "DELETE FROM author WHERE author_id = ?";
+    $stmt_delete_author = $connection -> prepare($delete_author_query);
+    $stmt_delete_author -> bind_param("i", $author_id);
+    $stmt_delete_author -> execute();
+
+    return $stmt_delete_author;
   }
 ?>
