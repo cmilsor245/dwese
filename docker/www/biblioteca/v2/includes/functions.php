@@ -8,7 +8,7 @@
     return $result_selected_rows;
   }
 
-  function getEveryRowLinkTable($connection, $book_id) {
+  function getEveryAuthorInLinkTable($connection, $book_id) {
     $select_linked_authors_query = "SELECT author.name, author.last_name FROM book_author JOIN author ON book_author.author_id = author.author_id WHERE book_author.book_id = ?";
     $stmt_select_linked_authors = $connection -> prepare($select_linked_authors_query);
     $stmt_select_linked_authors -> bind_param("i", $book_id);
@@ -16,6 +16,15 @@
     $result_linked_authors = $stmt_select_linked_authors -> get_result();
 
     return $result_linked_authors;
+  }
+
+  function getEveryRowInLinkTable($connection) {
+    $select_linked_rows_query = "SELECT * FROM book_author";
+    $stmt_select_linked_rows = $connection -> prepare($select_linked_rows_query);
+    $stmt_select_linked_rows -> execute();
+    $result_linked_rows = $stmt_select_linked_rows -> get_result();
+
+    return $result_linked_rows;
   }
 
   function getAuthorList($connection) {

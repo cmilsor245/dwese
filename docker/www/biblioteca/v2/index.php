@@ -92,7 +92,7 @@
 
             $book_id = $book["book_id"];
 
-            $result_authors_linked = getEveryRowLinkTable($connection, $book_id);
+            $result_authors_linked = getEveryAuthorInLinkTable($connection, $book_id);
 
             while ($author = $result_authors_linked -> fetch_assoc()) {
               echo $author["name"] . " " . $author["last_name"] . "<br />";
@@ -367,6 +367,16 @@
       function removeAuthor($connection) {
         if (isset($_GET["author_id"])) {
           $author_id = $_GET["author_id"];
+
+          $result_linked_rows = getEveryRowInLinkTable($connection);
+
+          if ($result_linked_rows -> num_rows !== 0) {
+            echo "
+              <h3>no se puede eliminar el autor porque tiene libros asociados</h3>
+              <a class = \"cancel-button\" href = \"index.php\"><button>volver</button></a>
+            ";
+            return;
+          }
 
           $stmt_delete_author = deleteSpecificAuthor($connection, $author_id);
 
