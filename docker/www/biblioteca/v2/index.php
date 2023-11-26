@@ -368,7 +368,7 @@
         if (isset($_GET["author_id"])) {
           $author_id = $_GET["author_id"];
 
-          $result_linked_rows = getEveryRowInLinkTable($connection);
+          $result_linked_rows = getEveryRowInLinkTableWithAnAuthor($connection, $author_id);
 
           if ($result_linked_rows -> num_rows !== 0) {
             echo "

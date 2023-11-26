@@ -18,9 +18,10 @@
     return $result_linked_authors;
   }
 
-  function getEveryRowInLinkTable($connection) {
-    $select_linked_rows_query = "SELECT * FROM book_author";
+  function getEveryRowInLinkTableWithAnAuthor($connection, $author_id) {
+    $select_linked_rows_query = "SELECT * FROM book_author WHERE author_id = ?";
     $stmt_select_linked_rows = $connection -> prepare($select_linked_rows_query);
+    $stmt_select_linked_rows -> bind_param("i", $author_id);
     $stmt_select_linked_rows -> execute();
     $result_linked_rows = $stmt_select_linked_rows -> get_result();
 
