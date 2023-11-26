@@ -157,6 +157,8 @@
 
             <input type = \"submit\" value = \"insertar autor\" />
           </form>
+
+          <a class = \"cancel-button\" href = \"index.php\"><button>cancelar</button></a>
         ";
       }    
 
@@ -251,6 +253,8 @@
 
             <input type = \"submit\" value = \"insertar libro\" />
           </form>
+
+          <a class = \"cancel-button\" href = \"index.php\"><button>cancelar</button></a>
         ";
       }
 
@@ -353,8 +357,10 @@
 
             <input type = \"hidden\" name = \"action\" value = \"removeAuthor\" />
 
-            <input type = \"submit\" value = \"eliminar\" />
+            <input type = \"submit\" value = \"eliminar autor\" />
           </form>
+
+          <a class = \"cancel-button\" href = \"index.php\"><button>cancelar</button></a>
         ";
       }
 
@@ -369,6 +375,14 @@
               <h3>autor eliminado correctamente</h3>
               <a class = \"accept-button\" href = \"index.php\"><button>aceptar</button></a>
             ";
+
+            $author_list = getAuthorList($connection);
+
+            if ($author_list -> num_rows !== 0) {
+              echo "
+              <a class = \"one-more-button\" href = \"index.php?action=removeAuthorForm\"><button>eliminar otro autor</button></a>
+              ";
+            }
           } else {
             echo "
               <h3>ha ocurrido un error a la hora de eliminar el autor</h3>
