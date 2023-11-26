@@ -115,8 +115,8 @@
                 <td>" . $book["country"] . "</td>
                 <td>" . $book["year_published"] . "</td>
                 <td>" . $book["num_pages"] . "</td>
-                <td><a href = \"index.php?action=modifyBookForm&book_id=" . $book["book_id"] . "\">modificar</a></td>
-                <td><a href = \"index.php?action=removeBook&book_id=" . $book["book_id"] . "\">borrar</a></td>
+                <td><a href = \"index.php?action=modifyBookForm&book_id=" . $book["book_id"] . "\"><img src = \"icons/settings.png\" width = \"20\" height = \"20\" /></a></td>
+                <td><a href = \"index.php?action=removeBook&book_id=" . $book["book_id"] . "\"><img src = \"icons/trash.png\" width = \"20\" height = \"20\" /></a></td>
               </tr>
             ";
           }
@@ -592,8 +592,8 @@
                 <td>" . $book["country"] . "</td>
                 <td>" . $book["year_published"] . "</td>
                 <td>" . $book["num_pages"] . "</td>
-                <td><a href = \"index.php?action=modifyBookForm&book_id=" . $book["book_id"] . "\">modificar</a></td>
-                <td><a href = \"index.php?action=removeBook&book_id=" . $book["book_id"] . "\">borrar</a></td>
+                <td><a href = \"index.php?action=modifyBookForm&book_id=" . $book["book_id"] . "\"><img src = \"icons/settings.png\" width = \"20\" height = \"20\" /></a></td>
+                <td><a href = \"index.php?action=removeBook&book_id=" . $book["book_id"] . "\"><img src = \"icons/trash.png\" width = \"20\" height = \"20\" /></a></td>
               </tr>
             ";
           }
