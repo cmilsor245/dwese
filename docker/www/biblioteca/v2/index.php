@@ -242,8 +242,9 @@
 
         while ($author = $author_list -> fetch_assoc()) {
           $author_id = $author["author_id"];
-          $selected = in_array($author_id, isset($_GET["author"]) ? $_GET["author"] : []) ? "selected" : "";
-          echo "<option value = \"$author_id\" $selected>" . $author["name"] . " " . $author["last_name"] . "</option>";
+          $author_name = $author["name"];
+          $author_last_name = $author["last_name"];
+          echo "<option value = \"$author_id\">$author_name $author_last_name</option>";
         }
 
         echo "
@@ -373,7 +374,8 @@
           if ($result_linked_rows -> num_rows !== 0) {
             echo "
               <h3>no se puede eliminar el autor porque tiene libros asociados</h3>
-              <a class = \"cancel-button\" href = \"index.php\"><button>volver</button></a>
+              <a class = \"retry-button\" href = \"index.php?action=removeAuthorForm\"><button>intentarlo de nuevo</button></a>
+              <a class = \"cancel-button\" href = \"index.php\"><button>cancelar</button></a>
             ";
             return;
           }
@@ -396,7 +398,8 @@
           } else {
             echo "
               <h3>ha ocurrido un error a la hora de eliminar el autor</h3>
-              <a class = \"cancel-button\" href = \"index.php\"><button>volver</button></a>
+              <a class = \"retry-button\" href = \"index.php?action=removeAuthorForm\"><button>intentarlo de nuevo</button></a>
+              <a class = \"cancel-button\" href = \"index.php\"><button>cancelar</button></a>
             ";
           }
         } else {
@@ -442,8 +445,31 @@
             <label for = \"num_pages\">número de páginas</label>
             <input type = \"text\" name = \"num_pages\" value = \"$book_num_pages\" />
 
+            <label for = \"author\" type = \"number\">autor</label>
+            <select id = \"author\" name = \"author[]\" multiple>
+        ";
+
+        $author_list = getAuthorList($connection);
+
+        while ($author = $author_list -> fetch_assoc()) {
+          $author_id = $author["author_id"];
+          $author_name = $author["name"];
+          $author_last_name = $author["last_name"];
+
+          echo "
+            <option value = \"$author_id\">$author_name $author_last_name</option>
+          ";
+        }
+
+        echo "
             <input type = \"hidden\" name = \"book_id\" value = \"$book_id\" />
+
+            <input type = \"hidden\" name = \"action\" value = \"modifyBook\" />
+
+            <input type = \"submit\" value = \"modificar libro\" />
           </form>
+
+          <a class = \"cancel-button\" href = \"index.php\"><button>cancelar</button></a>
         ";
       }
 
