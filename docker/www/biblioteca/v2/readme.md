@@ -3,7 +3,7 @@ código utilizado para crear la base de datos:
 ```sql
 CREATE DATABASE bookstore_v2;
 
-USE bookstore;
+USE bookstore_v2;
 
 CREATE TABLE book (
   book_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -28,7 +28,7 @@ CREATE TABLE book_author (
 
 <!-- ---------------------------------------------------------------------- -->
 
-código para reiniciar la base de datos
+código para reiniciar la base de datos:
 
 ```sql
 DELETE FROM book;
