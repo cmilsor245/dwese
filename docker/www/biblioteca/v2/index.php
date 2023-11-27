@@ -246,16 +246,16 @@
             <label for = \"title\">titulo</label>
             <input id = \"title\" type = \"text\" name = \"title\" value = \"$new_book_title\" autofocus autocomplete = \"off\" onfocus = \"this.select()\" />
 
-            <label for = \"genre\" type = \"text\">género</label>
+            <label for = \"genre\" type = \"text\">genero</label>
             <input id = \"genre\" type = \"text\" name = \"genre\" value = \"$new_book_genre\" autocomplete = \"off\" onfocus = \"this.select()\" />
 
-            <label for = \"country\" type = \"text\">país</label>
+            <label for = \"country\" type = \"text\">pais</label>
             <input id = \"country\" type = \"text\" name = \"country\" value = \"$new_book_country\" autocomplete = \"off\" onfocus = \"this.select()\" />
 
-            <label for = \"year_published\" type = \"number\">año de publicación</label>
+            <label for = \"year_published\" type = \"number\">ano de publicacion</label>
             <input id = \"year_published\" type = \"number\" name = \"year_published\" value = \"$new_book_year_published\" autocomplete = \"off\" onfocus = \"this.select()\" />
 
-            <label for = \"num_pages\" type = \"number\">número de páginas</label>
+            <label for = \"num_pages\" type = \"number\">numero de paginas</label>
             <input id = \"num_pages\" type = \"number\" name = \"num_pages\" value = \"$new_book_num_pages\" autocomplete = \"off\" onfocus = \"this.select()\" />
 
             <label for = \"author\" type = \"number\">autor</label>
