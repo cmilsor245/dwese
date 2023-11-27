@@ -137,10 +137,10 @@
   function searchSpecificBook($connection, $book_title) {
     $search_book_query = "SELECT * FROM book WHERE LOWER(title) = ?";
 
-    $stmt_search_book = $connection->prepare($search_book_query);
-    $stmt_search_book->bind_param("s", $book_title);
-    $stmt_search_book->execute();
-    $book = $stmt_search_book->get_result();
+    $stmt_search_book = $connection -> prepare($search_book_query);
+    $stmt_search_book -> bind_param("s", $book_title);
+    $stmt_search_book -> execute();
+    $book = $stmt_search_book -> get_result();
 
     return $book;
   }
