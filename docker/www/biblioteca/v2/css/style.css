@@ -278,3 +278,8 @@ img {
 img:hover {
   transform: scale(1.18);
 }
+
+#search {
+  text-align: center;
+  margin-top: 5px;
+}

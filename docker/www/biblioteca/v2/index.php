@@ -70,7 +70,7 @@
         if ($result_books_exist -> num_rows !== 0) {
           echo "
             <form method = \"get\" action = \"index.php\">
-              <label for = \"search\">filtrar por titulo</label>
+              <label for = \"search\">filtrar por un elemento concreto</label>
               <input id = \"search\" type = \"text\" name = \"search-title\" autofocus autocomplete = \"off\" onfocus = \"this.select()\" />
 
               <input type = \"hidden\" name = \"action\" value = \"searchBook\" />
@@ -546,9 +546,9 @@
         $book_title = strtolower($_GET["search-title"]);
 
         echo "
-          <h1>filtro por título</h1>
+          <h1>filtro de libros</h1>
 
-          <h3>título seleccionado: <span class = \"search-book-title-span\">$book_title</span></h3>
+          <h3>búsqueda realizada: <span class = \"search-book-title-span\">$book_title</span></h3>
         ";
 
         $result_book_exists = searchSpecificBook($connection, $book_title);
@@ -606,7 +606,7 @@
           ";
         } else {
           echo "
-            <h3>no se ha encontrado un libro con ese título</h3>
+            <h3>no se ha encontrado un libro con el criterio de búsqueda</h3>
             <div class = \"button-container\"><a class = \"accept-button\" href = \"index.php\"><button>volver</button></a></div>
           ";
         }

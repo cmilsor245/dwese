@@ -134,13 +134,14 @@
     $stmt_delete_linked_book -> execute();
   }
 
-  function searchSpecificBook($connection, $book_title) {
-    $search_book_query = "SELECT * FROM book WHERE LOWER(title) = ? OR LOWER(genre) = ? OR LOWER(country) = ? OR LOWER(year_published) = ? OR LOWER(num_pages) = ?";
+  function searchSpecificBook($connection, $search_query) {
+    $search_book_query = "SELECT DISTINCT book.* FROM book LEFT JOIN book_author ON book.book_id = book_author.book_id LEFT JOIN author ON book_author.author_id = author.author_id WHERE LOWER(book.title) LIKE ? OR LOWER(book.genre) LIKE ? OR LOWER(book.country) LIKE ? OR LOWER(book.year_published) LIKE ? OR LOWER(book.num_pages) LIKE ? OR LOWER(author.name) LIKE ? OR LOWER(author.last_name) LIKE ? OR LOWER(CONCAT(author.name, \" \", author.last_name)) LIKE ?";
+    $search_param = "%" . strtolower($search_query) . "%";
     $stmt_search_book = $connection -> prepare($search_book_query);
-    $stmt_search_book -> bind_param("sssss", $book_title, $book_title, $book_title, $book_title, $book_title);
+    $stmt_search_book -> bind_param("ssssssss", $search_param, $search_param, $search_param, $search_param, $search_param, $search_param, $search_param, $search_param);
     $stmt_search_book -> execute();
-    $book = $stmt_search_book -> get_result();
+    $books = $stmt_search_book -> get_result();
 
-    return $book;
+    return $books;
   }
 ?>
