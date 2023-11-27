@@ -548,7 +548,7 @@
         echo "
           <h1>filtro por título</h1>
 
-          <h3>título seleciconado: <span class = \"search-book-title-span\">$book_title</span></h3>
+          <h3>título seleccionado: <span class = \"search-book-title-span\">$book_title</span></h3>
         ";
 
         $result_book_exists = searchSpecificBook($connection, $book_title);
