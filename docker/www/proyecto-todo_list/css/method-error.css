@@ -1,0 +1,27 @@
+.comeback-options {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.comeback-options button {
+  width: 210px;
+  height: 40px;
+  font-size: 18px;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-family: "plasmatic";
+  border-radius: 4px;
+  background-color: var(--method-button-bg);
+  color: var(--method-button-text);
+  border: none;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.comeback-options button:hover {
+  color: var(--method-button-hover-text);
+  transform: scale(1.05);
+}
