@@ -1,9 +1,9 @@
 <?
-  require_once "Persona.php";
+  require_once "Person.php";
 
-  $persona = new Persona("christian", "millán soria", 22);
+  $person = new Person("christian", "millán soria", 22);
 
-  $persona -> saludar();
+  $person -> greet();
 
-  echo "<br />" . $persona;
+  echo "<br />" . $person;
 ?>
