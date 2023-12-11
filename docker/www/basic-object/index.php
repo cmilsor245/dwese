@@ -1,5 +1,5 @@
 <?
-  include "Persona.php";
+  require_once "Persona.php";
 
   $persona = new Persona("christian", "millán soria", 22);
 
