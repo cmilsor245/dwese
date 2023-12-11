@@ -1,0 +1,9 @@
+<?
+  include "Persona.php";
+
+  $persona = new Persona("christian", "millán soria", 22);
+
+  $persona -> saludar();
+
+  echo "<br />" . $persona;
+?>
