@@ -46,5 +46,4 @@
   $lagarto -> cambiarPiel();
   $lagarto -> camuflarse();
   $lagarto -> emitirSonido();
-  echo "<hr />";
 ?>

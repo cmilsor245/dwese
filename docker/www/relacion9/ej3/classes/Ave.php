@@ -1,8 +1,6 @@
 <?
-  class Ave extends Animal {
-    public function getInfo() {
-      echo "este es un ave<br />";
-    }
+  abstract class Ave extends Animal {
+    abstract public function getInfo();
     
     public function volar() {
       echo "el ave está volando<br />";

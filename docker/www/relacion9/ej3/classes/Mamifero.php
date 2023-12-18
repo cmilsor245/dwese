@@ -1,8 +1,6 @@
 <?
-  class Mamifero extends Animal {
-    public function getInfo() {
-      echo "este es un mamífero<br />";
-    }
+  abstract class Mamifero extends Animal {
+    abstract public function getInfo();
 
     public function amamantar() {
       echo "el mamífero está amamantando a su cría<br />";

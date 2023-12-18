@@ -1,5 +1,5 @@
 <?
-  class Animal {
+  abstract class Animal {
     protected $nombre;
 
     public function __construct($nombre) {
@@ -18,8 +18,6 @@
       echo "el animal emite un sonido<br />";
     }
 
-    public function getInfo() {
-      echo "este es un animal<br />";
-    }
+    abstract public function getInfo();
   }
 ?>
