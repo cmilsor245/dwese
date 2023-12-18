@@ -5,9 +5,9 @@
     private $base;
     private $altura;
 
-    public function __construct($elemento1, $elemento2) {
-      $this -> setBase($elemento1);
-      $this -> setAltura($elemento2);
+    public function __construct($base, $altura) {
+      $this -> setBase($base);
+      $this -> setAltura($altura);
     }
 
     private function setBase($base) {
