@@ -1,4 +1,6 @@
 <?
+  require_once "Ave.php";
+
   class Pinguino extends Ave {
     public function getInfo() {
       echo "este es un pingüino<br />";

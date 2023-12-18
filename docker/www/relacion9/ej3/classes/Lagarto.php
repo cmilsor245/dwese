@@ -1,4 +1,6 @@
 <?
+  require_once "Animal.php";
+
   class Lagarto extends Animal {
     public function getInfo() {
       echo "este es un lagarto<br />";

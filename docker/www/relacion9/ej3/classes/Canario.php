@@ -1,4 +1,6 @@
 <?
+  require_once "Ave.php";
+
   class Canario extends Ave {
     public function getInfo() {
       echo "este es un canario<br />";

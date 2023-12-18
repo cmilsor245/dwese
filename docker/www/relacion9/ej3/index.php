@@ -1,9 +1,6 @@
 <?
-  require_once "classes/Animal.php";
-  require_once "classes/Mamifero.php";
   require_once "classes/Gato.php";
   require_once "classes/Perro.php";
-  require_once "classes/Ave.php";
   require_once "classes/Canario.php";
   require_once "classes/Pinguino.php";
   require_once "classes/Lagarto.php";
