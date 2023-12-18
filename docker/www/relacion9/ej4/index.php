@@ -1,5 +1,4 @@
 <?
-  require_once "classes/Poligono.php";
   require_once "classes/Triangulo.php";
   require_once "classes/Cuadrado.php";
   require_once "classes/Rectangulo.php";

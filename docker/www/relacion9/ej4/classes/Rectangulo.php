@@ -1,4 +1,6 @@
 <?
+  require_once "Poligono.php";
+
   class Rectangulo extends Poligono {
     private $base;
     private $altura;

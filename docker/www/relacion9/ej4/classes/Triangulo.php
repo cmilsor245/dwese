@@ -1,4 +1,6 @@
 <?
+  require_once "Poligono.php";
+
   class Triangulo extends Poligono {
     private $base;
     private $altura;
