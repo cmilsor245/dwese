@@ -1,4 +1,4 @@
-
+en esta versión se utiliza la clase objeto predeterminada creada por php
 
 ---
 
