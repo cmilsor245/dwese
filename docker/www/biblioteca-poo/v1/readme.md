@@ -1,4 +1,4 @@
-test
+
 
 ---
 
@@ -30,7 +30,7 @@ CREATE TABLE book_author (
 );
 ```
 
-<!-- ---------------------------------------------------------------------- -->
+---
 
 código para reiniciar la base de datos:
 
