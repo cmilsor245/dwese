@@ -94,29 +94,29 @@
               <tbody>
           ";
 
-          while ($book = $result_books_exist -> fetch_assoc()) {
+          while ($book = $result_books_exist -> fetch_object()) {
             echo "
               <tr>
-                <td>" . $book["title"] . "</td>
-                <td>" . $book["genre"] . "</td>
+                <td>" . $book -> title . "</td>
+                <td>" . $book -> genre . "</td>
                 <td>
             ";
 
-            $book_id = $book["book_id"];
+            $book_id = $book -> book_id;
 
             $result_authors_linked = getEveryAuthorInLinkTable($connection, $book_id);
 
-            while ($author = $result_authors_linked -> fetch_assoc()) {
-              echo $author["name"] . " " . $author["last_name"] . "<br />";
+            while ($author = $result_authors_linked -> fetch_object()) {
+              echo $author -> name . " " . $author -> last_name . "<br />";
             }
 
             echo "
                 </td>
-                <td>" . $book["country"] . "</td>
-                <td>" . $book["year_published"] . "</td>
-                <td>" . $book["num_pages"] . "</td>
-                <td><a href = \"index.php?action=modifyBookForm&book_id=" . $book["book_id"] . "\"><img src = \"icons/settings.png\" width = \"20\" height = \"20\" /></a></td>
-                <td><a href = \"index.php?action=removeBook&book_id=" . $book["book_id"] . "\"><img src = \"icons/trash.png\" width = \"20\" height = \"20\" /></a></td>
+                <td>" . $book -> country . "</td>
+                <td>" . $book -> year_published . "</td>
+                <td>" . $book -> num_pages . "</td>
+                <td><a href = \"index.php?action=modifyBookForm&book_id=" . $book -> book_id . "\"><img src = \"icons/settings.png\" width = \"20\" height = \"20\" /></a></td>
+                <td><a href = \"index.php?action=removeBook&book_id=" . $book -> book_id . "\"><img src = \"icons/trash.png\" width = \"20\" height = \"20\" /></a></td>
               </tr>
             ";
           }
@@ -185,8 +185,8 @@
         if ($_GET["name"] !== "" && $_GET["last_name"] !== "") {
           $author_list = getAuthorList($connection);
 
-          while ($author = $author_list -> fetch_assoc()) {
-            if ($author["name"] === $new_author_name && $author["last_name"] === $new_author_last_name) {
+          while ($author = $author_list -> fetch_object()) {
+            if ($author -> name === $new_author_name && $author -> last_name === $new_author_last_name) {
               echo "
                 <h3>el autor ya existe</h3>
                 <div class = \"button-container\">
@@ -264,10 +264,10 @@
 
         $author_list = $connection -> query("SELECT * FROM author");
 
-        while ($author = $author_list -> fetch_assoc()) {
-          $author_id = $author["author_id"];
-          $author_name = $author["name"];
-          $author_last_name = $author["last_name"];
+        while ($author = $author_list -> fetch_object()) {
+          $author_id = $author -> author_id;
+          $author_name = $author -> name;
+          $author_last_name = $author -> last_name;
           echo "<option value = \"$author_id\">$author_name $author_last_name</option>";
         }
 
@@ -294,8 +294,8 @@
         if ($new_book_title !== "" && $new_book_genre !== "" && $new_book_country !== "" && $new_book_year_published !== "" && $new_book_num_pages !== "" && isset($_GET["author"]) && !empty($_GET["author"])) {
           $books_list = getBookList($connection);
 
-          while ($book = $books_list -> fetch_assoc()) {
-            if ($book["title"] === $new_book_title && $book["genre"] === $new_book_genre && $book["country"] === $new_book_country && $book["year_published"] === $new_book_year_published && $book["num_pages"] === $new_book_num_pages) {
+          while ($book = $books_list -> fetch_object()) {
+            if ($book -> title === $new_book_title && $book -> genre === $new_book_genre && $book -> country === $new_book_country && $book -> year_published === $new_book_year_published && $book -> num_pages === $new_book_num_pages) {
               echo "
                 <h3>el libro ya existe</h3>
                 <div class = \"button-container\">
@@ -379,9 +379,9 @@
 
         $author_list = getAuthorList($connection);
 
-        while ($author = $author_list -> fetch_assoc()) {
+        while ($author = $author_list -> fetch_object()) {
           echo "
-            <option value = \"$author[author_id]\">$author[name] $author[last_name]</option>
+            <option value = \"" . $author -> id . "\">" . $author -> first_name . " " . $author -> last_name . "</option>
           ";
         }
 
@@ -456,13 +456,13 @@
 
         $specific_book = getSpecificBook($connection, $book_id);
 
-        $stmt_get_book_details = $specific_book -> fetch_assoc();
+        $stmt_get_book_details = $specific_book -> fetch_object();
 
-        $book_title = $stmt_get_book_details["title"];
-        $book_genre = $stmt_get_book_details["genre"];
-        $book_country = $stmt_get_book_details["country"];
-        $book_year_published = $stmt_get_book_details["year_published"];
-        $book_num_pages = $stmt_get_book_details["num_pages"];
+        $book_title = $stmt_get_book_details -> title;
+        $book_genre = $stmt_get_book_details -> genre;
+        $book_country = $stmt_get_book_details -> country;
+        $book_year_published = $stmt_get_book_details -> year_published;
+        $book_num_pages = $stmt_get_book_details -> num_pages;
 
         echo "
           <h1>modificar libro</h1>
@@ -489,10 +489,10 @@
 
         $author_list = getAuthorList($connection);
 
-        while ($author = $author_list -> fetch_assoc()) {
-          $author_id = $author["author_id"];
-          $author_name = $author["name"];
-          $author_last_name = $author["last_name"];
+        while ($author = $author_list -> fetch_object()) {
+          $author_id = $author -> id;
+          $author_name = $author -> name;
+          $author_last_name = $author -> last_name;
 
           echo "
             <option value = \"$author_id\">$author_name $author_last_name</option>
@@ -571,29 +571,29 @@
               <tbody>
           ";
 
-          while ($book = $result_book_exists -> fetch_assoc()) {
+          while ($book = $result_book_exists -> fetch_object()) {
             echo "
               <tr>
-                <td>" . $book["title"] . "</td>
-                <td>" . $book["genre"] . "</td>
+                <td>" . $book -> title . "</td>
+                <td>" . $book -> genre . "</td>
                 <td>
             ";
 
-            $book_id = $book["book_id"];
+            $book_id = $book -> book_id;
 
             $result_authors_linked = getEveryAuthorInLinkTable($connection, $book_id);
 
-            while ($author = $result_authors_linked -> fetch_assoc()) {
-              echo $author["name"] . " " . $author["last_name"] . "<br />";
+            while ($author = $result_authors_linked -> fetch_object()) {
+              echo $author -> name . " " . $author -> last_name . "<br />";
             }
 
             echo "
                 </td>
-                <td>" . $book["country"] . "</td>
-                <td>" . $book["year_published"] . "</td>
-                <td>" . $book["num_pages"] . "</td>
-                <td><a href = \"index.php?action=modifyBookForm&book_id=" . $book["book_id"] . "\"><img src = \"icons/settings.png\" width = \"20\" height = \"20\" /></a></td>
-                <td><a href = \"index.php?action=removeBook&book_id=" . $book["book_id"] . "\"><img src = \"icons/trash.png\" width = \"20\" height = \"20\" /></a></td>
+                <td>" . $book -> country . "</td>
+                <td>" . $book -> year_published . "</td>
+                <td>" . $book -> num_pages . "</td>
+                <td><a href = \"index.php?action=modifyBookForm&book_id=" . $book -> book_id . "\"><img src = \"icons/settings.png\" width = \"20\" height = \"20\" /></a></td>
+                <td><a href = \"index.php?action=removeBook&book_id=" . $book -> book_id . "\"><img src = \"icons/trash.png\" width = \"20\" height = \"20\" /></a></td>
               </tr>
             ";
           }
