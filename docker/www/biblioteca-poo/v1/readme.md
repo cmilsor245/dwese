@@ -5,7 +5,7 @@ en esta versión se utiliza la clase objeto predeterminada creada por php
 código utilizado para crear la base de datos:
 
 ```sql
-CREATE DATABASE bookstore_poo;
+CREATE DATABASE bookstore_poo_1;
 
 USE bookstore_poo;
 
