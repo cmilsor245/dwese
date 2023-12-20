@@ -1,21 +1,56 @@
 <?
+  require_once "classes/Book.php";
+  require_once "classes/Author.php";
+
   function getEveryRow($connection, $table) {
     $select_rows_query = "SELECT * FROM $table";
     $stmt_select_rows = $connection -> prepare($select_rows_query);
     $stmt_select_rows -> execute();
     $result_selected_rows = $stmt_select_rows -> get_result();
 
-    return $result_selected_rows;
+    $books = [];
+    while ($row = $result_selected_rows -> fetch_assoc()) {
+      $book = new Book(
+        $row["book_id"],
+        $row["title"],
+        $row["genre"],
+        $row["country"],
+        $row["year_published"],
+        $row["num_pages"]
+      );
+      array_push($books, $book);
+    }
+
+    return $books;
   }
 
   function getEveryAuthorInLinkTable($connection, $book_id) {
-    $select_linked_authors_query = "SELECT author.name, author.last_name FROM book_author JOIN author ON book_author.author_id = author.author_id WHERE book_author.book_id = ?";
-    $stmt_select_linked_authors = $connection -> prepare($select_linked_authors_query);
-    $stmt_select_linked_authors -> bind_param("i", $book_id);
-    $stmt_select_linked_authors -> execute();
-    $result_linked_authors = $stmt_select_linked_authors -> get_result();
+    $select_authors_query = "SELECT * FROM book_author WHERE book_id = ?";
+    $stmt_select_authors = $connection -> prepare($select_authors_query);
+    $stmt_select_authors -> bind_param("i", $book_id);
+    $stmt_select_authors -> execute();
+    $result_selected_authors = $stmt_select_authors -> get_result();
 
-    return $result_linked_authors;
+    $authors = [];
+    while ($row = $result_selected_authors -> fetch_assoc()) {
+      $author_id = $row["author_id"];
+      $select_author_query = "SELECT * FROM author WHERE author_id = ?";
+      $stmt_select_author = $connection -> prepare($select_author_query);
+      $stmt_select_author -> bind_param("i", $author_id);
+      $stmt_select_author -> execute();
+      $result_selected_author = $stmt_select_author -> get_result();
+
+      $row = $result_selected_author -> fetch_assoc();
+
+      $author = new Author(
+        $row["author_id"],
+        $row["name"],
+        $row["last_name"]
+      );
+      array_push($authors, $author);
+    }
+
+    return $authors;
   }
 
   function getEveryRowInLinkTableWithAnAuthor($connection, $author_id) {
