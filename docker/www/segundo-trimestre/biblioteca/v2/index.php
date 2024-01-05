@@ -22,7 +22,7 @@
       const HOST = "db";
       const USER = "root";
       const PASS = "test";
-      const DB_NAME = "bookstore_v1_2trimestre";
+      const DB_NAME = "bookstore_v2_2trimestre";
 
       $connection = new mysqli(HOST, USER, PASS, DB_NAME);
 
