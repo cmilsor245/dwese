@@ -12,6 +12,8 @@
   <body>
     <?
       include "includes/functions.php";
+      include "classes/Book.php";
+      include "classes/Author.php";
 
       if (isset($_REQUEST["action"])) {
         $action = $_REQUEST["action"];
