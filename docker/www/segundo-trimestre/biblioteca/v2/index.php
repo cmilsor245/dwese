@@ -96,7 +96,16 @@
               <tbody>
           ";
 
-          while ($book = $result_books_exist -> fetch_object()) {
+          while ($book_data = $result_books_exist -> fetch_object()) {
+            $book = new Book(
+              $book_data -> book_id,
+              $book_data -> title,
+              $book_data -> genre,
+              $book_data -> country,
+              $book_data -> year_published,
+              $book_data -> num_pages
+            );
+
             echo "
               <tr>
                 <td>" . $book -> title . "</td>
@@ -187,7 +196,13 @@
         if ($_GET["name"] !== "" && $_GET["last_name"] !== "") {
           $author_list = getAuthorList($connection);
 
-          while ($author = $author_list -> fetch_object()) {
+          while ($author_data = $author_list -> fetch_object()) {
+            $author = new Author(
+              $author_data -> author_id,
+              $author_data -> name,
+              $author_data -> last_name
+            );
+
             if ($author -> name === $new_author_name && $author -> last_name === $new_author_last_name) {
               echo "
                 <h3>el autor ya existe</h3>
@@ -200,9 +215,15 @@
             }
           }
 
-          $stmt_insert_author = insertNewAuthor($connection, $new_author_name, $new_author_last_name);
+          $new_author = new Author(
+            null,
+            $new_author_name,
+            $new_author_last_name
+          );
 
-          if ($stmt_insert_author -> affected_rows !== 0) {
+          $success = insertNewAuthor($connection, $new_author -> name, $new_author -> last_name);
+
+          if ($success) {
             echo "
               <h3>autor insertado correctamente</h3>
               <div  class = \"button-container\">
@@ -219,8 +240,6 @@
               </div>
             ";
           }
-
-          $stmt_insert_author -> close();
         } else {
           echo "
             <h3>deben proporcionarse tanto el nombre como el apellido del autor</h3>
@@ -266,7 +285,13 @@
 
         $author_list = $connection -> query("SELECT * FROM author");
 
-        while ($author = $author_list -> fetch_object()) {
+        while ($author_data = $author_list -> fetch_object()) {
+          $author = new Author(
+            $author_data -> author_id,
+            $author_data -> name,
+            $author_data -> last_name
+          );
+
           $author_id = $author -> author_id;
           $author_name = $author -> name;
           $author_last_name = $author -> last_name;
@@ -296,7 +321,16 @@
         if ($new_book_title !== "" && $new_book_genre !== "" && $new_book_country !== "" && $new_book_year_published !== "" && $new_book_num_pages !== "" && isset($_GET["author"]) && !empty($_GET["author"])) {
           $books_list = getBookList($connection);
 
-          while ($book = $books_list -> fetch_object()) {
+          while ($book_data = $books_list -> fetch_object()) {
+            $book = new Book(
+              $book_data -> book_id,
+              $book_data -> title,
+              $book_data -> genre,
+              $book_data -> country,
+              $book_data -> year_published,
+              $book_data -> num_pages
+            );
+
             if ($book -> title === $new_book_title && $book -> genre === $new_book_genre && $book -> country === $new_book_country && $book -> year_published === $new_book_year_published && $book -> num_pages === $new_book_num_pages) {
               echo "
                 <h3>el libro ya existe</h3>
@@ -309,13 +343,22 @@
             }
           }
 
-          $stmt_insert_book = insertNewBook($connection, $new_book_title, $new_book_genre, $new_book_country, $new_book_year_published, $new_book_num_pages);
+          $new_book = new Book(
+            null,
+            $new_book_title,
+            $new_book_genre,
+            $new_book_country,
+            $new_book_year_published,
+            $new_book_num_pages
+          );
+
+          $book_success = insertNewBook($connection, $new_book -> title, $new_book -> genre, $new_book -> country, $new_book -> year_published, $new_book -> num_pages);
 
           $book_id = $connection -> insert_id;
 
-          $stmt_insert_author = insertLinkedAuthorAndBook($connection, $selected_authors, $book_id);
+          $linked_author_book_success = insertLinkedAuthorAndBook($connection, $selected_authors, $book_id);
 
-          if ($stmt_insert_book -> affected_rows === 1 && $stmt_insert_author -> affected_rows > 0) {
+          if ($book_success && $linked_author_book_success -> affected_rows > 0) {
             echo "
               <h3>libro insertado correctamente</h3>
               <div class = \"button-container\">
@@ -332,9 +375,6 @@
               </div>
             ";
           }
-
-          $stmt_insert_book -> close();
-          $stmt_insert_author -> close();
         } else {
           echo "
             <h3>deben proporcionarse todos los datos del libro</h3>
@@ -381,7 +421,13 @@
 
         $author_list = getAuthorList($connection);
 
-        while ($author = $author_list -> fetch_object()) {
+        while ($author_data = $author_list -> fetch_object()) {
+          $author = new Author(
+            $author_data -> author_id,
+            $author_data -> name,
+            $author_data -> last_name
+          );
+
           echo "
             <option value = \"$author->author_id\">$author->name $author->last_name</option>
           ";
@@ -460,11 +506,20 @@
 
         $stmt_get_book_details = $specific_book -> fetch_object();
 
-        $book_title = $stmt_get_book_details -> title;
-        $book_genre = $stmt_get_book_details -> genre;
-        $book_country = $stmt_get_book_details -> country;
-        $book_year_published = $stmt_get_book_details -> year_published;
-        $book_num_pages = $stmt_get_book_details -> num_pages;
+        $book_to_be_modified = new Book(
+          $stmt_get_book_details -> book_id,
+          $stmt_get_book_details -> title,
+          $stmt_get_book_details -> genre,
+          $stmt_get_book_details -> country,
+          $stmt_get_book_details -> year_published,
+          $stmt_get_book_details -> num_pages
+        );
+
+        $book_title = $book_to_be_modified -> title;
+        $book_genre = $book_to_be_modified -> genre;
+        $book_country = $book_to_be_modified -> country;
+        $book_year_published = $book_to_be_modified -> year_published;
+        $book_num_pages = $book_to_be_modified -> num_pages;
 
         echo "
           <h1>modificar libro</h1>
@@ -491,7 +546,13 @@
 
         $author_list = getAuthorList($connection);
 
-        while ($author = $author_list -> fetch_object()) {
+        while ($author_data = $author_list -> fetch_object()) {
+          $author = new Author(
+            $author_data -> author_id,
+            $author_data -> name,
+            $author_data -> last_name
+          );
+
           $author_id = $author -> author_id;
           $author_name = $author -> name;
           $author_last_name = $author -> last_name;
@@ -573,7 +634,16 @@
               <tbody>
           ";
 
-          while ($book = $result_book_exists -> fetch_object()) {
+          while ($book_data = $result_book_exists -> fetch_object()) {
+            $book = new Book(
+              $book_data -> book_id,
+              $book_data -> title,
+              $book_data -> genre,
+              $book_data -> country,
+              $book_data -> year_published,
+              $book_data -> num_pages
+            );
+
             echo "
               <tr>
                 <td>" . $book -> title . "</td>
