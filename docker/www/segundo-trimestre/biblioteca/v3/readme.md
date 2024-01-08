@@ -1,9 +1,9 @@
 código utilizado para crear la base de datos:
 
 ```sql
-CREATE DATABASE bookstore_v2_2trimestre;
+CREATE DATABASE bookstore_v3_2trimestre;
 
-USE bookstore_v2_2trimestre;
+USE bookstore_v3_2trimestre;
 
 CREATE TABLE book (
   book_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
