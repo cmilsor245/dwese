@@ -108,12 +108,12 @@
 
             echo "
               <tr>
-                <td>" . $book -> title . "</td>
-                <td>" . $book -> genre . "</td>
+                <td>" . $book -> getTitle() . "</td>
+                <td>" . $book -> getGenre() . "</td>
                 <td>
             ";
 
-            $book_id = $book -> book_id;
+            $book_id = $book -> getBookId();
 
             $result_authors_linked = getEveryAuthorInLinkTable($connection, $book_id);
 
@@ -123,11 +123,11 @@
 
             echo "
                 </td>
-                <td>" . $book -> country . "</td>
-                <td>" . $book -> year_published . "</td>
-                <td>" . $book -> num_pages . "</td>
-                <td><a href = \"index.php?action=modifyBookForm&book_id=" . $book -> book_id . "\"><img src = \"icons/settings.png\" width = \"20\" height = \"20\" /></a></td>
-                <td><a href = \"index.php?action=removeBook&book_id=" . $book -> book_id . "\"><img src = \"icons/trash.png\" width = \"20\" height = \"20\" /></a></td>
+                <td>" . $book -> getCountry() . "</td>
+                <td>" . $book -> getYear() . "</td>
+                <td>" . $book -> getPages() . "</td>
+                <td><a href = \"index.php?action=modifyBookForm&book_id=" . $book -> getBookId() . "\"><img src = \"icons/settings.png\" width = \"20\" height = \"20\" /></a></td>
+                <td><a href = \"index.php?action=removeBook&book_id=" . $book -> getBookId() . "\"><img src = \"icons/trash.png\" width = \"20\" height = \"20\" /></a></td>
               </tr>
             ";
           }
@@ -203,7 +203,7 @@
               $author_data -> last_name
             );
 
-            if ($author -> name === $new_author_name && $author -> last_name === $new_author_last_name) {
+            if ($author -> getName() === $new_author_name && $author -> getLastName() === $new_author_last_name) {
               echo "
                 <h3>el autor ya existe</h3>
                 <div class = \"button-container\">
@@ -221,7 +221,7 @@
             $new_author_last_name
           );
 
-          $success = insertNewAuthor($connection, $new_author -> name, $new_author -> last_name);
+          $success = insertNewAuthor($connection, $new_author -> getName(), $new_author -> getLastName());
 
           if ($success) {
             echo "
@@ -292,9 +292,9 @@
             $author_data -> last_name
           );
 
-          $author_id = $author -> author_id;
-          $author_name = $author -> name;
-          $author_last_name = $author -> last_name;
+          $author_id = $author -> getAuthorId();
+          $author_name = $author -> getName();
+          $author_last_name = $author -> getLastName();
           echo "<option value = \"$author_id\">$author_name $author_last_name</option>";
         }
 
@@ -331,7 +331,7 @@
               $book_data -> num_pages
             );
 
-            if ($book -> title === $new_book_title && $book -> genre === $new_book_genre && $book -> country === $new_book_country && $book -> year_published === $new_book_year_published && $book -> num_pages === $new_book_num_pages) {
+            if ($book -> getTitle() === $new_book_title && $book -> getGenre() === $new_book_genre && $book -> getCountry() === $new_book_country && $book -> getYear() === $new_book_year_published && $book -> getPages() === $new_book_num_pages) {
               echo "
                 <h3>el libro ya existe</h3>
                 <div class = \"button-container\">
@@ -352,7 +352,7 @@
             $new_book_num_pages
           );
 
-          $book_success = insertNewBook($connection, $new_book -> title, $new_book -> genre, $new_book -> country, $new_book -> year_published, $new_book -> num_pages);
+          $book_success = insertNewBook($connection, $new_book -> getTitle(), $new_book -> getGenre(), $new_book -> getCountry(), $new_book -> getYear(), $new_book -> getPages());
 
           $book_id = $connection -> insert_id;
 
@@ -429,7 +429,7 @@
           );
 
           echo "
-            <option value = \"$author->author_id\">$author->name $author->last_name</option>
+            <option value = \"" . $author -> getAuthorId() . "\">" . $author -> getName() . " " . $author -> getLastName() . "</option>
           ";
         }
 
@@ -515,11 +515,11 @@
           $stmt_get_book_details -> num_pages
         );
 
-        $book_title = $book_to_be_modified -> title;
-        $book_genre = $book_to_be_modified -> genre;
-        $book_country = $book_to_be_modified -> country;
-        $book_year_published = $book_to_be_modified -> year_published;
-        $book_num_pages = $book_to_be_modified -> num_pages;
+        $book_title = $book_to_be_modified -> getTitle();
+        $book_genre = $book_to_be_modified -> getGenre();
+        $book_country = $book_to_be_modified -> getCountry();
+        $book_year_published = $book_to_be_modified -> getYear();
+        $book_num_pages = $book_to_be_modified -> getPages();
 
         echo "
           <h1>modificar libro</h1>
@@ -553,9 +553,9 @@
             $author_data -> last_name
           );
 
-          $author_id = $author -> author_id;
-          $author_name = $author -> name;
-          $author_last_name = $author -> last_name;
+          $author_id = $author -> getAuthorId();
+          $author_name = $author -> getName();
+          $author_last_name = $author -> getLastName();
 
           echo "
             <option value = \"$author_id\">$author_name $author_last_name</option>
@@ -646,12 +646,12 @@
 
             echo "
               <tr>
-                <td>" . $book -> title . "</td>
-                <td>" . $book -> genre . "</td>
+                <td>" . $book -> getTitle() . "</td>
+                <td>" . $book -> getGenre() . "</td>
                 <td>
             ";
 
-            $book_id = $book -> book_id;
+            $book_id = $book -> getBookId();
 
             $result_authors_linked = getEveryAuthorInLinkTable($connection, $book_id);
 
@@ -661,11 +661,11 @@
 
             echo "
                 </td>
-                <td>" . $book -> country . "</td>
-                <td>" . $book -> year_published . "</td>
-                <td>" . $book -> num_pages . "</td>
-                <td><a href = \"index.php?action=modifyBookForm&book_id=" . $book -> book_id . "\"><img src = \"icons/settings.png\" width = \"20\" height = \"20\" /></a></td>
-                <td><a href = \"index.php?action=removeBook&book_id=" . $book -> book_id . "\"><img src = \"icons/trash.png\" width = \"20\" height = \"20\" /></a></td>
+                <td>" . $book -> getCountry() . "</td>
+                <td>" . $book -> getYear() . "</td>
+                <td>" . $book -> getPages() . "</td>
+                <td><a href = \"index.php?action=modifyBookForm&book_id=" . $book -> getBookId() . "\"><img src = \"icons/settings.png\" width = \"20\" height = \"20\" /></a></td>
+                <td><a href = \"index.php?action=removeBook&book_id=" . $book -> getBookId() . "\"><img src = \"icons/trash.png\" width = \"20\" height = \"20\" /></a></td>
               </tr>
             ";
           }

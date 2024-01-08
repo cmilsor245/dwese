@@ -1,11 +1,11 @@
 <?
   class Book {
-    public $book_id;
-    public $title;
-    public $genre;
-    public $country;
-    public $year_published;
-    public $num_pages;
+    private $book_id;
+    private $title;
+    private $genre;
+    private $country;
+    private $year_published;
+    private $num_pages;
 
     public function __construct($book_id, $title, $genre, $country, $year, $pages) {
       $this -> book_id = $book_id;

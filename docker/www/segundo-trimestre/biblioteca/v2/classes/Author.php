@@ -1,8 +1,8 @@
 <?
   class Author {
-    public $author_id;
-    public $name;
-    public $last_name;
+    private $author_id;
+    private $name;
+    private $last_name;
 
     public function __construct($author_id, $name, $last_name) {
       $this -> author_id = $author_id;
