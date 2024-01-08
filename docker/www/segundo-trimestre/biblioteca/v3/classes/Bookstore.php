@@ -42,38 +42,29 @@
             <tbody>
         ";
 
-        while ($book_data = $result_books_exist -> fetch_object()) {
-          $book = new Book(
-            $book_data -> book_id,
-            $book_data -> title,
-            $book_data -> genre,
-            $book_data -> country,
-            $book_data -> year_published,
-            $book_data -> num_pages
-          );
-
+        while ($book_data = $result_books_exist -> fetch_object("Book")) {
           echo "
             <tr>
-              <td>" . $book -> getTitle() . "</td>
-              <td>" . $book -> getGenre() . "</td>
+              <td>" . $book_data -> getTitle() . "</td>
+              <td>" . $book_data -> getGenre() . "</td>
               <td>
           ";
 
-          $book_id = $book -> getBookId();
+          $book_id = $book_data -> getBookId();
 
           $result_authors_linked = getEveryAuthorInLinkTable($this -> connection, $book_id);
 
-          while ($author = $result_authors_linked -> fetch_object()) {
+          while ($author = $result_authors_linked -> fetch_object("Author")) {
             echo $author -> name . " " . $author -> last_name . "<br />";
           }
 
           echo "
               </td>
-              <td>" . $book -> getCountry() . "</td>
-              <td>" . $book -> getYear() . "</td>
-              <td>" . $book -> getPages() . "</td>
-              <td><a href = \"index.php?action=modifyBookForm&book_id=" . $book -> getBookId() . "\"><img src = \"icons/settings.png\" width = \"20\" height = \"20\" /></a></td>
-              <td><a href = \"index.php?action=removeBook&book_id=" . $book -> getBookId() . "\"><img src = \"icons/trash.png\" width = \"20\" height = \"20\" /></a></td>
+              <td>" . $book_data -> getCountry() . "</td>
+              <td>" . $book_data -> getYear() . "</td>
+              <td>" . $book_data -> getPages() . "</td>
+              <td><a href = \"index.php?action=modifyBookForm&book_id=" . $book_data -> getBookId() . "\"><img src = \"icons/settings.png\" width = \"20\" height = \"20\" /></a></td>
+              <td><a href = \"index.php?action=removeBook&book_id=" . $book_data -> getBookId() . "\"><img src = \"icons/trash.png\" width = \"20\" height = \"20\" /></a></td>
             </tr>
           ";
         }
@@ -144,14 +135,8 @@
       if ($_GET["name"] !== "" && $_GET["last_name"] !== "") {
         $author_list = getAuthorList($this -> connection);
 
-        while ($author_data = $author_list -> fetch_object()) {
-          $author = new Author(
-            $author_data -> author_id,
-            $author_data -> name,
-            $author_data -> last_name
-          );
-
-          if ($author -> getName() === $new_author_name && $author -> getLastName() === $new_author_last_name) {
+        while ($author_data = $author_list -> fetch_object("Author")) {
+          if ($author_data -> getName() === $new_author_name && $author_data -> getLastName() === $new_author_last_name) {
             echo "
               <h3>el autor ya existe</h3>
               <div class = \"button-container\">
@@ -233,16 +218,10 @@
 
       $author_list = $this -> connection -> query("SELECT * FROM author");
 
-      while ($author_data = $author_list -> fetch_object()) {
-        $author = new Author(
-          $author_data -> author_id,
-          $author_data -> name,
-          $author_data -> last_name
-        );
-
-        $author_id = $author -> getAuthorId();
-        $author_name = $author -> getName();
-        $author_last_name = $author -> getLastName();
+      while ($author_data = $author_list -> fetch_object("Author")) {
+        $author_id = $author_data -> getAuthorId();
+        $author_name = $author_data -> getName();
+        $author_last_name = $author_data -> getLastName();
         echo "<option value = \"$author_id\">$author_name $author_last_name</option>";
       }
 
@@ -271,17 +250,8 @@
       if ($new_book_title !== "" && $new_book_genre !== "" && $new_book_country !== "" && $new_book_year_published !== "" && $new_book_num_pages !== "" && isset($_GET["author"]) && !empty($_GET["author"])) {
         $books_list = getBookList($this -> connection);
 
-        while ($book_data = $books_list -> fetch_object()) {
-          $book = new Book(
-            $book_data -> book_id,
-            $book_data -> title,
-            $book_data -> genre,
-            $book_data -> country,
-            $book_data -> year_published,
-            $book_data -> num_pages
-          );
-
-          if ($book -> getTitle() === $new_book_title && $book -> getGenre() === $new_book_genre && $book -> getCountry() === $new_book_country && $book -> getYear() === $new_book_year_published && $book -> getPages() === $new_book_num_pages) {
+        while ($book_data = $books_list -> fetch_object("Book")) {
+          if ($book_data -> getTitle() === $new_book_title && $book_data -> getGenre() === $new_book_genre && $book_data -> getCountry() === $new_book_country && $book_data -> getYear() === $new_book_year_published && $book_data -> getPages() === $new_book_num_pages) {
             echo "
               <h3>el libro ya existe</h3>
               <div class = \"button-container\">
@@ -371,15 +341,9 @@
 
       $author_list = getAuthorList($this -> connection);
 
-      while ($author_data = $author_list -> fetch_object()) {
-        $author = new Author(
-          $author_data -> author_id,
-          $author_data -> name,
-          $author_data -> last_name
-        );
-
+      while ($author_data = $author_list -> fetch_object("Author")) {
         echo "
-          <option value = \"" . $author -> getAuthorId() . "\">" . $author -> getName() . " " . $author -> getLastName() . "</option>
+          <option value = \"" . $author_data -> getAuthorId() . "\">" . $author_data -> getName() . " " . $author_data -> getLastName() . "</option>
         ";
       }
 
@@ -456,22 +420,13 @@
 
       $specific_book = getSpecificBook($this -> connection, $book_id);
 
-      $stmt_get_book_details = $specific_book -> fetch_object();
+      $stmt_get_book_details = $specific_book -> fetch_object("Book");
 
-      $book_to_be_modified = new Book(
-        $stmt_get_book_details -> book_id,
-        $stmt_get_book_details -> title,
-        $stmt_get_book_details -> genre,
-        $stmt_get_book_details -> country,
-        $stmt_get_book_details -> year_published,
-        $stmt_get_book_details -> num_pages
-      );
-
-      $book_title = $book_to_be_modified -> getTitle();
-      $book_genre = $book_to_be_modified -> getGenre();
-      $book_country = $book_to_be_modified -> getCountry();
-      $book_year_published = $book_to_be_modified -> getYear();
-      $book_num_pages = $book_to_be_modified -> getPages();
+      $book_title = $stmt_get_book_details -> getTitle();
+      $book_genre = $stmt_get_book_details -> getGenre();
+      $book_country = $stmt_get_book_details -> getCountry();
+      $book_year_published = $stmt_get_book_details -> getYear();
+      $book_num_pages = $stmt_get_book_details -> getPages();
 
       echo "
         <h1>modificar libro</h1>
@@ -498,16 +453,10 @@
 
       $author_list = getAuthorList($this -> connection);
 
-      while ($author_data = $author_list -> fetch_object()) {
-        $author = new Author(
-          $author_data -> author_id,
-          $author_data -> name,
-          $author_data -> last_name
-        );
-
-        $author_id = $author -> getAuthorId();
-        $author_name = $author -> getName();
-        $author_last_name = $author -> getLastName();
+      while ($author_data = $author_list -> fetch_object("Author")) {
+        $author_id = $author_data -> getAuthorId();
+        $author_name = $author_data -> getName();
+        $author_last_name = $author_data -> getLastName();
 
         echo "
           <option value = \"$author_id\">$author_name $author_last_name</option>
@@ -588,24 +537,15 @@
             <tbody>
         ";
 
-        while ($book_data = $result_book_exists -> fetch_object()) {
-          $book = new Book(
-            $book_data -> book_id,
-            $book_data -> title,
-            $book_data -> genre,
-            $book_data -> country,
-            $book_data -> year_published,
-            $book_data -> num_pages
-          );
-
+        while ($book_data = $result_book_exists -> fetch_object("Book")) {
           echo "
             <tr>
-              <td>" . $book -> getTitle() . "</td>
-              <td>" . $book -> getGenre() . "</td>
+              <td>" . $book_data -> getTitle() . "</td>
+              <td>" . $book_data -> getGenre() . "</td>
               <td>
           ";
 
-          $book_id = $book -> getBookId();
+          $book_id = $book_data -> getBookId();
 
           $result_authors_linked = getEveryAuthorInLinkTable($this -> connection, $book_id);
 
@@ -615,11 +555,11 @@
 
           echo "
               </td>
-              <td>" . $book -> getCountry() . "</td>
-              <td>" . $book -> getYear() . "</td>
-              <td>" . $book -> getPages() . "</td>
-              <td><a href = \"index.php?action=modifyBookForm&book_id=" . $book -> getBookId() . "\"><img src = \"icons/settings.png\" width = \"20\" height = \"20\" /></a></td>
-              <td><a href = \"index.php?action=removeBook&book_id=" . $book -> getBookId() . "\"><img src = \"icons/trash.png\" width = \"20\" height = \"20\" /></a></td>
+              <td>" . $book_data -> getCountry() . "</td>
+              <td>" . $book_data -> getYear() . "</td>
+              <td>" . $book_data -> getPages() . "</td>
+              <td><a href = \"index.php?action=modifyBookForm&book_id=" . $book_data -> getBookId() . "\"><img src = \"icons/settings.png\" width = \"20\" height = \"20\" /></a></td>
+              <td><a href = \"index.php?action=removeBook&book_id=" . $book_data -> getBookId() . "\"><img src = \"icons/trash.png\" width = \"20\" height = \"20\" /></a></td>
             </tr>
           ";
         }
