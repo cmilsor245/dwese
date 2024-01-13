@@ -1,0 +1,251 @@
+:root {
+  --page-background-color: #cecece;
+  --title-color: #cc4b01ce;
+  --table-border: 3px solid #b35900;
+  --th-background: #c9c9c9b6;
+  --td-border: 1px solid #ddd;
+  --even-background: #d38436d5;
+  --even-background-full-opacity: #d38436;
+  --odd-background: #a36c35e3;
+  --odd-background-full-opacity: #9c6935;
+  --button-background: #cacaca;
+  --button-color: #242424;
+  --input-text-background: #d3843681;
+  --input-text-border: 4px solid #ddd;
+  --gear-color: #161212;
+}
+
+@font-face {
+  font-family: "3d";
+  src: url("../fonts/3d/3d.ttf");
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: "goldena";
+  src: url("../fonts/goldena/goldena.ttf");
+}
+
+@font-face {
+  font-family: "wallingtonregular-pyk7";
+  src: url("../fonts/wallingtonregular-pyk7/wallingtonregular-pyk7.ttf");
+}
+
+@font-face {
+  font-family: "enya";
+  src: url("../fonts/enya/enya.otf");
+  font-weight: bold;
+}
+
+::selection {
+  background-color: var(--title-color);
+  color: var(--page-background-color);
+}
+
+* {
+  cursor: default;
+}
+
+body {
+  background-color: var(--page-background-color);
+}
+
+h1 {
+  text-align: center;
+  text-transform: uppercase;
+  font-family: "3d";
+  font-size: 53px;
+  margin-top: auto;
+  margin-bottom: 36px !important;
+  color: var(--title-color);
+  text-decoration: underline transparent dashed;
+  transition: .19s;
+  width: fit-content;
+  margin: 0 auto;
+}
+
+h1:hover {
+  text-decoration-color: var(--title-color);
+  transform: scale(1.06);
+}
+
+table {
+  border-collapse: collapse;
+  width: 50%;
+  font-family: Arial, sans-serif;
+  border: var(--table-border);
+  margin: 0 auto;
+  text-align: center;
+}
+
+table th {
+  background-color: var(--th-background);
+  border: var(--td-border);
+  padding: 8px;
+  text-transform: uppercase;
+  font-family: "goldena";
+  letter-spacing: 1px;
+}
+
+table td {
+  border: var(--td-border);
+  padding: 8px;
+  font-family: "wallingtonregular-pyk7";
+  font-weight: bold;
+}
+
+table tbody tr:nth-child(even) {
+  background-color: var(--even-background);
+  transition: .14s;
+}
+
+table tbody tr:nth-child(odd) {
+  background-color: var(--odd-background);
+  transition: .14s;
+}
+
+table tbody tr:nth-child(even):hover, table tbody tr:nth-child(odd):hover {
+  transform: scale(1.01);
+  box-shadow: 0 0 10px #000000;
+}
+
+table tbody tr:nth-child(even):hover {
+  background-color: var(--even-background-full-opacity);
+  transition: .155s;
+}
+
+table tbody tr:nth-child(odd):hover {
+  background-color: var(--odd-background-full-opacity);
+  transition: .155s;
+}
+
+#modify-book-gear {
+  color: var(--gear-color) !important;
+  transition: .2s;
+}
+
+#modify-book-gear:hover {
+  transform: scale(1.27);
+}
+
+#modify-book-gear:active {
+  transform: scale(.9);
+}
+
+h3 {
+  text-align: center;
+  text-transform: uppercase;
+  font-family: "enya";
+  font-size: 27px;
+  cursor: not-allowed;
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.button-container {
+  text-align: center;
+}
+
+a {
+  text-decoration: none;
+  display: inline-block;
+  width: fit-content;
+}
+
+button {
+  display: inline-block;
+  margin: 0 auto;
+  margin-top: 35px;
+  cursor: pointer;
+  background-color: var(--button-background);
+  color: var(--button-color);
+  height: 30px;
+  text-decoration: none;
+  transition: .19s;
+  text-transform: uppercase;
+  border-radius: 4px;
+}
+
+button:hover {
+  background-color: var(--button-color);
+  color: var(--button-background);
+  border-color: var(--button-background);
+  font-weight: bold;
+}
+
+#no-authors-h3 {
+  margin-top: 50px;
+}
+
+form {
+  border-collapse: collapse;
+  width: 50%;
+  font-family: Arial, sans-serif;
+  margin: 0 auto;
+  text-align: center;
+}
+
+form label {
+  text-transform: uppercase;
+  font-family: "goldena";
+  letter-spacing: 1px;
+  font-weight: bold;
+}
+
+form input[type = "text"], form select {
+  padding: 8px;
+  font-family: "wallingtonregular-pyk7";
+  font-weight: bold;
+  margin-bottom: 10px;
+  cursor: text;
+  border-radius: 6px;
+  background-color: var(--input-text-background);
+  border: var(--input-text-border);
+  padding: 26px;
+  text-align: center;
+}
+
+form input[type = "text"]:focus, form select:focus {
+  border-radius: 3px;
+}
+
+form select {
+  width: fit-content;
+  cursor: pointer;
+  text-transform: capitalize;
+}
+
+#invalid-option {
+  color: #ebebeb;
+}
+
+form select option {
+  text-align: center;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+form button[type = "submit"], form button {
+  display: inline-block;
+  margin: 0 auto;
+  margin-top: 35px;
+  cursor: pointer;
+  background-color: var(--button-background);
+  color: var(--button-color);
+  height: 30px;
+  text-decoration: none;
+  transition: .19s;
+  text-transform: uppercase;
+  border-radius: 4px;
+}
+
+form button:hover {
+  background-color: var(--button-color);
+  color: var(--button-background);
+  border-color: var(--button-background);
+  font-weight: bold;
+}
+
+.success {
+  cursor: crosshair;
+}

@@ -1,0 +1,50 @@
+#two-ways-container {
+  display: flex;
+  justify-content: center;
+  gap: 100px;
+}
+
+#two-ways-container .option-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 270px;
+  height: 270px;
+  background-color: var(--card-bg);
+  padding: 1rem;
+  border-radius: 30px;
+  box-shadow: 0 4px 8px var(--dark-shadow);
+  transition: .13s;
+}
+
+#two-ways-container .option-container:hover {
+  transform: scale(1.06);
+  box-shadow: 0 9px 8px var(--dark-shadow);
+}
+
+#two-ways-container .option-container img {
+  width: 90px;
+  height: 90px;
+  margin-bottom: 50px;
+}
+
+#two-ways-container .option-container button {
+  width: 190px;
+  height: 40px;
+  font-size: 18px;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-family: "plasmatic";
+  border-radius: 4px;
+  background-color: var(--method-button-bg);
+  color: var(--method-button-text);
+  border: none;
+  cursor: pointer;
+  transition: .2s;
+}
+
+#two-ways-container .option-container button:hover {
+  color: var(--method-button-hover-text);
+  transform: scale(1.05);
+}
