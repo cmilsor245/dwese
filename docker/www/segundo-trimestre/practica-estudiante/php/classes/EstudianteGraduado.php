@@ -5,7 +5,6 @@
     public function __construct($nombre, $edad, $curso, $nivel) {
       parent::__construct($nombre, $edad, $curso);
       $this -> nivel = $nivel;
-      $this -> comprobacionNivel($nivel);
     }
 
     public function getNivel() {

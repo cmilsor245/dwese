@@ -1,4 +1,4 @@
-código utilizado para la creación de la base de datos:
+# código utilizado para la creación de la base de datos:
 
 ```sql
 CREATE DATABASE IF NOT EXISTS tareas;
@@ -26,9 +26,9 @@ CREATE TABLE IF NOT EXISTS usuarios_tarea (
 );
 ```
 
-<!-- ---------------------------------------------------------------------- -->
+---
 
-código para reiniciar la base de datos:
+# código para reiniciar la base de datos:
 
 ```sql
 DELETE FROM usuarios_tarea;

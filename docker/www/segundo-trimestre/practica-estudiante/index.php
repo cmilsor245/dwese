@@ -14,11 +14,11 @@
   $estudiante2 -> agregarNota(9);
 
   echo '
-    El primer estudiante se llama <strong>'. $estudiante1 -> getNombre(). '</strong> y tiene <strong>'. $estudiante1 -> getEdad() . '</strong> años. Su curso es <strong>' . $estudiante1 -> getCurso() . '</strong>. Su nota media es de <strong>'. $estudiante1 -> obtenerMedia() . '</strong>.
+    El primer estudiante se llama <strong>' . $estudiante1 -> getNombre() . '</strong> y tiene <strong>' . $estudiante1 -> getEdad() . '</strong> años. Su curso es <strong>' . $estudiante1 -> getCurso() . '</strong>. Su nota media es de <strong>' . $estudiante1 -> obtenerMedia() . '</strong>.
 
     <br /><br />
 
-    El segundo estudiante se llama <strong>'. $estudiante2 -> getNombre(). '</strong> y tiene <strong>'. $estudiante2 -> getEdad() . '</strong> años. Su curso es <strong>' . $estudiante2 -> getCurso() . '</strong>. Su nota media es de <strong>'. $estudiante2 -> obtenerMedia(). '</strong>.
+    El segundo estudiante se llama <strong>' . $estudiante2 -> getNombre() . '</strong> y tiene <strong>' . $estudiante2 -> getEdad() . '</strong> años. Su curso es <strong>' . $estudiante2 -> getCurso() . '</strong>. Su nota media es de <strong>' . $estudiante2 -> obtenerMedia() . '</strong>.
   ';
 
   /* --------------------------------------------------------------------------------------------------------------------------------- */
@@ -37,11 +37,11 @@
   echo '
     <hr />
 
-    El primer estudiante graduado se llama <strong>'. $estudiante_graduado1 -> getNombre(). '</strong> y tiene <strong>'. $estudiante_graduado1 -> getEdad().'</strong> años. Su curso es <strong>' . $estudiante_graduado1 -> getCurso() . '</strong>. Su nota media es de <strong>'. $estudiante_graduado1 -> obtenerMedia(). '</strong>. Su nivel es <strong>'. $estudiante_graduado1 -> getNivel() . '</strong>.
+    El primer estudiante graduado se llama <strong>' . $estudiante_graduado1 -> getNombre() . '</strong> y tiene <strong>'. $estudiante_graduado1 -> getEdad() . '</strong> años. Su curso es <strong>' . $estudiante_graduado1 -> getCurso() . '</strong>. Su nota media es de <strong>' . $estudiante_graduado1 -> obtenerMedia() . '</strong>. Su nivel es <strong>' . $estudiante_graduado1 -> getNivel() . '</strong>.
 
     <br /><br />
 
-    El segundo estudiante graduado se llama <strong>'. $estudiante_graduado2 -> getNombre(). '</strong> y tiene <strong>'. $estudiante_graduado2 -> getEdad().'</strong> años. Su curso es <strong>' . $estudiante_graduado2 -> getCurso() . '</strong>. Su nota media es de <strong>'. $estudiante_graduado2 -> obtenerMedia(). '</strong>. Su nivel es <strong>'. $estudiante_graduado2 -> getNivel() . '</strong>.
+    El segundo estudiante graduado se llama <strong>'. $estudiante_graduado2 -> getNombre() . '</strong> y tiene <strong>' . $estudiante_graduado2 -> getEdad() . '</strong> años. Su curso es <strong>' . $estudiante_graduado2 -> getCurso() . '</strong>. Su nota media es de <strong>' . $estudiante_graduado2 -> obtenerMedia() . '</strong>. Su nivel es <strong>'. $estudiante_graduado2 -> getNivel() . '</strong>.
   ';
 
   /* --------------------------------------------------------------------------------------------------------------------------------- */
@@ -56,16 +56,16 @@
   echo '
     <hr />
 
-    El tercer estudiante graduado se llama <strong>'. $estudiante_graduado3 -> getNombre(). '</strong> y tiene <strong>'. $estudiante_graduado3 -> getEdad().'</strong> años. Su curso es <strong>' . $estudiante_graduado3 -> getCurso() . '</strong>. Su nota media es de <strong>'. $estudiante_graduado3 -> obtenerMedia(). '</strong>.
+    El tercer estudiante graduado se llama <strong>' . $estudiante_graduado3 -> getNombre() . '</strong> y tiene <strong>' . $estudiante_graduado3 -> getEdad() . '</strong> años. Su curso es <strong>' . $estudiante_graduado3 -> getCurso() . '</strong>. Su nota media es de <strong>' . $estudiante_graduado3 -> obtenerMedia() . '</strong>.
   ';
 
   if ($estudiante_graduado3 -> comprobacionNivel($estudiante_graduado3 -> getNivel())) {
-    echo ' Su nivel es <strong>'. $estudiante_graduado3 -> getNivel() . '</strong>';
+    echo ' Su nivel es <strong>' . $estudiante_graduado3 -> getNivel() . '</strong>';
   } else {
     echo '
       <br />
 
-      El nivel introducido para este estudiante no es válido ("<strong>'. $estudiante_graduado3 -> getNivel(). '</strong>"). Los niveles válidos son: <strong>doctorado</strong> y <strong>posgrado</strong>.
+      El nivel introducido para este estudiante no es válido ("<strong>' . $estudiante_graduado3 -> getNivel() . '</strong>"). Los niveles válidos son: <strong>doctorado</strong> y <strong>posgrado</strong>.
     ';
   }
 ?>
