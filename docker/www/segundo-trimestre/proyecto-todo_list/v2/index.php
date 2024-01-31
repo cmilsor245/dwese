@@ -1,13 +1,11 @@
 <?
-  session_start();
+  require_once 'controllers/TodoList.php';
 
-  if (!isset($_SESSION["logged_in"])) {
-    $_SESSION["logged_in"] = false;
-  }
-
-  if (!$_SESSION["logged_in"]) {
-    header("Location: views/index.html");
+  if (isset($_REQUEST['action'])) {
+    $action = $_REQUEST['action'];
   } else {
-    header("Location: views/content.view.php");
+    $action = 'checkLogin';
   }
-?>
+
+  $main = new TodoList();
+  $main -> $action();

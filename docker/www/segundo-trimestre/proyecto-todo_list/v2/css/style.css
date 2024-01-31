@@ -1,0 +1,335 @@
+:root {
+  --bg: #e9e9e9;
+
+  --h2: #ff6b15;
+
+  --label: #0dd872;
+  --submit-button: #0dd872;
+
+  --a-hover: #ffae00;
+
+  --footer: #272727;
+
+  --card-bg: #d8d8d8;
+  --dark-shadow: #0f0f0f;
+}
+
+@font-face {
+  font-family: 'sixtyfour';
+  src: url('../assets/fonts/sixtyfour.ttf');
+}
+
+@font-face {
+  font-family: 'aldotheapache';
+  src: url('../assets/fonts/aldotheapache.ttf');
+}
+
+@font-face {
+  font-family: 'techfont';
+  src: url('../assets/fonts/techfont.ttf');
+}
+
+::selection {
+  background-color: var(--label);
+  color: var(--bg);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  cursor: default;
+}
+
+body {
+  background-color: var(--bg);
+  position: relative;
+}
+
+header {
+  padding-block: 2.5rem;
+}
+
+@keyframes colorChange {
+  0% {
+    color: black;
+  }
+  50% {
+    color: red;
+  }
+  100% {
+    color: black;
+  }
+}
+
+h1 {
+  text-align: center;
+  font-family: 'sixtyfour', sans-serif;
+  text-transform: uppercase;
+  text-decoration: underline double;
+  animation: colorChange 2s infinite;
+}
+
+h2 {
+  text-align: center;
+  text-transform: uppercase;
+  font-family: 'sixtyfour', sans-serif;
+  font-size: 1.4rem;
+  letter-spacing: .2px;
+  padding-bottom: 2rem;
+  color: var(--h2);
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+form label {
+  font-size: 20px;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-family: 'aldotheapache', sans-serif;
+  margin: 2% 1% auto;
+  letter-spacing: 2px;
+  color: var(--label);
+  margin-bottom: 10px;
+}
+
+form input {
+  width: 230px;
+  height: 30px;
+  font-size: 17px;
+  font-weight: bold;
+  font-family: 'techfont', sans-serif;
+  letter-spacing: 2px;
+  border: none;
+  padding-block: 1%;
+  padding-inline: 1%;
+  outline: none;
+  transition: .2s;
+}
+
+form input:focus {
+  outline: none;
+  border: none;
+  border-bottom: 2px solid var(--label);
+  box-shadow: 0 0 5px var(--label);
+  border-radius: 4px;
+}
+
+form textarea {
+  width: 230px;
+  height: 147px;
+  font-size: 14px;
+  font-weight: bold;
+  font-family: 'aldotheapache', sans-serif;
+  letter-spacing: 1px;
+  border: none;
+  padding: 2%;
+  outline: none;
+  resize: none;
+  padding-inline: 1%;
+  padding-block: 1%;
+  font-family: 'techfont', sans-serif;
+  letter-spacing: 2px;
+}
+
+form textarea:focus {
+  outline: none;
+  border: none;
+  border-bottom: 2px solid var(--label);
+  box-shadow: 0 0 5px var(--label);
+  border-radius: 4px;
+}
+
+form .submit-button {
+  margin-top: 3%;
+  width: 200px;
+  height: 65px;
+  font-size: 24px;
+  font-weight: bold;
+  font-family: 'aldotheapache', sans-serif;
+  letter-spacing: 4px;
+  border: none;
+  padding-bottom: 1%;
+  padding-inline: 1%;
+  outline: none;
+  transition: .2s;
+  overflow: visible;
+  background-color: var(--submit-button);
+  color: white;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 9px;
+  margin-bottom: 3%;
+}
+
+form .submit-button:focus {
+  border-radius: 14px;
+}
+
+form .submit-button:hover {
+  cursor: pointer;
+  transform: scale(1.02);
+}
+
+form .submit-button:active {
+  transform: scale(.98);
+  color: black;
+}
+
+.signup-link, .login-link, .back-link, .new-task-link, .logout-link {
+  display: block;
+  text-align: center;
+  font-family: 'aldotheapache', sans-serif;
+  letter-spacing: 2px;
+  font-size: 24px;
+  text-transform: uppercase;
+  color: rgb(58, 58, 235);
+  text-decoration: none;
+  transition: .2s;
+  width: fit-content;
+  margin-inline: auto;
+}
+
+.signup-link:hover, .login-link:hover, .back-link:hover, .new-task-link:hover, .logout-link:hover {
+  color: var(--a-hover);
+}
+
+nav {
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+nav a {
+  text-decoration: none;
+  color: rgb(58, 58, 235);
+  font-weight: bold;
+  font-family: 'aldotheapache', sans-serif;
+  letter-spacing: 2px;
+  font-size: 20px;
+  text-transform: uppercase;
+  transition: .2s;
+}
+
+nav a:hover {
+  transform: scale(1.1);
+  color: var(--a-hover);
+}
+
+hr {
+  border: none;
+  height: 2px;
+  color: #333;
+  background-color: #333;
+}
+
+hr:nth-last-of-type(1) {
+  margin-bottom: 2%;
+}
+
+footer {
+  position: absolute;
+  bottom: 2;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  font-family: 'aldotheapache', sans-serif;
+  letter-spacing: 2px;
+  font-size: 20px;
+  text-transform: uppercase;
+  color: white;
+  background-color: var(--footer);
+}
+
+.error-p {
+  color: red;
+  font-weight: bold;
+  font-family: 'aldotheapache', sans-serif;
+  letter-spacing: 2px;
+  font-size: 20px;
+  text-transform: uppercase;
+  margin-bottom: 1%;
+  text-align: center;
+  margin-top: 1%;
+}
+
+button, a, .modify-button, .delete-button {
+  cursor: pointer;
+}
+
+input, textarea {
+  cursor: text;
+}
+
+.task-title {
+  font-family: 'techfont', sans-serif;
+  letter-spacing: 2px;
+}
+
+.search-button {
+  margin-top: 1% !important;
+}
+
+.task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 4%;
+  margin-top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.task-item {
+  transition: .2s;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 17rem;
+  height: 8rem;
+  gap: 10px;
+  border-radius: 10px;
+  background-color: var(--card-bg);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2), 0 0 20px rgba(0, 0, 0, 0.14), 0 0 30px rgba(0, 0, 0, 0.12);
+}
+
+.task-item:hover {
+  transform: scale(1.02);
+}
+
+.task-title {
+  font-family: 'techfont', sans-serif;
+  letter-spacing: 2px;
+  font-size: 20px;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.task-description {
+  font-family: 'techfont', sans-serif;
+  letter-spacing: 2px;
+  font-size: 18px;
+  max-width: 80%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.modify-button, .delete-button {
+  transition: .2s;
+}
+
+.modify-button:hover, .delete-button:hover {
+  transform: scale(1.3);
+}
